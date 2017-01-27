@@ -52,9 +52,9 @@ end
 local function modrem(msg)
   local hash = "gp_lang:"..msg.chat_id_
   local lang = redis:get(hash)
+  local data = load_data(_config.moderation.data)  
   -- superuser and admins only (because sudo are always has privilege)
   if is_admin(msg) then
-  local data = load_data(_config.moderation.data)
   local receiver = msg.chat_id_
   if not data[tostring(msg.chat_id_)] then
       return '🚫 _گروه در لیست گروه های ربات نیست_ !'
@@ -153,19 +153,11 @@ if cmd == "promote" then
       user_name = check_markdown(data.first_name_)
     end
     if administration[tostring(arg.chat_id)]['mods'][tostring(data.id_)] then
-      if lang then
-        return tdcli.sendMessage(arg.chat_id, "", 0, "_User_ "..user_name.." *"..data.id_.."* _is already a_ *moderator*", 0, "md")
-      else
-        return tdcli.sendMessage(arg.chat_id, "", 0, "_کاربر_ "..user_name.." *"..data.id_.."* *از قبل مدیر گروه بود*", 0, "md")
-      end
+        return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." از قبل در لیست مدیران گروه بود !", "md")
     end
     administration[tostring(arg.chat_id)]['mods'][tostring(data.id_)] = user_name
     save_data(_config.moderation.data, administration)
-    if lang then
-      return tdcli.sendMessage(arg.chat_id, "", 0, "_User_ "..user_name.." *"..data.id_.."* _has been_ *promoted*", 0, "md")
-    else
-      return tdcli.sendMessage(arg.chat_id, "", 0, "_کاربر_ "..user_name.." *"..data.id_.."* *به مقام مدیر گروه منتصب شد*", 0, "md")
-    end
+      return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." به لیست مدیران گروه افزوده شد !", 0, "md")
   end
   tdcli_function ({
     ID = "GetUser",
@@ -183,19 +175,12 @@ if cmd == "remowner" then
       user_name = check_markdown(data.first_name_)
     end
     if not administration[tostring(arg.chat_id)]['owners'][tostring(data.id_)] then
-      if lang then
-        return tdcli.sendMessage(arg.chat_id, "", 0, "_User_ "..user_name.." *"..data.id_.."* _is not a_ *group owner*", 0, "md")
-      else
-        return tdcli.sendMessage(arg.chat_id, "", 0, "_User_ "..user_name.." *"..data.id_.."* *از قبل صاحب گروه نبود*", 0, "md")
+        return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." در لیست صاحبان گروه نیست !", 0, "md")
       end
     end
     administration[tostring(arg.chat_id)]['owners'][tostring(data.id_)] = nil
     save_data(_config.moderation.data, administration)
-    if lang then
-      return tdcli.sendMessage(arg.chat_id, "", 0, "_User_ "..user_name.." *"..data.id_.."* _is no longer a_ *group owner*", 0, "md")
-    else
-      return tdcli.sendMessage(arg.chat_id, "", 0, "_کاربر_ "..user_name.." *"..data.id_.."* *از مقام صاحب گروه برکنار شد*", 0, "md")
-    end
+      return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." از لیست صاحبان گروه پاک شد !", "md")
   end
   tdcli_function ({
     ID = "GetUser",
