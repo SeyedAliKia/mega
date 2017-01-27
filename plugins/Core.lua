@@ -2730,7 +2730,6 @@ patterns ={
   "^([https?://w]*.?telegram.me/joinchat/%S+)$",
   "^(setwelcome) (.*)",
   "^(delwelcome)$"
-
 },
 run=run,
 pre_process = pre_process
