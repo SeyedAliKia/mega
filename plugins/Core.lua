@@ -351,62 +351,63 @@ end
 
 ---------------Lock Link-------------------
 local function lock_link(msg, data, target)
-local hash = "gp_lang:"..msg.chat_id_
-local lang = redis:get(hash)
-if is_mod(msg) then
-local lock_link = data[tostring(target)]["settings"]["lock_link"]
-if lock_link == "yes" then
-    return "🔐 _قفل #لینک از قبل فعال است_ !"
-else
-  data[tostring(target)]["settings"]["lock_link"] = "yes"
-  save_data(_config.moderation.data, data)
-    return "🔒 _قفل #لینک فعال شد_ !\n🔸`از این پس لینک های فرستاده شده توسط کاربران پاک می شوند` !"
-end
-end    
+  local hash = "gp_lang:"..msg.chat_id_
+  local lang = redis:get(hash)
+  if is_mod(msg) then
+    local lock_link = data[tostring(target)]["settings"]["lock_link"]
+    if lock_link == "yes" then
+      return "🔐 _قفل #لینک از قبل فعال است_ !"
+    else
+      data[tostring(target)]["settings"]["lock_link"] = "yes"
+      save_data(_config.moderation.data, data)
+      return "🔒 _قفل #لینک فعال شد_ !\n🔸`از این پس لینک های فرستاده شده توسط کاربران پاک می شوند` !"
+    end
+  end
 end
 
 local function unlock_link(msg, data, target)
-local hash = "gp_lang:"..msg.chat_id_
-local lang = redis:get(hash)
-if is_mod(msg) then
-local lock_link = data[tostring(target)]["settings"]["lock_link"]
-if lock_link == "no" then
-    return "🔓 _قفل #لینک فعال نیست_ !"
-else
-  data[tostring(target)]["settings"]["lock_link"] = "no" save_data(_config.moderation.data, data)
-    return "🔏 _قفل #لینک غیرفعال شد_ !"
-end
-end
+  local hash = "gp_lang:"..msg.chat_id_
+  local lang = redis:get(hash)
+  if is_mod(msg) then
+    local lock_link = data[tostring(target)]["settings"]["lock_link"]
+    if lock_link == "no" then
+      return "🔓 _قفل #لینک فعال نیست_ !"
+    else
+      data[tostring(target)]["settings"]["lock_link"] = "no"
+      save_data(_config.moderation.data, data)
+      return "🔏 _قفل #لینک غیرفعال شد_ !"
+    end
+  end
 end
 ---------------Lock Tag-------------------
 local function lock_tag(msg, data, target)
-local hash = "gp_lang:"..msg.chat_id_
-local lang = redis:get(hash)
-if is_mod(msg) then
-local lock_tag = data[tostring(target)]["settings"]["lock_tag"]
-if lock_tag == "yes" then
-    return "🔐 _قفل #تگ از قبل فعال است_ !"
-else
-  data[tostring(target)]["settings"]["lock_tag"] = "yes"
-  save_data(_config.moderation.data, data)
-    return "🔒 _قفل #تگ فعال شد_ !\n🔸`از این پس پیام های تگ دار فرستاده شده توسط کاربران پاک می شوند` !"
+  local hash = "gp_lang:"..msg.chat_id_
+  local lang = redis:get(hash)
+  if is_mod(msg) then
+    local lock_tag = data[tostring(target)]["settings"]["lock_tag"]
+    if lock_tag == "yes" then
+      return "🔐 _قفل #تگ از قبل فعال است_ !"
+    else
+      data[tostring(target)]["settings"]["lock_tag"] = "yes"
+      save_data(_config.moderation.data, data)
+      return "🔒 _قفل #تگ فعال شد_ !\n🔸`از این پس پیام های تگ دار فرستاده شده توسط کاربران پاک می شوند` !"
+    end
+  end
 end
-end
-end  
 
 local function unlock_tag(msg, data, target)
-local hash = "gp_lang:"..msg.chat_id_
-local lang = redis:get(hash)
-if is_mod(msg) then
-local lock_tag = data[tostring(target)]["settings"]["lock_tag"]
-if lock_tag == "no" then
-    return "🔓 _قفل #تگ فعال نیست_ !"
-else
-  data[tostring(target)]["settings"]["lock_tag"] = "no" 
-  save_data(_config.moderation.data, data)
-    return "🔏 _قفل #تگ غیرفعال شد_ !"
-end
-end
+  local hash = "gp_lang:"..msg.chat_id_
+  local lang = redis:get(hash)
+  if is_mod(msg) then
+    local lock_tag = data[tostring(target)]["settings"]["lock_tag"]
+    if lock_tag == "no" then
+      return "🔓 _قفل #تگ فعال نیست_ !"
+    else
+      data[tostring(target)]["settings"]["lock_tag"] = "no"
+      save_data(_config.moderation.data, data)
+      return "🔏 _قفل #تگ غیرفعال شد_ !"
+    end
+  end
 end
 ---------------Lock Mention-------------------
 local function lock_mention(msg, data, target)
