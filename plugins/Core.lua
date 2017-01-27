@@ -2111,7 +2111,7 @@ if matches[1] == "id" then
   end
 end
 if matches[1] == "pin" and is_owner(msg) then
-  tdcli.pinChannelMessage(msg.chat_id_, msg.reply_to_message_id_, 1)
+  tdcli.pinChannelMessage(msg.chat_id_, msg.reply_to_message_id_, 1, dl_cb)
   if lang then
     return "*Message Has Been Pinned*"
   else
