@@ -368,31 +368,16 @@ end
 local function unlock_link(msg, data, target)
 local hash = "gp_lang:"..msg.chat_id_
 local lang = redis:get(hash)
-if not is_mod(msg) then
-  if lang then
-    return "_You're Not_ *Moderator*"
-  else
-    return "شما مدیر گروه نمیباشید"
-  end
-end
-
+if is_mod(msg) then
 local lock_link = data[tostring(target)]["settings"]["lock_link"]
 if lock_link == "no" then
-  if lang then
-    return "*Link* _Posting Is Not Locked_"
-  elseif lang then
-    return "ارسال لینک در گروه ممنوع نمیباشد"
-  end
+    return "🔓 _قفل #لینک فعال نیست_ !"
 else
   data[tostring(target)]["settings"]["lock_link"] = "no" save_data(_config.moderation.data, data)
-  if lang then
-    return "*Link* _Posting Has Been Unlocked_"
-  else
-    return "ارسال لینک در گروه آزاد شد"
-  end
+    return "🔏 _قفل #لینک غیرفعال شد_ !"
 end
 end
-
+end
 ---------------Lock Tag-------------------
 local function lock_tag(msg, data, target)
 local hash = "gp_lang:"..msg.chat_id_
