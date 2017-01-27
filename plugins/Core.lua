@@ -2090,11 +2090,7 @@ local chat = msg.chat_id_
 local user = msg.sender_user_id_
 if matches[1] == "id" then
   if not matches[2] and tonumber(msg.reply_to_message_id_) == 0 then
-    if lang then
-      return "*Chat ID :* _"..chat.."_\n*User ID :* _"..user.."_"
-    else
-      return "*شناسه گروه :* _"..chat.."_\n*شناسه شما :* _"..user.."_"
-    end
+      return "🆔 شناسه شما : [*"..user.."*]\n 🌐 شناسه گروه : [*"..chat.."*]"
   end
   if not matches[2] and tonumber(msg.reply_to_message_id_) ~= 0 then
     tdcli_function ({
