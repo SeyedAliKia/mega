@@ -341,7 +341,7 @@ if data.first_name_ then
         username = 'ندارد'
       end
     end
-      return tdcli.sendMessage(arg.chat_id, 0, 1, "      📜 اطلاعات کاربر :\n🆔 شناسه : [*"..data.id_.."*]\n🌐 نام کاربری : "..username.."\n🔤 نام کاربر : _"..data.first_name", 1)
+      return tdcli.sendMessage(arg.chat_id, 0, 1, "📜 اطلاعات کاربر :\n🆔 شناسه : [*"..data.id_.."*]\n🌐 نام کاربری : "..username.."\n🔤 نام کاربر : _"..data.first_name.."_\n", 1)
   end
 else
   if lang then
