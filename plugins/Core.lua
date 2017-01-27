@@ -2090,7 +2090,10 @@ local chat = msg.chat_id_
 local user = msg.sender_user_id_
 if matches[1] == "id" then
   if not matches[2] and tonumber(msg.reply_to_message_id_) == 0 then
-      return "🆔 شناسه شما : [*"..user.."*]\n🌐 شناسه گروه : [*"..chat.."*]"
+    if lang then
+      return "*Chat ID :* _"..chat.."_\n*User ID :* _"..user.."_"
+    else
+      return "*شناسه گروه :* _"..chat.."_\n*شناسه شما :* _"..user.."_"
     end
   end
   if not matches[2] and tonumber(msg.reply_to_message_id_) ~= 0 then
@@ -2597,222 +2600,150 @@ if matches[1] == "help" and is_mod(msg) then
   if lang then
     text = [[
     *Beyond Bot Commands:*
-
     *!setowner* `[username|id|reply]`
     _Set Group Owner(Multi Owner)_
-
     *!remowner* `[username|id|reply]`
     _Remove User From Owner List_
-
     *!promote* `[username|id|reply]`
     _Promote User To Group Admin_
-
     *!demote* `[username|id|reply]`
     _Demote User From Group Admins List_
-
     *!setflood* `[1-50]`
     _Set Flooding Number_
-
     *!silent* `[username|id|reply]`
     _Silent User From Group_
-
     *!unsilent* `[username|id|reply]`
     _Unsilent User From Group_
-
     *!kick* `[username|id|reply]`
     _Kick User From Group_
-
     *!ban* `[username|id|reply]`
     _Ban User From Group_
-
     *!unban* `[username|id|reply]`
     _UnBan User From Group_
-
     *!res* `[username]`
     _Show User ID_
-
     *!id* `[reply]`
     _Show User ID_
-
     *!whois* `[id]`
     _Show User's Username And Name_
-
     *!lock* `[link | tag | edit | webpage | bots | spam | flood | markdown | mention]`
     _If This Actions Lock, Bot Check Actions And Delete Them_
-
     *!unlock* `[link | tag | edit | webpage | bots | spam | flood | markdown | mention]`
     _If This Actions Unlock, Bot Not Delete Them_
-
     *!mute* `[gifs | photo | document | sticker | video | text | forward | location | audio | voice | contact | all]`
     _If This Actions Lock, Bot Check Actions And Delete Them_
-
     *!unmute* `[gifs | photo | document | sticker | video | text | forward | location | audio | voice | contact | all]`
     _If This Actions Unlock, Bot Not Delete Them_
-
     *!set*`[rules | name | photo | link | about]`
     _Bot Set Them_
-
     *!clean* `[bans | mods | bots | rules | about | silentlist]`
     _Bot Clean Them_
-
     *!pin* `[reply]`
     _Pin Your Message_
-
     *!unpin*
     _Unpin Pinned Message_
-
     *!settings*
     _Show Group Settings_
-
     *!mutelist*
     _Show Mutes List_
-
     *!silentlist*
     _Show Silented Users List_
-
     *!banlist*
     _Show Banned Users List_
-
     *!ownerlist*
     _Show Group Owners List_
-
     *!modlist*
     _Show Group Moderators List_
-
     *!rules*
     _Show Group Rules_
-
     *!about*
     _Show Group Description_
-
     *!id*
     _Show Your And Chat ID_
-
     *!gpinfo*
     _Show Group Information_
-
     *!link*
     _Show Group Link_
-
     *!setwelcome [text]*
     _set Welcome Message_
-
     _You Can Use_ *[!/#]* _To Run The Commands_
     _This Help List Only For_ *Moderators/Owners!*
     _Its Means, Only Group_ *Moderators/Owners* _Can Use It!_
-
     *Good luck ;)*]]
 
   elseif lang then
 
     text = [[
     *دستورات ربات بیوند:*
-
     *!setowner* `[username|id|reply]`
     _انتخاب مالک گروه(قابل انتخاب چند مالک)_
-
     *!remowner* `[username|id|reply]`
     _حذف کردن فرد از فهرست مالکان گروه_
-
     *!promote* `[username|id|reply]`
     _ارتقا مقام کاربر به مدیر گروه_
-
     *!demote* `[username|id|reply]`
     _تنزیل مقام مدیر به کاربر_
-
     *!setflood* `[1-50]`
     _تنظیم حداکثر تعداد پیام مکرر_
-
     *!silent* `[username|id|reply]`
     _بیصدا کردن کاربر در گروه_
-
     *!unsilent* `[username|id|reply]`
     _در آوردن کاربر از حالت بیصدا در گروه_
-
     *!kick* `[username|id|reply]`
     _حذف کاربر از گروه_
-
     *!ban* `[username|id|reply]`
     _مسدود کردن کاربر از گروه_
-
     *!unban* `[username|id|reply]`
     _در آوردن از حالت مسدودیت کاربر از گروه_
-
     *!res* `[username]`
     _نمایش شناسه کاربر_
-
     *!id* `[reply]`
     _نمایش شناسه کاربر_
-
     *!whois* `[id]`
     _نمایش نام کاربر, نام کاربری و اطلاعات حساب_
-
     *!lock* `[link | tag | edit | webpage | bots | spam | flood | markdown | mention]`
     _در صورت قفل بودن فعالیت ها, ربات آنهارا حذف خواهد کرد_
-
     *!unlock* `[link | tag | edit | webpage | bots | spam | flood | markdown | mention]`
     _در صورت قفل نبودن فعالیت ها, ربات آنهارا حذف نخواهد کرد_
-
     *!mute* `[gifs | photo | document | sticker | video | text | forward | location | audio | voice | contact | all]`
     _در صورت بیصدد بودن فعالیت ها, ربات آنهارا حذف خواهد کرد_
-
     *!unmute* `[gifs | photo | document | sticker | video | text | forward | location | audio | voice | contact | all]`
     _در صورت بیصدا نبودن فعالیت ها, ربات آنهارا حذف نخواهد کرد_
-
     *!set*`[rules | name | photo | link | about]`
     _ربات آنهارا ثبت خواهد کرد_
-
     *!clean* `[bans | mods | bots | rules | about | silentlist]`
     _ربات آنهارا پاک خواهد کرد_
-
     *!pin* `[reply]`
     _ربات پیام شمارا در گروه سنجاق خواهد کرد_
-
     *!unpin*
     _ربات پیام سنجاق شده در گروه را حذف خواهد کرد_
-
     *!settings*
     _نمایش تنظیمات گروه_
-
     *!mutelist*
     _نمایش فهرست بیصدا های گروه_
-
     *!silentlist*
     _نمایش فهرست افراد بیصدا_
-
     *!banlist*
     _نمایش افراد مسدود شده از گروه_
-
     *!ownerlist*
     _نمایش فهرست مالکان گروه_
-
     *!modlist*
     _نمایش فهرست مدیران گروه_
-
     *!rules*
     _نمایش قوانین گروه_
-
     *!about*
     _نمایش درباره گروه_
-
     *!id*
     _نمایش شناسه شما و گروه_
-
     *!gpinfo*
     _نمایش اطلاعات گروه_
-
     *!link*
     _نمایش لینک گروه_
-
     *!setwelcome [text]*
     _ثبت پیام خوش آمد گویی_
-
     _شما میتوانید از [!/#] در اول دستورات برای اجرای آنها بهره بگیرید
-
     این راهنما فقط برای مدیران/مالکان گروه میباشد!
-
     این به این معناست که فقط مدیران/مالکان گروه میتوانند از دستورات بالا استفاده کنند!_
-
     *موفق باشید ;)*]]
   end
   return text
@@ -2874,7 +2805,7 @@ end
 end
 return {
 patterns ={
-  "^([Ii][Dd])$",
+  "^(id)$",
   "^(id) (.*)$",
   "^(pin)$",
   "^(unpin)$",
