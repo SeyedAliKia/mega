@@ -234,6 +234,7 @@ if data.type_.user_.username_ then
 else
   user_name = check_markdown(data.title_)
 end
+  
 if not arg.username then return false end
 if cmd == "setowner" then
   if administration[tostring(arg.chat_id)]['owners'][tostring(data.id_)] then
@@ -243,6 +244,7 @@ if cmd == "setowner" then
   save_data(_config.moderation.data, administration)
       return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." به لیست صاحبان گروه افزوده شد !", "md")
 end
+  
 if cmd == "promote" then
   if administration[tostring(arg.chat_id)]['mods'][tostring(data.id_)] then
         return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." از قبل در لیست مدیران گروه بود !", "md")
@@ -251,6 +253,7 @@ if cmd == "promote" then
   save_data(_config.moderation.data, administration)
       return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." به لیست مدیران گروه افزوده شد !", 0, "md")
 end
+  
 if cmd == "remowner" then
   if not administration[tostring(arg.chat_id)]['owners'][tostring(data.id_)] then
         return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." در لیست صاحبان گروه نیست !", 0, "md")
@@ -259,6 +262,7 @@ if cmd == "remowner" then
   save_data(_config.moderation.data, administration)
       return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." از لیست صاحبان گروه پاک شد !", "md")
 end
+  
 if cmd == "demote" then
   if not administration[tostring(arg.chat_id)]['mods'][tostring(data.id_)] then
       return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." در لیست مدیران گروه نیست !", "md")
@@ -267,9 +271,11 @@ if cmd == "demote" then
   save_data(_config.moderation.data, administration)
       return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." از لیست مدیران گروه پاک شد !", "md")
 end
+  
 if cmd == "id" then
   return tdcli.sendMessage(arg.chat_id, "", 0, "_"..data.id_.."_", 0, "md")
 end
+  
 if cmd == "res" then
   if lang then
     text = "Result for [ ".. check_markdown(data.type_.user_.username_) .." ] :\n"
@@ -282,6 +288,7 @@ if cmd == "res" then
     return tdcli.sendMessage(arg.chat_id, 0, 1, text, 1, 'md')
   end
 end
+  
 end
 
 local function action_by_id(arg, data)
