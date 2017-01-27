@@ -2091,7 +2091,7 @@ local user = msg.sender_user_id_
 chat = chat:gsub("-100", "")  
 if matches[1] == "id" then
   if not matches[2] and tonumber(msg.reply_to_message_id_) == 0 then
-      return "شناسه شما : [*"..user.."*]\n 🌐 شناسه گروه : [*"..chat.."*]"
+      return "شناسه شما : [*"..user.."*]\n شناسه گروه : [*"..chat.."*]"
   end
   if not matches[2] and tonumber(msg.reply_to_message_id_) ~= 0 then
     tdcli_function ({
