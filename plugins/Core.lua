@@ -290,7 +290,8 @@ if cmd == "res" then
 end
   
 end
-end
+
+
 local function action_by_id(arg, data)
 local hash = "gp_lang:"..arg.chat_id
 local lang = redis:get(hash)
@@ -349,10 +350,9 @@ if data.first_name_ then
       return tdcli.sendMessage(arg.chat_id, 0, 1, "📜 اطلاعات کاربر :\nشناسه : [*"..data.id_.."*]\nنام کاربری : "..username.."\nنام کاربر : _"..data.first_name_.."_\n", 1, "md")
 else
     return tdcli.sendMessage(arg.chat_id, "", 0, "🚫 _مشخصات کاربر پیدا نشد_ !", 0, "md")
+end 
 end
-    
 end
-
 
 ---------------Lock Link-------------------
 local function lock_link(msg, data, target)
