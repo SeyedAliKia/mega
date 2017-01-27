@@ -46,7 +46,7 @@ local function modadd(msg)
   end
   data[tostring(groups)][tostring(msg.chat_id_)] = msg.chat_id_
   save_data(_config.moderation.data, data)
-    return '✅ گروه به لیست گروه های ربات افزوده شد !'
+    return '✅ _گروه به لیست گروه های ربات افزوده شد_ !'
 end
 
 local function modrem(msg)
@@ -57,7 +57,7 @@ local function modrem(msg)
   local data = load_data(_config.moderation.data)
   local receiver = msg.chat_id_
   if not data[tostring(msg.chat_id_)] then
-      return '🚫 گروه در لیست گروه های ربات نیست !'
+      return '🚫 _گروه در لیست گروه های ربات نیست_ !'
   end
  end
   data[tostring(msg.chat_id_)] = nil
@@ -68,7 +68,7 @@ local function modrem(msg)
     save_data(_config.moderation.data, data)
     end data[tostring(groups)][tostring(msg.chat_id_)] = nil
     save_data(_config.moderation.data, data)
-      return '📛 گروه از لیست گروه های ربات پاک شد !'
+      return '📛 _گروه از لیست گروه های ربات پاک شد_ !'
   end
   local function modlist(msg)
     local hash = "gp_lang:"..msg.chat_id_
@@ -76,16 +76,16 @@ local function modrem(msg)
     local data = load_data(_config.moderation.data)
     local i = 1
     if not data[tostring(msg.chat_id_)] then
-      return '🚫 گروه در لیست گروه های ربات نیست !'
+      return '🚫 _گروه در لیست گروه های ربات نیست_ !'
     end
     -- determine if table is empty
     if next(data[tostring(msg.chat_id_)]['mods']) == nil then --fix way
-      return "⚠️ لیست مدیران گروه خالی است !"
+      return "⚠️ _لیست مدیران گروه خالی است_ !"
   end
-    message = '📋 لیست مدیران گروه :\n\n'
+    message = '📋 _لیست مدیران گروه_ :\n\n'
   for k,v in pairs(data[tostring(msg.chat_id_)]['mods'])
   do
-    message = message ..i.. '- '..v..' [' ..k.. '] \n'
+    message = message ..i.. '- '..v..' [*' ..k.. '*] \n'
     i = i + 1
   end
   return message
@@ -97,25 +97,13 @@ local function ownerlist(msg)
   local data = load_data(_config.moderation.data)
   local i = 1
   if not data[tostring(msg.chat_id_)] then
-    if lang then
-      return "_Group is not added_"
-    else
-      return "گروه به لیست گروه های مدیریتی ربات اضافه نشده است"
-    end
+      return '🚫 _گروه در لیست گروه های ربات نیست_ !'
   end
   -- determine if table is empty
   if next(data[tostring(msg.chat_id_)]['owners']) == nil then --fix way
-  if lang then
-    return "_No_ *owner* _in this group_"
-  else
-    return "در حال حاضر هیچ مالکی برای گروه انتخاب نشده است"
-  end
+      return "⚠️ _لیست صاحبان گروه خالی است_ !"
 end
-if lang then
-  message = '*List of moderators :*\n'
-else
-  message = '*لیست مدیران گروه :*\n'
-end
+    message = '📋 _لیست صاحبان گروه_ :\n\n'
 for k,v in pairs(data[tostring(msg.chat_id_)]['owners']) do
   message = message ..i.. '- '..v..' [' ..k.. '] \n'
   i = i + 1
@@ -130,11 +118,7 @@ local cmd = arg.cmd
 local administration = load_data(_config.moderation.data)
 if not tonumber(data.sender_user_id_) then return false end
 if not administration[tostring(data.chat_id_)] then
-  if lang then
-    return tdcli.sendMessage(data.chat_id_, "", 0, "_Group is not added_", 0, "md")
-  else
     return tdcli.sendMessage(data.chat_id_, "", 0, "_گروه به لیست گروه های مدیریتی ربات اضافه نشده است_", 0, "md")
-  end
 end
 if cmd == "setowner" then
   local function owner_cb(arg, data)
