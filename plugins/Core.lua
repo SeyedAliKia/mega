@@ -692,7 +692,7 @@ end
 
 local function unlock_webpage(msg, data, target)
 local hash = "gp_lang:"..msg.chat_id_
-local lang = redis:get(hash)
+--[[local lang = redis:get(hash)
 if not is_mod(msg) then
   if lang then
     return "_You're Not_ *Moderator*"
