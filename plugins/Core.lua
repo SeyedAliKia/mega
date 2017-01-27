@@ -942,7 +942,7 @@ local function mute_video(msg, data, target)
       return "🔒 _قفل #فیلم فعال شد_ !\n🔸`از این پس فیلم های فرستاده شده توسط کاربران پاک می شوند` !"
     end
   end
-
+end
   local function unmute_video(msg, data, target)
     local hash = "gp_lang:"..msg.chat_id_
     local lang = redis:get(hash)
