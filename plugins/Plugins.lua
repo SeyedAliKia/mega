@@ -22,7 +22,7 @@ local function plugin_exists( name )
 end
 
 local function list_all_plugins(only_enabled)
-  local tmp = check_markdown('\n\n@BeyondTeam')
+  local tmp = check_markdown('\n\n')
   local text = ''
   local nsum = 0
   for k, v in pairs( plugins_names( )) do
@@ -68,7 +68,7 @@ local function list_plugins(only_enabled)
      -- text = text..v..'  '..status..'\n'
     end
   end
-  local text = text.."\n_All Plugins Reloaded_\n\n"..nact.." *Plugins Enabled*\n"..nsum.." *Plugins Installed*\n\n@BeyondTeam"
+  local text = text.."\n_All Plugins Reloaded_\n\n"..nact.." *Plugins Enabled*\n"..nsum.." *Plugins Installed*"
 return text
 end
 
@@ -154,12 +154,12 @@ end
 local function run(msg, matches)
   -- Show the available plugins 
   if is_sudo(msg) then
-  if matches[1]:lower() == '!plist' or matches[1]:lower() == '/plist' or matches[1]:lower() == '#plist' then --after changed to moderator mode, set only sudo
+  if matches[1]:lower() == 'p' then --after changed to moderator mode, set only sudo
     return list_all_plugins()
   end
 end
   -- Re-enable a plugin for this chat
-   if matches[1] == 'pl' then
+   if matches[1] == 'p' then
   if matches[2] == '+' and matches[4] == 'chat' then
       if is_momod(msg) then
     local receiver = msg.chat_id_
@@ -196,10 +196,7 @@ end
   end
 end
   -- Reload all the plugins!
-  if matches[1] == '*' and is_sudo(msg) then --after changed to moderator mode, set only sudo
-    return reload_plugins(true)
-  end
-  if matches[1]:lower() == 'reload' and is_sudo(msg) then --after changed to moderator mode, set only sudo
+  if matches[1]:lower() == 'r' and is_sudo(msg) then --after changed to moderator mode, set only sudo
     return reload_plugins(true)
   end
 end
@@ -218,13 +215,12 @@ return {
           "!pl * : reloads all plugins." },
           },
   patterns = {
-    "^[!/#]plist$",
-    "^[!/#](pl) (+) ([%w_%.%-]+)$",
-    "^[!/#](pl) (-) ([%w_%.%-]+)$",
-    "^[!/#](pl) (+) ([%w_%.%-]+) (chat)",
-    "^[!/#](pl) (-) ([%w_%.%-]+) (chat)",
-    "^!pl? (*)$",
-    "^[!/](reload)$"
+    "^p$",
+    "^(p) (+) ([%w_%.%-]+)$",
+    "^(p) (-) ([%w_%.%-]+)$",
+    "^(p) (+) ([%w_%.%-]+) (chat)",
+    "^(p) (-) ([%w_%.%-]+) (chat)",
+    "^(r)$"
     },
   run = run
 }
