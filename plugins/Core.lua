@@ -250,7 +250,6 @@ if cmd == "promote" then
   administration[tostring(arg.chat_id)]['mods'][tostring(data.id_)] = user_name
   save_data(_config.moderation.data, administration)
       return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." به لیست مدیران گروه افزوده شد !", 0, "md")
-  end
 end
 if cmd == "remowner" then
   if not administration[tostring(arg.chat_id)]['owners'][tostring(data.id_)] then
