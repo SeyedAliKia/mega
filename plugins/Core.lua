@@ -332,16 +332,18 @@ if data.first_name_ then
       return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." از لیست مدیران گروه پاک شد !", "md")
   end
   if cmd == "whois" then
+      
     if data.username_ then
       username = '@'..check_markdown(data.username_)
     else
         username = 'ندارد'
-      end
+     end
+      
       return tdcli.sendMessage(arg.chat_id, 0, 1, "📜 اطلاعات کاربر :\nشناسه : [*"..data.id_.."*]\nنام کاربری : "..username.."\nنام کاربر : _"..data.first_name_.."_\n", 1, "md")
-  end
 else
     return tdcli.sendMessage(arg.chat_id, "", 0, "🚫 _مشخصات کاربر پیدا نشد_ !", 0, "md")
 end
+    
 end
 
 
