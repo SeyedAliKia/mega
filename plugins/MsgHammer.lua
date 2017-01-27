@@ -15,7 +15,7 @@ local function pre_process(msg)
       if msg.text:match("(.*)") then
         if not data[tostring(chat)] and not redis:get(auto_leave) and not is_admin(msg) then
           --tdcli.sendMessage(msg.chat_id_, "", 0, "_This Is Not One Of My Groups_*", 0, "md")
-          tdcli.changeChatMemberStatus(chat, our_id, 'Left', dl_cb, nil)
+          --tdcli.changeChatMemberStatus(chat, our_id, 'Left', dl_cb, nil)
         end
       end
     end
