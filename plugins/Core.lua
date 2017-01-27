@@ -290,7 +290,7 @@ if cmd == "res" then
 end
   
 end
-
+end
 local function action_by_id(arg, data)
 local hash = "gp_lang:"..arg.chat_id
 local lang = redis:get(hash)
