@@ -353,30 +353,16 @@ end
 local function lock_link(msg, data, target)
 local hash = "gp_lang:"..msg.chat_id_
 local lang = redis:get(hash)
-if not is_mod(msg) then
-  if lang then
-    return "_You're Not_ *Moderator*"
-  else
-    return "شما مدیر گروه نمیباشید"
-  end
-end
-
+if is_mod(msg) then
 local lock_link = data[tostring(target)]["settings"]["lock_link"]
 if lock_link == "yes" then
-  if lang then
-    return "*Link* _Posting Is Already Locked_"
-  elseif lang then
-    return "ارسال لینک در گروه هم اکنون ممنوع است"
-  end
+    return "🔐 _قفل #لینک از قبل فعال است_ !"
 else
   data[tostring(target)]["settings"]["lock_link"] = "yes"
   save_data(_config.moderation.data, data)
-  if lang then
-    return "*Link* _Posting Has Been Locked_"
-  else
-    return "ارسال لینک در گروه ممنوع شد"
-  end
+    return "🔒 _قفل #لینک فعال شد_ !\n🔸`از این پس لینک های فرستاده شده توسط کاربران پاک می شوند` !"
 end
+end    
 end
 
 local function unlock_link(msg, data, target)
