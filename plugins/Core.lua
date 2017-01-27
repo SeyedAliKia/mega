@@ -382,60 +382,32 @@ end
 local function lock_tag(msg, data, target)
 local hash = "gp_lang:"..msg.chat_id_
 local lang = redis:get(hash)
-if not is_mod(msg) then
-  if lang then
-    return "_You're Not_ *Moderator*"
-  else
-    return "شما مدیر گروه نمیباشید"
-  end
-end
-
+if is_mod(msg) then
 local lock_tag = data[tostring(target)]["settings"]["lock_tag"]
 if lock_tag == "yes" then
-  if lang then
-    return "*Tag* _Posting Is Already Locked_"
-  elseif lang then
-    return "ارسال تگ در گروه هم اکنون ممنوع است"
-  end
+    return "🔐 _قفل #تگ از قبل فعال است_ !"
 else
   data[tostring(target)]["settings"]["lock_tag"] = "yes"
   save_data(_config.moderation.data, data)
-  if lang then
-    return "*Tag* _Posting Has Been Locked_"
-  else
-    return "ارسال تگ در گروه ممنوع شد"
-  end
+    return "🔒 _قفل #تگ فعال شد_ !\n🔸`از این پس پیام های تگ دار فرستاده شده توسط کاربران پاک می شوند` !"
 end
 end
+end  
 
 local function unlock_tag(msg, data, target)
 local hash = "gp_lang:"..msg.chat_id_
 local lang = redis:get(hash)
-if not is_mod(msg) then
-  if lang then
-    return "_You're Not_ *Moderator*"
-  else
-    return "شما مدیر گروه نمیباشید"
-  end
-end
-
+if is_mod(msg) then
 local lock_tag = data[tostring(target)]["settings"]["lock_tag"]
 if lock_tag == "no" then
-  if lang then
-    return "*Tag* _Posting Is Not Locked_"
-  elseif lang then
-    return "ارسال تگ در گروه ممنوع نمیباشد"
-  end
+    return "🔓 _قفل #تگ فعال نیست_ !"
 else
-  data[tostring(target)]["settings"]["lock_tag"] = "no" save_data(_config.moderation.data, data)
-  if lang then
-    return "*Tag* _Posting Has Been Unlocked_"
-  else
-    return "ارسال تگ در گروه آزاد شد"
-  end
+  data[tostring(target)]["settings"]["lock_tag"] = "no" 
+  save_data(_config.moderation.data, data)
+    return "🔏 _قفل #تگ غیرفعال شد_ !"
 end
 end
-
+end
 ---------------Lock Mention-------------------
 local function lock_mention(msg, data, target)
 local hash = "gp_lang:"..msg.chat_id_
