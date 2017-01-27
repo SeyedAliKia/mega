@@ -176,7 +176,6 @@ if cmd == "remowner" then
     end
     if not administration[tostring(arg.chat_id)]['owners'][tostring(data.id_)] then
         return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." در لیست صاحبان گروه نیست !", 0, "md")
-      end
     end
     administration[tostring(arg.chat_id)]['owners'][tostring(data.id_)] = nil
     save_data(_config.moderation.data, administration)
