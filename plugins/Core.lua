@@ -2,14 +2,13 @@ local function modadd(msg)
   local hash = "gp_lang:"..msg.chat_id_
   local lang = redis:get(hash)
   -- superuser and admins only (because sudo are always has privilege)
-  if is_admin(msg) then
   local data = load_data(_config.moderation.data)
+  if is_admin(msg) then
   if data[tostring(msg.chat_id_)] then
-      return 'گروه در لیست گروه های مدیریتی ربات هم اکنون موجود است'
+      return '⚠️ گروه از قبل در لیست گروه های ربات است !'
    end 
   end
   -- create data array in moderation.json
-  local data = load_data(_config.moderation.data)  
   data[tostring(msg.chat_id_)] = {
     owners = {},
     mods ={},
@@ -47,34 +46,20 @@ local function modadd(msg)
   end
   data[tostring(groups)][tostring(msg.chat_id_)] = msg.chat_id_
   save_data(_config.moderation.data, data)
-  if lang then
-    return '*Group has been added*'
-  else
-    return 'گروه با موفقیت به لیست گروه های مدیریتی ربات افزوده شد'
-  end
+    return '✅ گروه به لیست گروه های ربات افزوده شد !'
 end
 
 local function modrem(msg)
   local hash = "gp_lang:"..msg.chat_id_
   local lang = redis:get(hash)
   -- superuser and admins only (because sudo are always has privilege)
-  if not is_admin(msg) then
-    if lang then
-      return '_You are not bot admin_'
-    else
-      return 'شما مدیر ربات نمیباشید'
-    end
-  end
+  if is_admin(msg) then
   local data = load_data(_config.moderation.data)
   local receiver = msg.chat_id_
   if not data[tostring(msg.chat_id_)] then
-    if lang then
-      return '_Group is not added_'
-    else
-      return 'گروه به لیست گروه های مدیریتی ربات اضافه نشده است'
-    end
+      return '🚫 گروه در لیست گروه های ربات نیست !'
   end
-
+ end
   data[tostring(msg.chat_id_)] = nil
   save_data(_config.moderation.data, data)
   local groups = 'groups'
@@ -83,11 +68,7 @@ local function modrem(msg)
     save_data(_config.moderation.data, data)
     end data[tostring(groups)][tostring(msg.chat_id_)] = nil
     save_data(_config.moderation.data, data)
-    if lang then
-      return '*Group has been removed*'
-    else
-      return 'گروه با موفیت از لیست گروه های مدیریتی ربات حذف شد'
-    end
+      return '📛 گروه از لیست گروه های ربات پاک شد !'
   end
   local function modlist(msg)
     local hash = "gp_lang:"..msg.chat_id_
@@ -95,25 +76,13 @@ local function modrem(msg)
     local data = load_data(_config.moderation.data)
     local i = 1
     if not data[tostring(msg.chat_id_)] then
-      if lang then
-        return "_Group is not added_"
-      else
-        return "گروه به لیست گروه های مدیریتی ربات اضافه نشده است"
-      end
+      return '🚫 گروه در لیست گروه های ربات نیست !'
     end
     -- determine if table is empty
     if next(data[tostring(msg.chat_id_)]['mods']) == nil then --fix way
-    if lang then
-      return "_No_ *moderator* _in this group_"
-    else
-      return "در حال حاضر هیچ مدیری برای گروه انتخاب نشده است"
-    end
+      return "⚠️ لیست مدیران گروه خالی است !"
   end
-  if lang then
-    message = '*List of moderators :*\n'
-  else
-    message = '*لیست مدیران گروه :*\n'
-  end
+    message = '📋 لیست مدیران گروه :\n\n'
   for k,v in pairs(data[tostring(msg.chat_id_)]['mods'])
   do
     message = message ..i.. '- '..v..' [' ..k.. '] \n'
