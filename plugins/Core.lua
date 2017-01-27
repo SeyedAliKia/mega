@@ -1000,7 +1000,8 @@ local function mute_voice(msg, data, target)
       return "🔒 _قفل #وُیس فعال شد_ !\n🔸`از این پس وُیس های فرستاده شده توسط کاربران پاک می شوند` !"
     end
   end
-
+end
+        
   local function unmute_voice(msg, data, target)
     local hash = "gp_lang:"..msg.chat_id_
     local lang = redis:get(hash)
@@ -1014,6 +1015,7 @@ local function mute_voice(msg, data, target)
         return "🔏 _قفل #وُیس غیرفعال شد_ !"
       end
     end
+   end       
 ---------------Mute Sticker-------------------
 local function mute_sticker(msg, data, target)
 local hash = "gp_lang:"..msg.chat_id_
