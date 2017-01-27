@@ -268,7 +268,7 @@ if cmd == "demote" then
       return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." از لیست مدیران گروه پاک شد !", "md")
 end
 if cmd == "id" then
-  return tdcli.sendMessage(arg.chat_id, "", 0, "🆔 شناسه کاربر "..user_name.." : [*"..data.id_.."*]", 0, "md")
+  return tdcli.sendMessage(arg.chat_id, "", 0, "_"..data.id_.."_", 0, "md")
 end
 if cmd == "res" then
   if lang then
