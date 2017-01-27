@@ -5,7 +5,7 @@ local function modadd(msg)
   local data = load_data(_config.moderation.data)
   if is_admin(msg) then
   if data[tostring(msg.chat_id_)] then
-      return '⚠️ _گروه از قبل در لیست گروه های ربات است_ !'
+      return '⚠️ _گروه '..msg.title_..' از قبل در لیست گروه های ربات است_ !'
    end 
   end
   -- create data array in moderation.json
