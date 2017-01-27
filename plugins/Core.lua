@@ -134,12 +134,8 @@ if cmd == "setowner" then
         return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." از قبل در لیست صاحبان گروه بود !", 0, "md")
     end
     administration[tostring(arg.chat_id)]['owners'][tostring(data.id_)] = user_name
-    save_data(_config.moderation.data, administration)
-    if lang then
-      return tdcli.sendMessage(arg.chat_id, "", 0, "_User_ "..user_name.." *"..data.id_.."* _is now the_ *group owner*", 0, "md")
-    else
-      return tdcli.sendMessage(arg.chat_id, "", 0, "_کاربر_ "..user_name.." *"..data.id_.."* *به مقام صاحب گروه منتصب شد*", 0, "md")
-    end
+    save_data(_config.moderation.data, administration)      
+      return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." به لیست صاحبان گروه افزوده شد !", "md")
   end
   tdcli_function ({
     ID = "GetUser",
