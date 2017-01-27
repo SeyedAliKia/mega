@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cd $HOME/BDReborn
+cd $HOME/mega
 
 install() {
 	    cd tg
@@ -33,13 +33,13 @@ fi
 
 if [ "$1" = "-p" ]; then
     echo -e "\033[38;5;208m"
-    echo -e "     > BeyondTeam Source :D                        "
+    echo -e "     > Bot is running !                        "
     echo -e "                                              \033[0;00m"
     echo -e "\e[36m"
     ./tg/tgcli -s ./bot/bot.lua -p $2
 fi
    echo -e "\033[38;5;208m"
-   echo -e "     > BeyondTeam Source :D                        "
+   echo -e "     > Bot is running !                        "
    echo -e "                                              \033[0;00m"
    echo -e "\e[36m"
    ./tg/tgcli -s ./bot/bot.lua -l 1 -E $@
