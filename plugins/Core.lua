@@ -928,6 +928,7 @@ local function unmute_photo(msg, data, target)
       return "🔏 _قفل #عکس غیرفعال شد_ !"
     end
   end
+ end   
 ---------------Mute Video-------------------
 local function mute_video(msg, data, target)
   local hash = "gp_lang:"..msg.chat_id_
@@ -986,6 +987,7 @@ local function unmute_video(msg, data, target)
       return "🔏 _قفل #آهنگ غیرفعال شد_ !"
     end
   end
+ end  
 ---------------Mute Voice-------------------
 local function mute_voice(msg, data, target)
   local hash = "gp_lang:"..msg.chat_id_
