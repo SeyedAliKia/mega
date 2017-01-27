@@ -313,7 +313,7 @@ if data.first_name_ then
     end
     administration[tostring(arg.chat_id)]['mods'][tostring(data.id_)] = user_name
     save_data(_config.moderation.data, administration)
-      return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." به لیست مدیران گروه افزوده شد !", 0, "md")
+     return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." به لیست مدیران گروه افزوده شد !", 0, "md")
   end
   if cmd == "remowner" then
     if not administration[tostring(arg.chat_id)]['owners'][tostring(data.id_)] then
@@ -337,7 +337,6 @@ if data.first_name_ then
     else
         username = 'ندارد'
       end
-    end
       return tdcli.sendMessage(arg.chat_id, 0, 1, "📜 اطلاعات کاربر :\nشناسه : [*"..data.id_.."*]\nنام کاربری : "..username.."\nنام کاربر : _"..data.first_name_.."_\n", 1, "md")
   end
 else
