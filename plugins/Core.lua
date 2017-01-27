@@ -118,7 +118,7 @@ local cmd = arg.cmd
 local administration = load_data(_config.moderation.data)
 if not tonumber(data.sender_user_id_) then return false end
 if not administration[tostring(data.chat_id_)] then
-    return tdcli.sendMessage(data.chat_id_, "", 0, "_گروه به لیست گروه های مدیریتی ربات اضافه نشده است_", 0, "md")
+    return tdcli.sendMessage(data.chat_id_, "", 0, "🚫 _گروه در لیست گروه های ربات نیست_ !", 0, "md")
 end
 if cmd == "setowner" then
   local function owner_cb(arg, data)
@@ -131,11 +131,7 @@ if cmd == "setowner" then
       user_name = check_markdown(data.first_name_)
     end
     if administration[tostring(arg.chat_id)]['owners'][tostring(data.id_)] then
-      if lang then
-        return tdcli.sendMessage(arg.chat_id, "", 0, "_User_ "..user_name.." *"..data.id_.."* _is already a_ *group owner*", 0, "md")
-      else
-        return tdcli.sendMessage(arg.chat_id, "", 0, "_کاربر_ "..user_name.." *"..data.id_.."* *از قبل صاحب گروه بود*", 0, "md")
-      end
+        return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." از قبل در لیست صاحبان گروه بود !", 0, "md")
     end
     administration[tostring(arg.chat_id)]['owners'][tostring(data.id_)] = user_name
     save_data(_config.moderation.data, administration)
