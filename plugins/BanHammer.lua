@@ -3,11 +3,10 @@ local function pre_process(msg)
   user = msg.sender_user_id_
   local function check_newmember(arg, data)
     test = load_data(_config.moderation.data)
-    lock_bots = test[arg.chat_id]['settings']['lock_bots']
     local hash = "gp_lang:"..arg.chat_id
     local lang = redis:get(hash)
     if data.type_.ID == "UserTypeBot" then
-      if not is_owner(arg.msg) and lock_bots == 'yes' then
+      if not is_owner(arg.msg) then
         kick_user(data.id_, arg.chat_id)
       end
     end
