@@ -9,6 +9,7 @@ local function modadd(msg)
    end 
   end
   -- create data array in moderation.json
+  local data = load_data(_config.moderation.data)  
   data[tostring(msg.chat_id_)] = {
     owners = {},
     mods ={},
