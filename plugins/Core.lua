@@ -1029,58 +1029,29 @@ end
 local function mute_sticker(msg, data, target)
 local hash = "gp_lang:"..msg.chat_id_
 local lang = redis:get(hash)
-if not is_mod(msg) then
-  if lang then
-    return "_You're Not_ *Moderator*"
-  else
-    return "شما مدیر گروه نمیباشید"
-  end
-end
-
+if is_mod(msg) then
 local mute_sticker = data[tostring(target)]["mutes"]["mute_sticker"]
 if mute_sticker == "yes" then
-  if lang then
-    return "*Mute Sticker* _Is Already Enabled_"
-  elseif lang then
-    return "بیصدا کردن برچسب فعال است"
-  end
+      return "🔐 _قفل #استیکر پیام از قبل فعال است_ !"
 else
   data[tostring(target)]["mutes"]["mute_sticker"] = "yes"
   save_data(_config.moderation.data, data)
-  if lang then
-    return "*Mute Sticker* _Has Been Enabled_"
-  else
-    return "بیصدا کردن برچسب فعال شد"
-  end
+    return "🔒 _قفل #استیکر فعال شد_ !\n🔸`از این پس استیکر های فرستاده شده توسط کاربران پاک می شوند` !"
+end
 end
 end
 
 local function unmute_sticker(msg, data, target)
 local hash = "gp_lang:"..msg.chat_id_
 local lang = redis:get(hash)
-if not is_mod(msg) then
-  if lang then
-    return "_You're Not_ *Moderator*"
-  else
-    return "شما مدیر گروه نمیباشید"
-  end
-end
-
+if is_mod(msg) then
 local mute_sticker = data[tostring(target)]["mutes"]["mute_sticker"]
 if mute_sticker == "no" then
-  if lang then
-    return "*Mute Sticker* _Is Already Disabled_"
-  elseif lang then
-    return "بیصدا کردن برچسب غیر فعال است"
-  end
+    return "🔓 _قفل #استیکر فعال نیست_ !"
 else
   data[tostring(target)]["mutes"]["mute_sticker"] = "no"
   save_data(_config.moderation.data, data)
-  if lang then
-    return "*Mute Sticker* _Has Been Disabled_"
-  else
-    return "بیصدا کردن برچسب غیر فعال شد"
-  end
+    return "🔏 _قفل #استیکر غیرفعال شد_ !"
 end
 end
 ---------------Mute Contact-------------------
