@@ -4,7 +4,7 @@ local function pre_process(msg)
   local now = tonumber(os.time())
   if expiretime then
     timetoexpire = math.floor((tonumber(expiretime) - tonumber(now)) / 86400) + 1
-    if tonumber("0") > tonumber(timetoexpire) then
+    if tonumber("0") > tonumber(timetoexpire) or tonumber("0") = tonumber(timetoexpire) then
         redis:del('expiretime', msg.chat_id_)
         tdcli.sendMessage(msg.chat_id_, msg.id_, 1, "⚠️ تاریخ انقضای گروه شما به پایان رسید !\nبرای تمدید به @SeyedRobot مراجعه کنید .", 1, "md", dl_cb, nil)
         tdcli.changeChatMemberStatus(msg.chat_id_, 242864471, 'Left', dl_cb, nil)
