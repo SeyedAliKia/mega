@@ -1575,8 +1575,8 @@ local chat = msg.chat_id_
 local user = msg.sender_user_id_
 if matches[1]:lower() == "id" then
   chat = chat:gsub("-100", "")    
-  if not matches[2]:lower() and tonumber(msg.reply_to_message_id_) == 0 then
-    return "شناسه شما : [*"..user.."*]\n شناسه گروه : [*"..chat.."*]"
+  if not matches[2] and tonumber(msg.reply_to_message_id_) == 0 then
+    return "_شناسه شما_ : [*"..user.."*]\n _شناسه گروه_ : [*"..chat.."*]"
   end
   if not matches[2]:lower() and tonumber(msg.reply_to_message_id_) ~= 0 then
     tdcli_function ({
