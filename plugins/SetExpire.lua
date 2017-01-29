@@ -116,7 +116,7 @@ if matches[1] == 'a' then
 --tdcli.sendMessage(msg.chat_id_, msg.id_, 0, "222", 0, "md")        
 --tdcli.editMessageText(msg.chat_id_, msg.id_, nil, "test", 1, "md", dl_cb, nil) 
         
-    while true; do
+    while true do
 tdcli.editMessageText(msg.chat_id_, msg.reply_to_message_id_, nil, '😐', 1, 'md')        
 tdcli.editMessageText(msg.chat_id_, msg.reply_to_message_id_, nil, '😂', 1, 'md')
 tdcli.editMessageText(msg.chat_id_, msg.reply_to_message_id_, nil, '💙', 1, 'md')
