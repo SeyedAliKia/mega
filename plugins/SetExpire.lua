@@ -46,8 +46,8 @@ local function pre_process(msg)
       ..'/setexp_'..msg.chat_id_..'_999\n'
       ..'----------------------------------\n'
       ..'@TeleSync'
-      local sends = send_msg(user, exppm, ok_cb, false)
-      send_large_msg(msg.chat_id_, '0 روز تا پایان تاریخ انقضای گروه باقی مانده است\nنسبت به تمدید اقدام کنید.')
+      tdcli.sendMessage(msg.chat_id_, msg.id_, 1, "⚠️ تاریخ انقضای گروه شما یک روز دیگر به پایان می رسد.\nبرای تمدید به @SeyedRobot مراجعه کنید!", 1, "md", dl_cb, nil)      
+      tdcli.sendMessage(250877155, 0, 1, "⚠️ تاریخ انقضای گروه شما یک روز دیگر به پایان می رسد.\nبرای تمدید به @SeyedRobot مراجعه کنید!", 1, "md", dl_cb, nil)      
       redis:hset('expires0',msg.chat_id_,'0')
     end
     if tonumber(timetoexpire) == 1 then
