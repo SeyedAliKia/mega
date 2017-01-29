@@ -55,7 +55,7 @@ local function pre_process(msg)
       redis:hset('expires0',msg.chat_id_,'0')
     end
     if tonumber(timetoexpire) == 1 then
-      if redis:hget('expires1',msg.chat_id_) then return msg end
+      --[[if redis:hget('expires1',msg.chat_id_) then return msg end
       local user = "user#id"..185449679
       local text2 = "تاریخ انقضای گروه ارسال شده 1 روز دیگر به پایان میرسد"
       local data = load_data(_config.moderation.data)
@@ -75,9 +75,9 @@ local function pre_process(msg)
       ..'setexp_'..msg.chat_id_..'_90\n'
       ..'🔋شارژ نامحدود :\n'
       ..'setexp_'..msg.chat_id_..'_999\n'
-      ..'----------------------------------\n'
+      ..'----------------------------------\n']]
       tdcli.sendMessage(msg.chat_id_, "", 0, "1222", 0, "md")
-      redis:hset('expires1',msg.chat_id_,'1')
+      --redis:hset('expires1',msg.chat_id_,'1')
     end
     if tonumber(timetoexpire) == 2 then
       if redis:hget('expires2',msg.chat_id_) then return msg end
