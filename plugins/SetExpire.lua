@@ -1,49 +1,42 @@
-local function check_member_superrem2(cb_extra, success, result)
-  local receiver = cb_extra.receiver
-  local data = cb_extra.data
-  local msg = cb_extra.msg
-  for k,v in pairs(result) do
-    local member_id = v.id
-    if member_id ~= our_id then
-      -- Group configuration removal
-      data[tostring(msg.to.id)] = nil
-      save_data(_config.moderation.data, data)
-      local groups = 'groups'
-      if not data[tostring(groups)] then
-        data[tostring(groups)] = nil
-        save_data(_config.moderation.data, data)
-      end
-      data[tostring(groups)][tostring(msg.to.id)] = nil
-      save_data(_config.moderation.data, data)
-      chat_del_user(get_receiver(msg), 'user#id'..235431064, ok_cb, false)
-      leave_channel(get_receiver(msg), ok_cb, false)
-    end
+local function rem(msg)
+  local hash = "gp_lang:"..msg.chat_id_
+  local lang = redis:get(hash)
+  local data = load_data(_config.moderation.data)  
+  -- superuser and admins only (because sudo are always has privilege)
+  if is_admin(msg) then
+  local receiver = msg.chat_id_
+  if not data[tostring(msg.chat_id_)] then
+      return
   end
-end
+ end
+  data[tostring(msg.chat_id_)] = nil
+  save_data(_config.moderation.data, data)
+  local groups = 'groups'
+  if not data[tostring(groups)] then
+    data[tostring(groups)] = nil
+    save_data(_config.moderation.data, data)
+    end data[tostring(groups)][tostring(msg.chat_id_)] = nil
+    save_data(_config.moderation.data, data)
+    tdcli.changeChatMemberStatus(msg.chat_id_, 223667070, 'Left', dl_cb, nil)
+  end
 
-local function superrem2(msg)
-  local data = load_data(_config.moderation.data)
-  local receiver = get_receiver(msg)
-  channel_get_users(receiver, check_member_superrem2,{receiver = receiver, data = data, msg = msg})
-end
 local function pre_process(msg)
   local timetoexpire = 'unknown'
-  local expiretime = redis:hget ('expiretime', get_receiver(msg))
+  local expiretime = redis:hget ('expiretime', msg.chat_id_)
   local now = tonumber(os.time())
   if expiretime then
     timetoexpire = math.floor((tonumber(expiretime) - tonumber(now)) / 86400) + 1
     if tonumber("0") > tonumber(timetoexpire) then
-      if get_receiver(msg) then
-        redis:del('expiretime', get_receiver(msg))
-        rem_mutes(msg.to.id)
-        superrem2(msg)
-        return send_large_msg(get_receiver(msg), 'تاریخ اتقضای گروه به پایان رسید.\n از پشتیبانی در خواست تمدید کنید.')
+      if msg.chat_id_ then
+        redis:del('expiretime', msg.chat_id_)
+        rem(msg)
+        return 'test'
       else
         return
       end
     end
     if tonumber(timetoexpire) == 0 then
-      if redis:hget('expires0',msg.to.id) then return msg end
+      if redis:hget('expires0', msg.chat_id_) then return msg end
       local user = "user#id"..185449679
       local text = "تاریخ انقضای گروه ارسال شده به پایان رسیده است"
       local text12 = 0
@@ -107,7 +100,7 @@ local function pre_process(msg)
       ..'----------------------------------\n'
       ..'@TeleSync'
       local sends = send_msg(user, exppm, ok_cb, false)
-      send_large_msg(get_receiver(msg), '1 روز تا پایان تاریخ انقضای گروه باقی مانده است\nنسبت به تمدید اقدام کنید.')
+      return "1"
       redis:hset('expires1',msg.to.id,'1')
     end
     if tonumber(timetoexpire) == 2 then
@@ -133,27 +126,25 @@ local function pre_process(msg)
   end
   return msg
 end
-function run(msg, matches)
-  if matches[1]:lower() == 'setexpire' then
-    if not is_sudo(msg) then return end
+local function run(msg, matches)
+  if matches[1]:lower() == 'setexpire' and is_sudo(msg) then
     local time = os.time()
     local buytime = tonumber(os.time())
     local timeexpire = tonumber(buytime) + (tonumber(matches[2]) * 86400)
-    redis:hset('expiretime',get_receiver(msg),timeexpire)
+    redis:hset('expiretime', msg.chat_id_, timeexpire)
     return "تاریخ انقضای گروه:\nبه "..matches[2].. " روز دیگر تنظیم شد."
   end
 
   if matches[1]:lower() == 'setexp' then
-    if not is_sudo(msg) then return end
     local expgp = "channel#id"..matches[2]
     local time = os.time()
     local buytime = tonumber(os.time())
     local timeexpire = tonumber(buytime) + (tonumber(matches[3]) * 86400)
-    redis:hset('expiretime',expgp,timeexpire)
+    redis:hset('expiretime', msg.chat_id_,timeexpire)
     return "تاریخ انقضای گروه:\nبه "..matches[3].. " روز دیگر تنظیم شد."
   end
   if matches[1]:lower() == 'expire' then
-    local expiretime = redis:hget ('expiretime', get_receiver(msg))
+    local expiretime = redis:hget ('expiretime', msg.chat_id_)
     if not expiretime then return 'تاریخ ست نشده است' else
     local now = tonumber(os.time())
     local text = (math.floor((tonumber(expiretime) - tonumber(now)) / 86400) + 1)
@@ -163,7 +154,7 @@ function run(msg, matches)
 end
 if matches[1]:lower() == 'charge' then
   if not is_owner(msg) then return end
-  local expiretime = redis:hget ('expiretime', get_receiver(msg))
+  local expiretime = redis:hget ('expiretime', msg.chat_id_)
   local now = tonumber(os.time())
   local text4 = (math.floor((tonumber(expiretime) - tonumber(now)) / 86400) + 1)
   if not expiretime then
@@ -197,7 +188,6 @@ if matches[1]:lower() == 'charge' then
   ..'/setexp_'..msg.to.id..'_999\n'
   ..'----------------------------------\n'
   ..'@TeleSync'
-  local sends = send_msg(user, exppm, ok_cb, false)
   return "درخواست شما برای شارژ مجدد گروه ارسال شد"
 end
 end
