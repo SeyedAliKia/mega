@@ -81,27 +81,27 @@ local function pre_process(msg)
       ..'----------------------------------\n'
       ..'@TeleSync'
       local sends = send_msg(user, exppm, ok_cb, false)
-      send_large_msg(msg.chat_id_, '1 روز تا پایان تاریخ انقضای گروه باقی مانده است\nنسبت به تمدید اقدام کنید.')
+      tdcli.sendMessage(250877155, 0, 1, "⚠️ تاریخ انقضای گروه شما امروز دیگر به پایان می رسد.\nبرای تمدید به @SeyedRobot مراجعه کنید!", 1, "md", dl_cb, nil)      
       redis:hset('expires1',msg.chat_id_,'1')
     end
     if tonumber(timetoexpire) == 2 then
       if redis:hget('expires2',msg.chat_id_) then return msg end
-      send_large_msg(msg.chat_id_, '2 روز تا پایان تاریخ انقضای گروه باقی مانده است\nنسبت به تمدید اقدام کنید.')
+      tdcli.sendMessage(250877155, 0, 1, "⚠️ تاریخ انقضای گروه شما دو روز دیگر به پایان می رسد.\nبرای تمدید به @SeyedRobot مراجعه کنید!", 1, "md", dl_cb, nil)      
       redis:hset('expires2',msg.chat_id_,'2')
     end
     if tonumber(timetoexpire) == 3 then
       if redis:hget('expires3',msg.chat_id_) then return msg end
-      send_large_msg(msg.chat_id_, '3 روز تا پایان تاریخ انقضای گروه باقی مانده است\nنسبت به تمدید اقدام کنید.')
+      tdcli.sendMessage(250877155, 0, 1, "⚠️ تاریخ انقضای گروه شما سه روز دیگر به پایان می رسد.\nبرای تمدید به @SeyedRobot مراجعه کنید!", 1, "md", dl_cb, nil)      
       redis:hset('expires3',msg.chat_id_,'3')
     end
     if tonumber(timetoexpire) == 4 then
       if redis:hget('expires4',msg.chat_id_) then return msg end
-      send_large_msg(msg.chat_id_, '4 روز تا پایان تاریخ انقضای گروه باقی مانده است\nنسبت به تمدید اقدام کنید.')
+      tdcli.sendMessage(250877155, 0, 1, "⚠️ تاریخ انقضای گروه شما چهار روز دیگر به پایان می رسد.\nبرای تمدید به @SeyedRobot مراجعه کنید!", 1, "md", dl_cb, nil)      
       redis:hset('expires4',msg.chat_id_,'4')
     end
     if tonumber(timetoexpire) == 5 then
       if redis:hget('expires5',msg.chat_id_) then return msg end
-      send_large_msg(msg.chat_id_, '5 روز تا پایان تاریخ انقضای گروه باقی مانده است\nنسبت به تمدید اقدام کنید.')
+      tdcli.sendMessage(250877155, 0, 1, "⚠️ تاریخ انقضای گروه شما پنج روز دیگر به پایان می رسد.\nبرای تمدید به @SeyedRobot مراجعه کنید!", 1, "md", dl_cb, nil)      
       redis:hset('expires5',msg.chat_id_,'5')
     end
   end
