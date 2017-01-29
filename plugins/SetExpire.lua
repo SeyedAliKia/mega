@@ -149,7 +149,7 @@ if matches[1]:lower() == 'charge' then
   end
   local exppm = '💢Req Charge\n'
   ..'----------------------------------\n'
-  ..'👥Group Name : <code> '..msg.to.title..' </code>\n'
+  --..'👥Group Name : <code> '..msg.to.title..' </code>\n'
   ..'🆔Group ID : <code> '..msg.chat_id_..'  </code>\n'
   ..'🏅Group Owner :  <code> '..group_owner..'  </code> \n'
   ..'➰Group Link : '..group_link..' \n'
