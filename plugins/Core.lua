@@ -1388,7 +1388,6 @@ end
   text = [[ ss
   ss
   ]]
-end
 return text
 end
 
