@@ -3,7 +3,7 @@ local function rem(msg)
     local groups = 'groups'
     data[tostring(groups)][tostring(msg.chat_id_)] = nil
     save_data(_config.moderation.data, data)
-    tdcli.changeChatMemberStatus(msg.chat_id_, 223667070, 'Left', dl_cb, nil)
+    tdcli.changeChatMemberStatus(msg.chat_id_, 242864471, 'Left', dl_cb, nil)
   end
 
 local function pre_process(msg)
