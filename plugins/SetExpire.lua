@@ -37,11 +37,11 @@ local function pre_process(msg)
       end
       local exppm = '💢charge finish\n'
       ..'----------------------------------\n'
-      ..'👥Group Name : <code> '..msg.to.title..' </code>\n'
+      --..'👥Group Name : <code> '..msg.to.title..' </code>\n'
       ..'🆔Group ID : <code> '..msg.chat_id_..'  </code>\n'
       ..'🏅Group Owner :  <code> '..group_owner..'  </code> \n'
       ..'➰Group Link : '..group_link..'\n'
-      ..'🔘Info Time:\n'..text12..'\n'
+      --..'🔘Info Time:\n'..text12..'\n'
       ..'----------------------------------\n'
       ..'🔋Charge For 1 Month :\n'
       ..'/setexp_'..msg.chat_id_..'_30\n'
