@@ -18,36 +18,18 @@ local function pre_process(msg)
     end
     if tonumber(timetoexpire) == 0 then
       if redis:hget('expires0',msg.chat_id_) then return msg end
-      local user = "user#id"..185449679
-      local text = "تاریخ انقضای گروه ارسال شده به پایان رسیده است"
-      local text12 = 0
       local data = load_data(_config.moderation.data)
-      local group_owner = data[tostring(msg.chat_id_)]['set_owner']
-      if not group_owner then
-        group_owner = "--"
-      end
-      local group_link = data[tostring(msg.chat_id_)]['settings']['set_link']
+      local group_link = data[tostring(chat)]['settings']['linkgp']
       if not group_link then
-        group_link = "Unset"
+        group_link = "---"
       end
-      local exppm = '💢charge finish\n'
+      local text = '💢 پایان تاریخ انقضا\n'
       ..'----------------------------------\n'
-      ..'👥Group Name : <code> '..msg.to.title..' </code>\n'
-      ..'🆔Group ID : <code> '..msg.chat_id_..'  </code>\n'
-      ..'🏅Group Owner :  <code> '..group_owner..'  </code> \n'
-      ..'➰Group Link : '..group_link..'\n'
-      ..'🔘Info Time:\n'..text12..'\n'
+      ..'🆔شناسه گروه : _'..msg.chat_id_..'_\n'
+      ..'➰لینک گروه : '..group_link..'\n'
       ..'----------------------------------\n'
-      ..'🔋Charge For 1 Month :\n'
-      ..'/setexp_'..msg.chat_id_..'_30\n'
-      ..'🔋Charge For 3 Month :\n'
-      ..'/setexp_'..msg.chat_id_..'_90\n'
-      ..'🔋Unlimited Charge :\n'
-      ..'/setexp_'..msg.chat_id_..'_999\n'
-      ..'----------------------------------\n'
-      ..'@TeleSync'
       tdcli.sendMessage(msg.chat_id_, msg.id_, 1, "⚠️ تاریخ انقضای گروه شما یک روز دیگر به پایان می رسد.\nبرای تمدید به @SeyedRobot مراجعه کنید!", 1, "md", dl_cb, nil)      
-      tdcli.sendMessage(250877155, 0, 1, "⚠️ تاریخ انقضای گروه شما یک روز دیگر به پایان می رسد.\nبرای تمدید به @SeyedRobot مراجعه کنید!", 1, "md", dl_cb, nil)      
+      tdcli.sendMessage(250877155, 0, 1, text, 1, "md", dl_cb, nil)      
       redis:hset('expires0',msg.chat_id_,'0')
     end
     if tonumber(timetoexpire) == 1 then
@@ -56,32 +38,17 @@ local function pre_process(msg)
       local text2 = "تاریخ انقضای گروه ارسال شده 1 روز دیگر به پایان میرسد"
       local text13 = 1
       local data = load_data(_config.moderation.data)
-      local group_owner = data[tostring(msg.chat_id_)]['set_owner']
-      if not group_owner then
-        group_owner = "--"
-      end
-      local group_link = data[tostring(msg.chat_id_)]['settings']['set_link']
+      local group_link = data[tostring(chat)]['settings']['linkgp']
       if not group_link then
-        group_link = "Unset"
+        group_link = "---"
       end
-      local exppm = '💢charge finish\n'
+      local text = '💢 پایان تاریخ انقضا\n'
       ..'----------------------------------\n'
-      ..'👥Group Name : <code> '..msg.to.title..' </code>\n'
-      ..'🆔Group ID : <code> '..msg.chat_id_..'  </code>\n'
-      ..'🏅Group Owner :  <code> '..group_owner..'  </code> \n'
-      ..'➰Group Link : '..group_link..' \n'
-      ..'🔘Info Time:\n'..text13..'\n'
+      ..'🆔شناسه گروه : _'..msg.chat_id_..'_\n'
+      ..'➰لینک گروه : '..group_link..'\n'
       ..'----------------------------------\n'
-      ..'🔋Charge For 1 Month :\n'
-      ..'/setexp_'..msg.chat_id_..'_30\n'
-      ..'🔋Charge For 3 Month :\n'
-      ..'/setexp_'..msg.chat_id_..'_90\n'
-      ..'🔋Unlimited Charge :\n'
-      ..'/setexp_'..msg.chat_id_..'_999\n'
-      ..'----------------------------------\n'
-      ..'@TeleSync'
-      local sends = send_msg(user, exppm, ok_cb, false)
       tdcli.sendMessage(250877155, 0, 1, "⚠️ تاریخ انقضای گروه شما امروز دیگر به پایان می رسد.\nبرای تمدید به @SeyedRobot مراجعه کنید!", 1, "md", dl_cb, nil)      
+      tdcli.sendMessage(250877155, 0, 1, text, 1, "md", dl_cb, nil)      
       redis:hset('expires1',msg.chat_id_,'1')
     end
     if tonumber(timetoexpire) == 2 then
