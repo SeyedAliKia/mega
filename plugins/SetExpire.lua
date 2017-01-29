@@ -1,9 +1,9 @@
-local function rem(msg)
+local function rem(msgchat)
     local data = load_data(_config.moderation.data)  
     local groups = 'groups'
-    data[tostring(groups)][tostring(msg.chat_id_)] = nil
+    data[tostring(groups)][tostring(msgchat)] = nil
     save_data(_config.moderation.data, data)
-    tdcli.changeChatMemberStatus(msg.chat_id_, 242864471, 'Left', dl_cb, nil)
+    tdcli.changeChatMemberStatus(msgchat, 242864471, 'Left', dl_cb, nil)
   end
 
 local function pre_process(msg)
@@ -13,13 +13,9 @@ local function pre_process(msg)
   if expiretime then
     timetoexpire = math.floor((tonumber(expiretime) - tonumber(now)) / 86400) + 1
     if tonumber("0") > tonumber(timetoexpire) or tonumber("0") == tonumber(timetoexpire) then
-      if msg.chat_id_ then
         redis:del('expiretime', msg.chat_id_)
-        rem(msg)
+        rem(msg.chat_id_)
         tdcli.sendMessage(msg.chat_id_, msg.id_, 0, "منقضی میشه", 0, "md")
-      else
-        return
-      end
     end
     if tonumber(timetoexpire) == 0 then
       if redis:hget('expires0', msg.chat_id_) then return msg end
