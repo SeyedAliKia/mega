@@ -1243,29 +1243,15 @@ end
 local function unmute_document(msg, data, target)
 local hash = "gp_lang:"..msg.chat_id_
 local lang = redis:get(hash)
-if not is_mod(msg) then
-  if lang then
-    return "_You're Not_ *Moderator*"
-  else
-    return "شما مدیر گروه نمیباشید"
-  end
-end
-
+if is_mod(msg) then
 local mute_document = data[tostring(target)]["mutes"]["mute_document"]
 if mute_document == "no" then
-  if lang then
     return "*Mute Document* _Is Already Disabled_"
-  elseif lang then
-    return "بیصدا کردن اسناد غیر فعال است"
-  end
 else
   data[tostring(target)]["mutes"]["mute_document"] = "no"
   save_data(_config.moderation.data, data)
-  if lang then
     return "*Mute Document* _Has Been Disabled_"
-  else
-    return "بیصدا کردن اسناد غیر فعال شد"
-  end
+end
 end
 end
 ---------------Mute TgService-------------------
