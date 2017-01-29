@@ -1891,35 +1891,19 @@ end
 if matches[1] == 'link' and is_mod(msg) then
   local linkgp = data[tostring(msg.chat_id_)]['settings']['linkgp']
   if not linkgp then
-    if lang then
-      return "_First set a link for group with using_ /setlink"
-    else
       return "اول لینک گروه خود را ذخیره کنید با /setlink"
     end
-  end
-  if lang then
-    text = "<b>Group Link :</b>\n"..linkgp
-  else
     text = "<b>لینک گروه :</b>\n"..linkgp
-  end
   return tdcli.sendMessage(chat, msg.id_, 1, text, 1, 'html')
 end
 if matches[1] == "setrules" and matches[2] and is_mod(msg) then
   data[tostring(msg.chat_id_)]['rules'] = matches[2]
   save_data(_config.moderation.data, data)
-  if lang then
-    return "*Group rules* _has been set_"
-  else
     return "قوانین گروه ثبت شد"
-  end
 end
 if matches[1] == "rules" then
   if not data[tostring(msg.chat_id_)]['rules'] then
-    if lang then
-      rules = "ℹ️ The Default Rules :\n1⃣ No Flood.\n2⃣ No Spam.\n3⃣ No Advertising.\n4⃣ Try to stay on topic.\n5⃣ Forbidden any racist, sexual, homophobic or gore content.\n➡️ Repeated failure to comply with these rules will cause ban.\n@BeyondTeam"
-    elseif lang then
       rules = "ℹ️ قوانین پپیشفرض:\n1⃣ ارسال پیام مکرر ممنوع.\n2⃣ اسپم ممنوع.\n3⃣ تبلیغ ممنوع.\n4⃣ سعی کنید از موضوع خارج نشید.\n5⃣ هرنوع نژاد پرستی, شاخ بازی و پورنوگرافی ممنوع .\n➡️ از قوانین پیروی کنید, در صورت عدم رعایت قوانین اول اخطار و در صورت تکرار مسدود.\n@BeyondTeam"
-    end
   else
     rules = "*Group Rules :*\n"..data[tostring(msg.chat_id_)]['rules']
   end
@@ -1950,37 +1934,21 @@ end
 if matches[1]:lower() == 'clean' and is_owner(msg) then
   if matches[2] == 'mods' then
     if next(data[tostring(msg.chat_id_)]['mods']) == nil then
-      if lang then
-        return "_No_ *moderators* _in this group_"
-      else
         return "هیچ مدیری برای گروه انتخاب نشده است"
-      end
     end
     for k,v in pairs(data[tostring(msg.chat_id_)]['mods']) do
       data[tostring(msg.chat_id_)]['mods'][tostring(k)] = nil
       save_data(_config.moderation.data, data)
     end
-    if lang then
-      return "_All_ *moderators* _has been demoted_"
-    else
       return "تمام مدیران گروه تنزیل مقام شدند"
-    end
   end
   if matches[2] == 'rules' then
     if not data[tostring(msg.chat_id_)]['rules'] then
-      if lang then
-        return "_No_ *rules* _available_"
-      else
         return "قوانین برای گروه ثبت نشده است"
-      end
     end
     data[tostring(msg.chat_id_)]['rules'] = nil
     save_data(_config.moderation.data, data)
-    if lang then
-      return "*Group rules* _has been cleaned_"
-    else
       return "قوانین گروه پاک شد"
-    end
   end
   --[[if matches[2] == 'about' then
     if gp_type(msg.chat_id_) == "chat" then
