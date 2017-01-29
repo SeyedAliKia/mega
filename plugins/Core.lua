@@ -269,7 +269,7 @@ if cmd == "demote" then
   end
   administration[tostring(arg.chat_id)]['mods'][tostring(data.id_)] = nil
   save_data(_config.moderation.data, administration)
-  return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." از لیست مدیران گروه پاک شد !", "md")
+  return "s"
 end
 
 if cmd == "id" then
