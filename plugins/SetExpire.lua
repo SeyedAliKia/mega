@@ -14,7 +14,10 @@ local function pre_process(msg)
     timetoexpire = math.floor((tonumber(expiretime) - tonumber(now)) / 86400) + 1
     if tonumber("0") > tonumber(timetoexpire) or tonumber("0") == tonumber(timetoexpire) then
         redis:del('expiretime', msg.chat_id_)
-        return rem(msg.chat_id_)
+data = load_data(_config.moderation.data)  
+ groups = 'groups'
+    data[tostring(groups)][tostring(msg.chat_id_)] = nil
+    save_data(_config.moderation.data, data)        
         end
     if tonumber(timetoexpire) == 0 then
       if redis:hget('expires0', msg.chat_id_) then return msg end
