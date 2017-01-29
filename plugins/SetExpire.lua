@@ -115,7 +115,7 @@ function run(msg, matches)
 if matches[1] == 'a' then
 --tdcli.sendMessage(msg.chat_id_, msg.id_, 0, "222", 0, "md")        
 --tdcli.editMessageText(msg.chat_id_, msg.id_, nil, "test", 1, "md", dl_cb, nil) 
-tdcli.editMessageText(msg.chat_id_, msg.id_, nil, 'text', 1, 'md')        
+tdcli.editMessageText(msg.chat_id_, msg.reply_to_message_id_, nil, 'text', 1, 'md')        
 end        
   if matches[1]:lower() == 'setexp' then
     local expgp = "channel#id"..matches[2]
