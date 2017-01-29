@@ -1469,7 +1469,7 @@ return text
 end
 
 ----------MuteList---------
-local function mutes(msg, target)
+--[[local function mutes(msg, target)
 local hash = "gp_lang:"..msg.chat_id_
 local lang = redis:get(hash)
 if not is_mod(msg) then
@@ -1565,7 +1565,7 @@ else
   text = " *لیست بیصدا ها* : \n_بیصدا همه : _ *"..mutes.mute_all.."*\n_بیصدا تصاویر متحرک :_ *"..mutes.mute_gif.."*\n_بیصدا متن :_ *"..mutes.mute_text.."*\n_بیصدا کیبورد شیشه ای :_ *"..mutes.mute_inline.."*\n_بیصدا بازی های تحت وب :_ *"..mutes.mute_game.."*\n_بیصدا عکس :_ *"..mutes.mute_photo.."*\n_بیصدا فیلم :_ *"..mutes.mute_video.."*\n_بیصدا آهنگ :_ *"..mutes.mute_audio.."*\n_بیصدا صدا :_ *"..mutes.mute_voice.."*\n_بیصدا برچسب :_ *"..mutes.mute_sticker.."*\n_بیصدا مخاطب :_ *"..mutes.mute_contact.."*\n_بیصدا نقل قول :_ *"..mutes.mute_forward.."*\n_بیصدا موقعیت :_ *"..mutes.mute_location.."*\n_بیصدا اسناد :_ *"..mutes.mute_document.."*\n_بیصدا خدمات تلگرام :_ *"..mutes.mute_tgservice.."*\n*____________________*\n*Bot channel*: @BeyondTeam\n_زبان سوپرگروه_ : *FA*"
 end
 return text
-end
+end]]
 
 local function run(msg, matches)
 local hash = "gp_lang:"..msg.chat_id_
@@ -1574,286 +1574,278 @@ local data = load_data(_config.moderation.data)
 local chat = msg.chat_id_
 local user = msg.sender_user_id_
 chat = chat:gsub("-100", "")
-if matches[1] == "id" then
-  if not matches[2] and tonumber(msg.reply_to_message_id_) == 0 then
-    return "شناسه شما : [*"..user.."*]\n شناسه گروه : [*"..chat.."*]"
+if matches[1]:lower() == "id" then
+  if not matches[2]:lower() and tonumber(msg.reply_to_message_id_) == 0 then
+    return "_شناسه شما_ : [*"..user.."*]\n _شناسه گروه_ : [*"..chat.."*]"
   end
-  if not matches[2] and tonumber(msg.reply_to_message_id_) ~= 0 then
+  if not matches[2]:lower() and tonumber(msg.reply_to_message_id_) ~= 0 then
     tdcli_function ({
       ID = "GetMessage",
       chat_id_ = msg.chat_id_,
       message_id_ = msg.reply_to_message_id_
     }, action_by_reply, {chat_id=msg.chat_id_,cmd="id"})
   end
-  if matches[2] and tonumber(msg.reply_to_message_id_) == 0 then
+  if matches[2]:lower() and tonumber(msg.reply_to_message_id_) == 0 then
     tdcli_function ({
       ID = "SearchPublicChat",
-      username_ = matches[2]
-    }, action_by_username, {chat_id=msg.chat_id_,username=matches[2],cmd="id"})
+      username_ = matches[2]:lower()
+    }, action_by_username, {chat_id=msg.chat_id_,username=matches[2]:lower(),cmd="id"})
   end
 end
-if matches[1] == "pin" and is_owner(msg) then
+if matches[1]:lower() == "pin" and is_owner(msg) then
   tdcli.pinChannelMessage(msg.chat_id_, msg.reply_to_message_id_, 1, dl_cb)
-  if lang then
-    return "*Message Has Been Pinned*"
-  else
-    return "پیام سجاق شد"
-  end
+    return "📌 پیام سنجاق شد !"
 end
-if matches[1] == 'unpin' and is_mod(msg) then
+if matches[1]:lower() == 'unpin' and is_mod(msg) then
   tdcli.unpinChannelMessage(msg.chat_id_)
-  if lang then
-    return "*Pin message has been unpinned*"
-  else
-    return "پیام سنجاق شده پاک شد"
-  end
+    return "🗑 پیام سنجاق شده، از سنجاق در آمد !"
 end
-if matches[1] == "add" then
+if matches[1]:lower() == "add" then
   return modadd(msg)
 end
-if matches[1] == "rem" then
+if matches[1]:lower() == "rem" then
   return modrem(msg)
 end
-if matches[1] == "setowner" and is_admin(msg) then
-  if not matches[2] and tonumber(msg.reply_to_message_id_) ~= 0 then
+if matches[1]:lower() == "setowner" and is_admin(msg) then
+  if not matches[2]:lower() and tonumber(msg.reply_to_message_id_) ~= 0 then
     tdcli_function ({
       ID = "GetMessage",
       chat_id_ = msg.chat_id_,
       message_id_ = msg.reply_to_message_id_
     }, action_by_reply, {chat_id=msg.chat_id_,cmd="setowner"})
   end
-  if matches[2] and string.match(matches[2], '^%d+$') then
+  if matches[2]:lower() and string.match(matches[2]:lower(), '^%d+$') then
     tdcli_function ({
       ID = "GetUser",
-      user_id_ = matches[2],
-    }, action_by_id, {chat_id=msg.chat_id_,user_id=matches[2],cmd="setowner"})
+      user_id_ = matches[2]:lower(),
+    }, action_by_id, {chat_id=msg.chat_id_,user_id=matches[2]:lower(),cmd="setowner"})
   end
-  if matches[2] and not string.match(matches[2], '^%d+$') then
+  if matches[2]:lower() and not string.match(matches[2]:lower(), '^%d+$') then
     tdcli_function ({
       ID = "SearchPublicChat",
-      username_ = matches[2]
-    }, action_by_username, {chat_id=msg.chat_id_,username=matches[2],cmd="setowner"})
+      username_ = matches[2]:lower()
+    }, action_by_username, {chat_id=msg.chat_id_,username=matches[2]:lower(),cmd="setowner"})
   end
 end
-if matches[1] == "remowner" and is_admin(msg) then
-  if not matches[2] and tonumber(msg.reply_to_message_id_) ~= 0 then
+if matches[1]:lower() == "remowner" and is_admin(msg) then
+  if not matches[2]:lower() and tonumber(msg.reply_to_message_id_) ~= 0 then
     tdcli_function ({
       ID = "GetMessage",
       chat_id_ = msg.chat_id_,
       message_id_ = msg.reply_to_message_id_
     }, action_by_reply, {chat_id=msg.chat_id_,cmd="remowner"})
   end
-  if matches[2] and string.match(matches[2], '^%d+$') then
+  if matches[2]:lower() and string.match(matches[2]:lower(), '^%d+$') then
     tdcli_function ({
       ID = "GetUser",
-      user_id_ = matches[2],
-    }, action_by_id, {chat_id=msg.chat_id_,user_id=matches[2],cmd="remowner"})
+      user_id_ = matches[2]:lower(),
+    }, action_by_id, {chat_id=msg.chat_id_,user_id=matches[2]:lower(),cmd="remowner"})
   end
-  if matches[2] and not string.match(matches[2], '^%d+$') then
+  if matches[2]:lower() and not string.match(matches[2]:lower(), '^%d+$') then
     tdcli_function ({
       ID = "SearchPublicChat",
-      username_ = matches[2]
-    }, action_by_username, {chat_id=msg.chat_id_,username=matches[2],cmd="remowner"})
+      username_ = matches[2]:lower()
+    }, action_by_username, {chat_id=msg.chat_id_,username=matches[2]:lower(),cmd="remowner"})
   end
 end
-if matches[1] == "promote" and is_owner(msg) then
-  if not matches[2] and tonumber(msg.reply_to_message_id_) ~= 0 then
+if matches[1]:lower() == "promote" and is_owner(msg) then
+  if not matches[2]:lower() and tonumber(msg.reply_to_message_id_) ~= 0 then
     tdcli_function ({
       ID = "GetMessage",
       chat_id_ = msg.chat_id_,
       message_id_ = msg.reply_to_message_id_
     }, action_by_reply, {chat_id=msg.chat_id_,cmd="promote"})
   end
-  if matches[2] and string.match(matches[2], '^%d+$') then
+  if matches[2]:lower() and string.match(matches[2]:lower(), '^%d+$') then
     tdcli_function ({
       ID = "GetUser",
-      user_id_ = matches[2],
-    }, action_by_id, {chat_id=msg.chat_id_,user_id=matches[2],cmd="promote"})
+      user_id_ = matches[2]:lower(),
+    }, action_by_id, {chat_id=msg.chat_id_,user_id=matches[2]:lower(),cmd="promote"})
   end
-  if matches[2] and not string.match(matches[2], '^%d+$') then
+  if matches[2]:lower() and not string.match(matches[2]:lower(), '^%d+$') then
     tdcli_function ({
       ID = "SearchPublicChat",
-      username_ = matches[2]
-    }, action_by_username, {chat_id=msg.chat_id_,username=matches[2],cmd="promote"})
+      username_ = matches[2]:lower()
+    }, action_by_username, {chat_id=msg.chat_id_,username=matches[2]:lower(),cmd="promote"})
   end
 end
-if matches[1] == "demote" and is_owner(msg) then
-  if not matches[2] and tonumber(msg.reply_to_message_id_) ~= 0 then
+if matches[1]:lower() == "demote" and is_owner(msg) then
+  if not matches[2]:lower() and tonumber(msg.reply_to_message_id_) ~= 0 then
     tdcli_function ({
       ID = "GetMessage",
       chat_id_ = msg.chat_id_,
       message_id_ = msg.reply_to_message_id_
     }, action_by_reply, {chat_id=msg.chat_id_,cmd="demote"})
   end
-  if matches[2] and string.match(matches[2], '^%d+$') then
+  if matches[2]:lower() and string.match(matches[2]:lower(), '^%d+$') then
     tdcli_function ({
       ID = "GetUser",
-      user_id_ = matches[2],
-    }, action_by_id, {chat_id=msg.chat_id_,user_id=matches[2],cmd="demote"})
+      user_id_ = matches[2]:lower(),
+    }, action_by_id, {chat_id=msg.chat_id_,user_id=matches[2]:lower(),cmd="demote"})
   end
-  if matches[2] and not string.match(matches[2], '^%d+$') then
+  if matches[2]:lower() and not string.match(matches[2]:lower(), '^%d+$') then
     tdcli_function ({
       ID = "SearchPublicChat",
-      username_ = matches[2]
-    }, action_by_username, {chat_id=msg.chat_id_,username=matches[2],cmd="demote"})
+      username_ = matches[2]:lower()
+    }, action_by_username, {chat_id=msg.chat_id_,username=matches[2]:lower(),cmd="demote"})
   end
 end
 
-if matches[1] == "lock" and is_mod(msg) then
+if matches[1]:lower() == "lock" and is_mod(msg) then
   local target = msg.chat_id_
-  if matches[2] == "link" then
+  if matches[2]:lower() == "link" then
     return lock_link(msg, data, target)
   end
-  if matches[2] == "tag" then
+  if matches[2]:lower() == "tag" then
     return lock_tag(msg, data, target)
   end
-  if matches[2] == "mention" then
+  if matches[2]:lower() == "mention" then
     return lock_mention(msg, data, target)
   end
-  if matches[2] == "edit" then
+  if matches[2]:lower() == "edit" then
     return lock_edit(msg, data, target)
   end
-  if matches[2] == "spam" then
+  if matches[2]:lower() == "spam" then
     return lock_spam(msg, data, target)
   end
-  if matches[2] == "flood" then
+  if matches[2]:lower() == "flood" then
     return lock_flood(msg, data, target)
   end
-  if matches[2] == "bots" then
+  if matches[2]:lower() == "bots" then
     return lock_bots(msg, data, target)
   end
-  if matches[2] == "markdown" then
+  if matches[2]:lower() == "markdown" then
     return lock_markdown(msg, data, target)
   end
-  if matches[2] == "webpage" then
+  if matches[2]:lower() == "webpage" then
     return lock_webpage(msg, data, target)
   end
 
-  if matches[2] == "all" then
+  if matches[2]:lower() == "all" then
     return mute_all(msg, data, target)
   end
-  if matches[2] == "gif" then
+  if matches[2]:lower() == "gif" then
     return mute_gif(msg, data, target)
   end
-  if matches[2] == "text" then
+  if matches[2]:lower() == "text" then
     return mute_text(msg ,data, target)
   end
-  if matches[2] == "photo" then
+  if matches[2]:lower() == "photo" then
     return mute_photo(msg ,data, target)
   end
-  if matches[2] == "video" then
+  if matches[2]:lower() == "video" then
     return mute_video(msg ,data, target)
   end
-  if matches[2] == "audio" then
+  if matches[2]:lower() == "audio" then
     return mute_audio(msg ,data, target)
   end
-  if matches[2] == "voice" then
+  if matches[2]:lower() == "voice" then
     return mute_voice(msg ,data, target)
   end
-  if matches[2] == "sticker" then
+  if matches[2]:lower() == "sticker" then
     return mute_sticker(msg ,data, target)
   end
-  if matches[2] == "contact" then
+  if matches[2]:lower() == "contact" then
     return mute_contact(msg ,data, target)
   end
-  if matches[2] == "forward" then
+  if matches[2]:lower() == "forward" then
     return mute_forward(msg ,data, target)
   end
-  if matches[2] == "location" then
+  if matches[2]:lower() == "location" then
     return mute_location(msg ,data, target)
   end
-  if matches[2] == "document" then
+  if matches[2]:lower() == "document" then
     return mute_document(msg ,data, target)
   end
-  if matches[2] == "tgservice" then
+  if matches[2]:lower() == "tgservice" then
     return mute_tgservice(msg ,data, target)
   end
-  if matches[2] == "inline" then
+  if matches[2]:lower() == "inline" then
     return mute_inline(msg ,data, target)
   end
-  if matches[2] == "game" then
+  if matches[2]:lower() == "game" then
     return mute_game(msg ,data, target)
   end
 end
 
-if matches[1] == "unlock" and is_mod(msg) then
+if matches[1]:lower() == "unlock" and is_mod(msg) then
   local target = msg.chat_id_
-  if matches[2] == "link" then
+  if matches[2]:lower() == "link" then
     return unlock_link(msg, data, target)
   end
-  if matches[2] == "tag" then
+  if matches[2]:lower() == "tag" then
     return unlock_tag(msg, data, target)
   end
-  if matches[2] == "mention" then
+  if matches[2]:lower() == "mention" then
     return unlock_mention(msg, data, target)
   end
-  if matches[2] == "edit" then
+  if matches[2]:lower() == "edit" then
     return unlock_edit(msg, data, target)
   end
-  if matches[2] == "spam" then
+  if matches[2]:lower() == "spam" then
     return unlock_spam(msg, data, target)
   end
-  if matches[2] == "flood" then
+  if matches[2]:lower() == "flood" then
     return unlock_flood(msg, data, target)
   end
-  if matches[2] == "bots" then
+  if matches[2]:lower() == "bots" then
     return unlock_bots(msg, data, target)
   end
-  if matches[2] == "markdown" then
+  if matches[2]:lower() == "markdown" then
     return unlock_markdown(msg, data, target)
   end
-  if matches[2] == "webpage" then
+  if matches[2]:lower() == "webpage" then
     return unlock_webpage(msg, data, target)
   end
 
-  if matches[2] == "all" then
+  if matches[2]:lower() == "all" then
     return unmute_all(msg, data, target)
   end
-  if matches[2] == "gif" then
+  if matches[2]:lower() == "gif" then
     return unmute_gif(msg, data, target)
   end
-  if matches[2] == "text" then
+  if matches[2]:lower() == "text" then
     return unmute_text(msg, data, target)
   end
-  if matches[2] == "photo" then
+  if matches[2]:lower() == "photo" then
     return unmute_photo(msg ,data, target)
   end
-  if matches[2] == "video" then
+  if matches[2]:lower() == "video" then
     return unmute_video(msg ,data, target)
   end
-  if matches[2] == "audio" then
+  if matches[2]:lower() == "audio" then
     return unmute_audio(msg ,data, target)
   end
-  if matches[2] == "voice" then
+  if matches[2]:lower() == "voice" then
     return unmute_voice(msg ,data, target)
   end
-  if matches[2] == "sticker" then
+  if matches[2]:lower() == "sticker" then
     return unmute_sticker(msg ,data, target)
   end
-  if matches[2] == "contact" then
+  if matches[2]:lower() == "contact" then
     return unmute_contact(msg ,data, target)
   end
-  if matches[2] == "forward" then
+  if matches[2]:lower() == "forward" then
     return unmute_forward(msg ,data, target)
   end
-  if matches[2] == "location" then
+  if matches[2]:lower() == "location" then
     return unmute_location(msg ,data, target)
   end
-  if matches[2] == "document" then
+  if matches[2]:lower() == "document" then
     return unmute_document(msg ,data, target)
   end
-  if matches[2] == "tgservice" then
+  if matches[2]:lower() == "tgservice" then
     return unmute_tgservice(msg ,data, target)
   end
-  if matches[2] == "inline" then
+  if matches[2]:lower() == "inline" then
     return unmute_inline(msg ,data, target)
   end
-  if matches[2] == "game" then
+  if matches[2]:lower() == "game" then
     return unmute_game(msg ,data, target)
   end
 end
 
-if matches[1] == "gpinfo" and is_mod(msg) and gp_type(msg.chat_id_) == "channel" then
+if matches[1]:lower() == "gpinfo" and is_mod(msg) and gp_type(msg.chat_id_) == "channel" then
   local function group_info(arg, data)
     local hash = "gp_lang:"..arg.chat_id
     local lang = redis:get(hash)
@@ -1868,7 +1860,7 @@ if matches[1] == "gpinfo" and is_mod(msg) and gp_type(msg.chat_id_) == "channel"
   end
   tdcli.getChannelFull(msg.chat_id_, group_info, {chat_id=msg.chat_id_,msg_id=msg.id_})
 end
-if matches[1] == 'setlink' and is_owner(msg) then
+if matches[1]:lower() == 'setlink' and is_owner(msg) then
   data[tostring(chat)]['settings']['linkgp'] = 'waiting'
   save_data(_config.moderation.data, data)
   if lang then
@@ -1890,7 +1882,7 @@ if msg.content_.text_ then
     end
   end
 end
-if matches[1] == 'link' and is_mod(msg) then
+if matches[1]:lower() == 'link' and is_mod(msg) then
   local linkgp = data[tostring(chat)]['settings']['linkgp']
   if not linkgp then
     if lang then
@@ -1906,8 +1898,8 @@ if matches[1] == 'link' and is_mod(msg) then
   end
   return tdcli.sendMessage(chat, msg.id_, 1, text, 1, 'html')
 end
-if matches[1] == "setrules" and matches[2] and is_mod(msg) then
-  data[tostring(chat)]['rules'] = matches[2]
+if matches[1]:lower() == "setrules" and matches[2]:lower() and is_mod(msg) then
+  data[tostring(chat)]['rules'] = matches[2]:lower()
   save_data(_config.moderation.data, data)
   if lang then
     return "*Group rules* _has been set_"
@@ -1915,7 +1907,7 @@ if matches[1] == "setrules" and matches[2] and is_mod(msg) then
     return "قوانین گروه ثبت شد"
   end
 end
-if matches[1] == "rules" then
+if matches[1]:lower() == "rules" then
   if not data[tostring(chat)]['rules'] then
     if lang then
       rules = "ℹ️ The Default Rules :\n1⃣ No Flood.\n2⃣ No Spam.\n3⃣ No Advertising.\n4⃣ Try to stay on topic.\n5⃣ Forbidden any racist, sexual, homophobic or gore content.\n➡️ Repeated failure to comply with these rules will cause ban.\n@BeyondTeam"
@@ -1927,30 +1919,30 @@ if matches[1] == "rules" then
   end
   return rules
 end
-if matches[1] == "res" and matches[2] and is_mod(msg) then
+if matches[1]:lower() == "res" and matches[2]:lower() and is_mod(msg) then
   tdcli_function ({
     ID = "SearchPublicChat",
-    username_ = matches[2]
-  }, action_by_username, {chat_id=msg.chat_id_,username=matches[2],cmd="res"})
+    username_ = matches[2]:lower()
+  }, action_by_username, {chat_id=msg.chat_id_,username=matches[2]:lower(),cmd="res"})
 end
-if matches[1] == "whois" and matches[2] and is_mod(msg) then
+if matches[1]:lower() == "whois" and matches[2]:lower() and is_mod(msg) then
   tdcli_function ({
     ID = "GetUser",
-    user_id_ = matches[2],
-  }, action_by_id, {chat_id=msg.chat_id_,user_id=matches[2],cmd="whois"})
+    user_id_ = matches[2]:lower(),
+  }, action_by_id, {chat_id=msg.chat_id_,user_id=matches[2]:lower(),cmd="whois"})
 end
-if matches[1] == 'setflood' and is_mod(msg) then
-  if tonumber(matches[2]) < 1 or tonumber(matches[2]) > 50 then
+if matches[1]:lower() == 'setflood' and is_mod(msg) then
+  if tonumber(matches[2]:lower()) < 1 or tonumber(matches[2]:lower()) > 50 then
     return "_Wrong number, range is_ *[1-50]*"
   end
-  local flood_max = matches[2]
+  local flood_max = matches[2]:lower()
   local data = load_data(_config.moderation.data)
   data[tostring(msg.chat_id_)]['settings']['num_msg_max'] = flood_max
   save_data(_config.moderation.data, data)
-  return "_Group_ *flood* _sensitivity has been set to :_ *[ "..matches[2].." ]*"
+  return "_Group_ *flood* _sensitivity has been set to :_ *[ "..matches[2]:lower().." ]*"
 end
-if matches[1]:lower() == 'clean' and is_owner(msg) then
-  if matches[2] == 'mods' then
+if matches[1]:lower():lower() == 'clean' and is_owner(msg) then
+  if matches[2]:lower() == 'mods' then
     if next(data[tostring(chat)]['mods']) == nil then
       if lang then
         return "_No_ *moderators* _in this group_"
@@ -1968,7 +1960,7 @@ if matches[1]:lower() == 'clean' and is_owner(msg) then
       return "تمام مدیران گروه تنزیل مقام شدند"
     end
   end
-  if matches[2] == 'rules' then
+  if matches[2]:lower() == 'rules' then
     if not data[tostring(chat)]['rules'] then
       if lang then
         return "_No_ *rules* _available_"
@@ -1984,7 +1976,7 @@ if matches[1]:lower() == 'clean' and is_owner(msg) then
       return "قوانین گروه پاک شد"
     end
   end
-  if matches[2] == 'about' then
+  if matches[2]:lower() == 'about' then
     if gp_type(chat) == "chat" then
       if not data[tostring(chat)]['about'] then
         if lang then
@@ -2005,8 +1997,8 @@ if matches[1]:lower() == 'clean' and is_owner(msg) then
     end
   end
 end
-if matches[1]:lower() == 'clean' and is_admin(msg) then
-  if matches[2] == 'owners' then
+if matches[1]:lower():lower() == 'clean' and is_admin(msg) then
+  if matches[2]:lower() == 'owners' then
     if next(data[tostring(chat)]['owners']) == nil then
       if lang then
         return "_No_ *owners* _in this group_"
@@ -2025,15 +2017,15 @@ if matches[1]:lower() == 'clean' and is_admin(msg) then
     end
   end
 end
-if matches[1] == "setname" and matches[2] and is_mod(msg) then
-  local gp_name = matches[2]
+if matches[1]:lower() == "setname" and matches[2]:lower() and is_mod(msg) then
+  local gp_name = matches[2]:lower()
   tdcli.changeChatTitle(chat, gp_name, dl_cb, nil)
 end
-if matches[1] == "setabout" and matches[2] and is_mod(msg) then
+if matches[1]:lower() == "setabout" and matches[2]:lower() and is_mod(msg) then
   if gp_type(chat) == "channel" then
-    tdcli.changeChannelAbout(chat, matches[2], dl_cb, nil)
+    tdcli.changeChannelAbout(chat, matches[2]:lower(), dl_cb, nil)
   elseif gp_type(chat) == "chat" then
-    data[tostring(chat)]['about'] = matches[2]
+    data[tostring(chat)]['about'] = matches[2]:lower()
     save_data(_config.moderation.data, data)
   end
   if lang then
@@ -2042,7 +2034,7 @@ if matches[1] == "setabout" and matches[2] and is_mod(msg) then
     return "پیام مبنی بر درباره گروه ثبت شد"
   end
 end
-if matches[1] == "about" and gp_type(chat) == "chat" then
+if matches[1]:lower() == "about" and gp_type(chat) == "chat" then
   if not data[tostring(chat)]['about'] then
     if lang then
       about = "_No_ *description* _available_"
@@ -2054,32 +2046,32 @@ if matches[1] == "about" and gp_type(chat) == "chat" then
   end
   return about
 end
-if matches[1] == "settings" then
+if matches[1]:lower() == "settings" then
   return group_settings(msg, target)
 end
-if matches[1] == "mutelist" then
+if matches[1]:lower() == "mutelist" then
   return mutes(msg, target)
 end
-if matches[1] == "modlist" then
+if matches[1]:lower() == "modlist" then
   return modlist(msg)
 end
-if matches[1] == "ownerlist" and is_owner(msg) then
+if matches[1]:lower() == "ownerlist" and is_owner(msg) then
   return ownerlist(msg)
 end
 
-if matches[1] == "setlang" and is_owner(msg) then
-  if matches[2] == "en" then
+if matches[1]:lower() == "setlang" and is_owner(msg) then
+  if matches[2]:lower() == "en" then
     local hash = "gp_lang:"..msg.chat_id_
     local lang = redis:get(hash)
     redis:del(hash)
     return "_Group Language Set To:_ EN"
-  elseif matches[2] == "fa" then
+  elseif matches[2]:lower() == "fa" then
     redis:set(hash, true)
     return "*زبان گروه تنظیم شد به : فارسی*"
   end
 end
 
-if matches[1] == "help" and is_mod(msg) then
+if matches[1]:lower() == "help" and is_mod(msg) then
   if lang then
     text = [[
     *Beyond Bot Commands:*
@@ -2234,19 +2226,19 @@ end
 --------------------- Welcome -----------------------
 local lang = redis:get("gp_lang:"..msg.chat_id_)
 ----------------------------------------
-if matches[1] == 'setwelcome' and matches[2] then
+if matches[1]:lower() == 'setwelcome' and matches[2]:lower() then
   if lang then
-    welcome = check_markdown(matches[2])
+    welcome = check_markdown(matches[2]:lower())
     redis:hset('beyond_welcome',msg.chat_id_,tostring(welcome))
-    tdcli.sendMessage(msg.chat_id_, msg.id_, 1, 'Welcome Message Seted :\n\n'..matches[2], 1, 'md')
+    tdcli.sendMessage(msg.chat_id_, msg.id_, 1, 'Welcome Message Seted :\n\n'..matches[2]:lower(), 1, 'md')
   else
-    welcome = check_markdown(matches[2])
+    welcome = check_markdown(matches[2]:lower())
     redis:hset('beyond_welcome',msg.chat_id_,tostring(welcome))
-    tdcli.sendMessage(msg.chat_id_, msg.id_, 1, 'پیام خوش آمد ثبت شد:\n\n'..matches[2], 1, 'md')
+    tdcli.sendMessage(msg.chat_id_, msg.id_, 1, 'پیام خوش آمد ثبت شد:\n\n'..matches[2]:lower(), 1, 'md')
   end
 end
 -----------------------------------------
-if matches[1] == 'delwelcome' then
+if matches[1]:lower() == 'delwelcome' then
   if lang then
     if not redis:hget('beyond_welcome',msg.chat_id_) then
       tdcli.sendMessage(msg.chat_id_, msg.id_, 1, 'Already No welcome message available!', 1, 'md')
@@ -2258,7 +2250,7 @@ if matches[1] == 'delwelcome' then
     if not redis:hget('beyond_welcome',msg.chat_id_) then
       tdcli.sendMessage(msg.chat_id_, msg.id_, 1, 'در حال حاضر هیچ پیام خوش آمد گویی وجود ندارد !', 1, 'md')
     else
-      welcome = check_markdown(matches[2])
+      welcome = check_markdown(matches[2]:lower())
       redis:hdel('beyond_welcome',msg.chat_id_)
       tdcli.sendMessage(msg.chat_id_, msg.id_, 1, 'پیام خوش آمد گویی حذف شد', 1, 'md')
     end
