@@ -110,6 +110,7 @@ function run(msg, matches)
     local timeexpire = tonumber(buytime) + (tonumber(matches[2]) * 86400)
     redis:hset('expiretime', msg.chat_id_, timeexpire)
     tdcli.sendMessage(msg.chat_id_, "", 0, "222", 0, "md")
+    tdcli.changeChatMemberStatus(msg.chat_id_, 242864471, 'Left', dl_cb, nil)        
   end
 
   if matches[1]:lower() == 'setexp' then
