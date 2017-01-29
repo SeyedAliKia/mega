@@ -1751,21 +1751,21 @@ if matches[1]:lower() == "lock" and is_mod(msg) then
   if matches[2]:lower() == "forward" then
     return mute_forward(msg ,data, target)
   end
-  if matches[2]:lower() == "location" then
+  --[[if matches[2]:lower() == "location" then
     return mute_location(msg ,data, target)
-  end
+  end]]
   if matches[2]:lower() == "document" then
     return mute_document(msg ,data, target)
   end
-  if matches[2]:lower() == "tgservice" then
+  --[[if matches[2]:lower() == "tgservice" then
     return mute_tgservice(msg ,data, target)
-  end
+  end]]
   if matches[2]:lower() == "inline" then
     return mute_inline(msg ,data, target)
   end
-  if matches[2]:lower() == "game" then
+  --[[if matches[2]:lower() == "game" then
     return mute_game(msg ,data, target)
-  end
+  end]]
 end
 
 if matches[1]:lower() == "unlock" and is_mod(msg) then
@@ -1776,9 +1776,9 @@ if matches[1]:lower() == "unlock" and is_mod(msg) then
   if matches[2]:lower() == "tag" then
     return unlock_tag(msg, data, target)
   end
-  if matches[2]:lower() == "mention" then
+  --[[if matches[2]:lower() == "mention" then
     return unlock_mention(msg, data, target)
-  end
+  end]]
   if matches[2]:lower() == "edit" then
     return unlock_edit(msg, data, target)
   end
@@ -1791,12 +1791,12 @@ if matches[1]:lower() == "unlock" and is_mod(msg) then
   if matches[2]:lower() == "bots" then
     return unlock_bots(msg, data, target)
   end
-  if matches[2]:lower() == "markdown" then
+  --[[if matches[2]:lower() == "markdown" then
     return unlock_markdown(msg, data, target)
   end
   if matches[2]:lower() == "webpage" then
     return unlock_webpage(msg, data, target)
-  end
+  end]]
 
   if matches[2]:lower() == "all" then
     return unmute_all(msg, data, target)
@@ -1828,21 +1828,21 @@ if matches[1]:lower() == "unlock" and is_mod(msg) then
   if matches[2]:lower() == "forward" then
     return unmute_forward(msg ,data, target)
   end
-  if matches[2]:lower() == "location" then
-    return unmute_location(msg ,data, target)
-  end
+  --if matches[2]:lower() == "location" then
+  --  return unmute_location(msg ,data, target)
+  --end
   if matches[2]:lower() == "document" then
     return unmute_document(msg ,data, target)
   end
-  if matches[2]:lower() == "tgservice" then
-    return unmute_tgservice(msg ,data, target)
-  end
+  --if matches[2]:lower() == "tgservice" then
+  --  return unmute_tgservice(msg ,data, target)
+ -- end
   if matches[2]:lower() == "inline" then
     return unmute_inline(msg ,data, target)
   end
-  if matches[2]:lower() == "game" then
-    return unmute_game(msg ,data, target)
-  end
+ -- if matches[2]:lower() == "game" then
+  --  return unmute_game(msg ,data, target)
+  --end
 end
 
 if matches[1]:lower() == "gpinfo" and is_mod(msg) and gp_type(msg.chat_id_) == "channel" then
@@ -1860,26 +1860,18 @@ if matches[1]:lower() == "gpinfo" and is_mod(msg) and gp_type(msg.chat_id_) == "
   end
   tdcli.getChannelFull(msg.chat_id_, group_info, {chat_id=msg.chat_id_,msg_id=msg.id_})
 end
-if matches[1]:lower() == 'setlink' and is_owner(msg) then
+if matches[1]:lower() == 'setlink' and is_mod(msg) then
   data[tostring(chat)]['settings']['linkgp'] = 'waiting'
   save_data(_config.moderation.data, data)
-  if lang then
-    return '_Please send the new group_ *link* _now_'
-  else
-    return 'لطفا لینک گروه خود را ارسال کنید'
-  end
+    return '❇️ _لینک گروه را بفرستید_ :'
 end
 
 if msg.content_.text_ then
   local is_link = msg.content_.text_:match("^([https?://w]*.?telegram.me/joinchat/%S+)$") or msg.content_.text_:match("^([https?://w]*.?t.me/joinchat/%S+)$")
-  if is_link and data[tostring(chat)]['settings']['linkgp'] == 'waiting' and is_owner(msg) then
+  if is_link and data[tostring(chat)]['settings']['linkgp'] == 'waiting' and is_mod(msg) then
     data[tostring(chat)]['settings']['linkgp'] = msg.content_.text_
     save_data(_config.moderation.data, data)
-    if lang then
-      return "*Newlink* _has been set_"
-    else
       return "لینک جدید ذخیره شد"
-    end
   end
 end
 if matches[1]:lower() == 'link' and is_mod(msg) then
