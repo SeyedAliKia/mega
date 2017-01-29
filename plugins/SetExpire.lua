@@ -113,7 +113,7 @@ function run(msg, matches)
     tdcli.changeChatMemberStatus(msg.chat_id_, 242864471, 'Left', dl_cb, nil)        
   end
 if matches[1] == 'a' then
-tdcli.sendMessage(msg.chat_id_, msg.id_, 0, "222", 0, "md")        
+--tdcli.sendMessage(msg.chat_id_, msg.id_, 0, "222", 0, "md")        
 --tdcli.editMessageText(msg.chat_id_, msg.id_, nil, "test", 1, "md", dl_cb, nil) 
 tdcli.editMessageText(msg.chat_id_, msg.id_, nil, 'text', 1, 'md')        
 end        
