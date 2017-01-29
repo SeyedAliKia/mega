@@ -77,7 +77,6 @@ local function pre_process(msg)
       ..'🔋شارژ نامحدود :\n'
       ..'setexp_'..msg.chat_id_..'_999\n'
       ..'----------------------------------\n'
-      local sends = send_msg(user, exppm, ok_cb, false)
       tdcli.sendMessage(msg.chat_id_, "", 0, "1", 0, "md")
       redis:hset('expires1',msg.chat_id_,'1')
     end
