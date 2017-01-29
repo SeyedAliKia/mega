@@ -1329,6 +1329,10 @@ if data[tostring(target)] then
   end
 end
 
+
+  local mutes = data[tostring(target)]["mutes"]  
+  local settings = data[tostring(target)]["settings"]  
+  
 if data[tostring(target)]["settings"] then
   if not data[tostring(target)]["settings"]["lock_link"] then
     data[tostring(target)]["settings"]["lock_link"] = "yes"
@@ -1383,9 +1387,84 @@ if data[tostring(target)]["settings"] then
   end
 end
 
-  local settings = data[tostring(target)]["settings"]
+if data[tostring(target)]["mutes"] then
+  if not data[tostring(target)]["mutes"]["mute_all"] then
+    data[tostring(target)]["mutes"]["mute_all"] = "no"
+  end
+end
+if data[tostring(target)]["mutes"] then
+  if not data[tostring(target)]["mutes"]["mute_gif"] then
+    data[tostring(target)]["mutes"]["mute_gif"] = "no"
+  end
+end
+if data[tostring(target)]["mutes"] then
+  if not data[tostring(target)]["mutes"]["mute_text"] then
+    data[tostring(target)]["mutes"]["mute_text"] = "no"
+  end
+end
+if data[tostring(target)]["mutes"] then
+  if not data[tostring(target)]["mutes"]["mute_photo"] then
+    data[tostring(target)]["mutes"]["mute_photo"] = "no"
+  end
+end
+if data[tostring(target)]["mutes"] then
+  if not data[tostring(target)]["mutes"]["mute_video"] then
+    data[tostring(target)]["mutes"]["mute_video"] = "no"
+  end
+end
+if data[tostring(target)]["mutes"] then
+  if not data[tostring(target)]["mutes"]["mute_audio"] then
+    data[tostring(target)]["mutes"]["mute_audio"] = "no"
+  end
+end
+if data[tostring(target)]["mutes"] then
+  if not data[tostring(target)]["mutes"]["mute_voice"] then
+    data[tostring(target)]["mutes"]["mute_voice"] = "no"
+  end
+end
+if data[tostring(target)]["mutes"] then
+  if not data[tostring(target)]["mutes"]["mute_sticker"] then
+    data[tostring(target)]["mutes"]["mute_sticker"] = "no"
+  end
+end
+if data[tostring(target)]["mutes"] then
+  if not data[tostring(target)]["mutes"]["mute_contact"] then
+    data[tostring(target)]["mutes"]["mute_contact"] = "no"
+  end
+end
+if data[tostring(target)]["mutes"] then
+  if not data[tostring(target)]["mutes"]["mute_forward"] then
+    data[tostring(target)]["mutes"]["mute_forward"] = "no"
+  end
+end
+if data[tostring(target)]["mutes"] then
+  if not data[tostring(target)]["mutes"]["mute_location"] then
+    data[tostring(target)]["mutes"]["mute_location"] = "no"
+  end
+end
+if data[tostring(target)]["mutes"] then
+  if not data[tostring(target)]["mutes"]["mute_document"] then
+    data[tostring(target)]["mutes"]["mute_document"] = "no"
+  end
+end
+if data[tostring(target)]["mutes"] then
+  if not data[tostring(target)]["mutes"]["mute_tgservice"] then
+    data[tostring(target)]["mutes"]["mute_tgservice"] = "no"
+  end
+end
+if data[tostring(target)]["mutes"] then
+  if not data[tostring(target)]["mutes"]["mute_inline"] then
+    data[tostring(target)]["mutes"]["mute_inline"] = "no"
+  end
+end
+if data[tostring(target)]["mutes"] then
+  if not data[tostring(target)]["mutes"]["mute_game"] then
+    data[tostring(target)]["mutes"]["mute_game"] = "no"
+  end
+end
+
   --text = "*تنظیمات گروه:*\n_قفل ویرایش پیام :_ *"..settings.lock_edit.."*\n_قفل لینک :_ *"..settings.lock_link.."*\n_قفل تگ :_ *"..settings.lock_tag.."*\n_قفل پیام مکرر :_ *"..settings.flood.."*\n_قفل هرزنامه :_ *"..settings.lock_spam.."*\n_قفل فراخوانی :_ *"..settings.lock_mention.."*\n_قفل صفحات وب :_ *"..settings.lock_webpage.."*\n_قفل فونت :_ *"..settings.lock_markdown.."*\n_محافظت در برابر ربات ها :_ *"..settings.lock_bots.."*\n_حداکثر پیام مکرر :_ *"..NUM_MSG_MAX.."*\n*____________________*\n*Bot channel*: @BeyondTeam\n_زبان سوپرگروه_ : *FA*"
-  text = "⚙ `تنظیمات گروه` :\n▪️ قفل _لینک_ : *"..settings.lock_link.."*\n"
+  text = "⚙ `تنظیمات گروه` :\n[🔐] قفل های عادی :\n▪️ قفل _#لینک_ : *"..settings.lock_link.."*\n▪️ قفل _#فروارد_ : "...mutes.mute_forward.."\n▪️ قفل _#نام کاربری_ : yes\n▪️ قفل _#تگ_ : "..settings.lock_tag.."\n"
 return text
 end
 
