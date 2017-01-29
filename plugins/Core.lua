@@ -1573,10 +1573,10 @@ local lang = redis:get(hash)
 local data = load_data(_config.moderation.data)
 local chat = msg.chat_id_
 local user = msg.sender_user_id_
-chat = chat:gsub("-100", "")
 if matches[1]:lower() == "id" then
+  chat = chat:gsub("-100", "")    
   if not matches[2]:lower() and tonumber(msg.reply_to_message_id_) == 0 then
-    return "_شناسه شما_ : [*"..user.."*]\n _شناسه گروه_ : [*"..chat.."*]"
+    return "شناسه شما : [*"..user.."*]\n شناسه گروه : [*"..chat.."*]"
   end
   if not matches[2]:lower() and tonumber(msg.reply_to_message_id_) ~= 0 then
     tdcli_function ({
