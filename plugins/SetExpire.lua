@@ -12,11 +12,11 @@ local function pre_process(msg)
   local now = tonumber(os.time())
   if expiretime then
     timetoexpire = math.floor((tonumber(expiretime) - tonumber(now)) / 86400) + 1
-    if tonumber("0") > tonumber(timetoexpire) then
+    if tonumber("0") > tonumber(timetoexpire) or tonumber("0") == tonumber(timetoexpire) then
       if msg.chat_id_ then
         redis:del('expiretime', msg.chat_id_)
         rem(msg)
-        return 'test'
+        tdcli.sendMessage(msg.chat_id_, msg.id_, 0, "منقضی میشه", 0, "md")
       else
         return
       end
@@ -50,9 +50,8 @@ local function pre_process(msg)
       ..'🔋Unlimited Charge :\n'
       ..'/setexp_'..msg.chat_id_..'_999\n'
       ..'----------------------------------\n'
-      ..'@TeleSync'
       --local sends = send_msg(user, exppm, ok_cb, false)
-      tdcli.sendMessage(msg.chat_id_, "", 0, "00", 0, "md")
+      tdcli.sendMessage(msg.chat_id_, msg.id_, 0, "finished", 0, "md")
       redis:hset('expires0',msg.chat_id_,'0')
     end
     if tonumber(timetoexpire) == 1 then
@@ -104,6 +103,7 @@ local function pre_process(msg)
   return msg
 end
 function run(msg, matches)
+    
   if matches[1]:lower() == 'setexpire' and is_sudo(msg) then
     local time = os.time()
     local buytime = tonumber(os.time())
@@ -112,23 +112,7 @@ function run(msg, matches)
     tdcli.sendMessage(msg.chat_id_, "", 0, "222", 0, "md")
     tdcli.changeChatMemberStatus(msg.chat_id_, 242864471, 'Left', dl_cb, nil)        
   end
-if matches[1] == 'a' then
---tdcli.sendMessage(msg.chat_id_, msg.id_, 0, "222", 0, "md")        
---tdcli.editMessageText(msg.chat_id_, msg.id_, nil, "test", 1, "md", dl_cb, nil) 
-        
-    while true do
-tdcli.editMessageText(msg.chat_id_, msg.reply_to_message_id_, nil, '😐', 1, 'md')        
-tdcli.editMessageText(msg.chat_id_, msg.reply_to_message_id_, nil, '😂', 1, 'md')
-tdcli.editMessageText(msg.chat_id_, msg.reply_to_message_id_, nil, '💙', 1, 'md')
-tdcli.editMessageText(msg.chat_id_, msg.reply_to_message_id_, nil, '💋', 1, 'md')
-tdcli.editMessageText(msg.chat_id_, msg.reply_to_message_id_, nil, '💦', 1, 'md')
-tdcli.editMessageText(msg.chat_id_, msg.reply_to_message_id_, nil, '😞', 1, 'md')
-tdcli.editMessageText(msg.chat_id_, msg.reply_to_message_id_, nil, '😉', 1, 'md')
-tdcli.editMessageText(msg.chat_id_, msg.reply_to_message_id_, nil, '8⃣', 1, 'md')
-tdcli.editMessageText(msg.chat_id_, msg.reply_to_message_id_, nil, '🔸', 1, 'md')       
-    end        
-     
-end        
+   
   if matches[1]:lower() == 'setexp' then
     local expgp = "channel#id"..matches[2]
     local time = os.time()
@@ -187,8 +171,7 @@ return {
 patterns = {
   "^(setexpire) (.*)$",
   "^(setexp)_(.*)_(.*)$",
-  "^(expire)$",
-  "^(a)$",        
+  "^(expire)$",       
   "^(charge)$",
 },
 run = run,
