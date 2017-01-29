@@ -76,7 +76,7 @@ local function pre_process(msg)
       ..'🔋شارژ نامحدود :\n'
       ..'setexp_'..msg.chat_id_..'_999\n'
       ..'----------------------------------\n'
-      tdcli.sendMessage(msg.chat_id_, "", 0, "1", 0, "md")
+      tdcli.sendMessage(msg.chat_id_, "", 0, "1222", 0, "md")
       redis:hset('expires1',msg.chat_id_,'1')
     end
     if tonumber(timetoexpire) == 2 then
