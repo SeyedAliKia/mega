@@ -14,9 +14,8 @@ local function pre_process(msg)
     timetoexpire = math.floor((tonumber(expiretime) - tonumber(now)) / 86400) + 1
     if tonumber("0") > tonumber(timetoexpire) or tonumber("0") == tonumber(timetoexpire) then
         redis:del('expiretime', msg.chat_id_)
-        rem(msg.chat_id_)
-        tdcli.sendMessage(msg.chat_id_, msg.id_, 0, "منقضی میشه", 0, "md")
-    end
+        return rem(msg.chat_id_)
+        end
     if tonumber(timetoexpire) == 0 then
       if redis:hget('expires0', msg.chat_id_) then return msg end
       local user = "user#id"..185449679
