@@ -20,7 +20,7 @@ local function rem(msg)
     tdcli.changeChatMemberStatus(msg.chat_id_, 223667070, 'Left', dl_cb, nil)
   end
 
-local function pre_process(msg)
+--[[local function pre_process(msg)
   local timetoexpire = 'unknown'
   local expiretime = redis:hget ('expiretime', msg.chat_id_)
   local now = tonumber(os.time())
@@ -125,14 +125,15 @@ local function pre_process(msg)
     end
   end
   return msg
-end
-local function run(msg, matches)
+end]]
+function run(msg, matches)
   if matches[1]:lower() == 'setexpire' and is_sudo(msg) then
     local time = os.time()
     local buytime = tonumber(os.time())
     local timeexpire = tonumber(buytime) + (tonumber(matches[2]) * 86400)
     redis:hset('expiretime', msg.chat_id_, timeexpire)
     return "تاریخ انقضای گروه:\nبه "..matches[2].. " روز دیگر تنظیم شد."
+    tdcli.sendMessage(msg.chat_id_, 0, 1, 'ss', 1, 'md')
   end
 
   if matches[1]:lower() == 'setexp' then
