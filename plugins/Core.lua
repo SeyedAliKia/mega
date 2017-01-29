@@ -951,6 +951,7 @@ local function mute_video(msg, data, target)
     end
   end
 end
+
   local function unmute_video(msg, data, target)
     local hash = "gp_lang:"..msg.chat_id_
     local lang = redis:get(hash)
@@ -1054,6 +1055,7 @@ else
     return "🔏 _قفل #استیکر غیرفعال شد_ !"
 end
 end
+end  
 ---------------Mute Contact-------------------
 local function mute_contact(msg, data, target)
 local hash = "gp_lang:"..msg.chat_id_
