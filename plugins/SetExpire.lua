@@ -133,7 +133,6 @@ function run(msg, matches)
     local timeexpire = tonumber(buytime) + (tonumber(matches[2]) * 86400)
     redis:hset('expiretime', msg.chat_id_, timeexpire)
     return "تاریخ انقضای گروه:\nبه "..matches[2].. " روز دیگر تنظیم شد."
-    tdcli.sendMessage(msg.chat_id_, 0, 1, 'ss', 1, 'md')
   end
 
   if matches[1]:lower() == 'setexp' then
