@@ -1585,7 +1585,7 @@ if matches[1]:lower() == "id" then
       message_id_ = msg.reply_to_message_id_
     }, action_by_reply, {chat_id=msg.chat_id_,cmd="id"})
   end
-  if matches[2]:lower() and tonumber(msg.reply_to_message_id_) == 0 then
+  if matches[2] and tonumber(msg.reply_to_message_id_) == 0 then
     tdcli_function ({
       ID = "SearchPublicChat",
       username_ = matches[2]:lower()
@@ -1614,13 +1614,13 @@ if matches[1]:lower() == "setowner" and is_admin(msg) then
       message_id_ = msg.reply_to_message_id_
     }, action_by_reply, {chat_id=msg.chat_id_,cmd="setowner"})
   end
-  if matches[2]:lower() and string.match(matches[2]:lower(), '^%d+$') then
+  if matches[2] and string.match(matches[2]:lower(), '^%d+$') then
     tdcli_function ({
       ID = "GetUser",
       user_id_ = matches[2]:lower(),
     }, action_by_id, {chat_id=msg.chat_id_,user_id=matches[2]:lower(),cmd="setowner"})
   end
-  if matches[2]:lower() and not string.match(matches[2]:lower(), '^%d+$') then
+  if matches[2] and not string.match(matches[2]:lower(), '^%d+$') then
     tdcli_function ({
       ID = "SearchPublicChat",
       username_ = matches[2]:lower()
@@ -1635,13 +1635,13 @@ if matches[1]:lower() == "remowner" and is_admin(msg) then
       message_id_ = msg.reply_to_message_id_
     }, action_by_reply, {chat_id=msg.chat_id_,cmd="remowner"})
   end
-  if matches[2]:lower() and string.match(matches[2]:lower(), '^%d+$') then
+  if matches[2] and string.match(matches[2]:lower(), '^%d+$') then
     tdcli_function ({
       ID = "GetUser",
       user_id_ = matches[2]:lower(),
     }, action_by_id, {chat_id=msg.chat_id_,user_id=matches[2]:lower(),cmd="remowner"})
   end
-  if matches[2]:lower() and not string.match(matches[2]:lower(), '^%d+$') then
+  if matches[2] and not string.match(matches[2]:lower(), '^%d+$') then
     tdcli_function ({
       ID = "SearchPublicChat",
       username_ = matches[2]:lower()
@@ -1656,13 +1656,13 @@ if matches[1]:lower() == "promote" and is_owner(msg) then
       message_id_ = msg.reply_to_message_id_
     }, action_by_reply, {chat_id=msg.chat_id_,cmd="promote"})
   end
-  if matches[2]:lower() and string.match(matches[2]:lower(), '^%d+$') then
+  if matches[2] and string.match(matches[2]:lower(), '^%d+$') then
     tdcli_function ({
       ID = "GetUser",
       user_id_ = matches[2]:lower(),
     }, action_by_id, {chat_id=msg.chat_id_,user_id=matches[2]:lower(),cmd="promote"})
   end
-  if matches[2]:lower() and not string.match(matches[2]:lower(), '^%d+$') then
+  if matches[2] and not string.match(matches[2]:lower(), '^%d+$') then
     tdcli_function ({
       ID = "SearchPublicChat",
       username_ = matches[2]:lower()
@@ -1677,13 +1677,13 @@ if matches[1]:lower() == "demote" and is_owner(msg) then
       message_id_ = msg.reply_to_message_id_
     }, action_by_reply, {chat_id=msg.chat_id_,cmd="demote"})
   end
-  if matches[2]:lower() and string.match(matches[2]:lower(), '^%d+$') then
+  if matches[2] and string.match(matches[2]:lower(), '^%d+$') then
     tdcli_function ({
       ID = "GetUser",
       user_id_ = matches[2]:lower(),
     }, action_by_id, {chat_id=msg.chat_id_,user_id=matches[2]:lower(),cmd="demote"})
   end
-  if matches[2]:lower() and not string.match(matches[2]:lower(), '^%d+$') then
+  if matches[2] and not string.match(matches[2]:lower(), '^%d+$') then
     tdcli_function ({
       ID = "SearchPublicChat",
       username_ = matches[2]:lower()
@@ -1693,154 +1693,154 @@ end
 
 if matches[1]:lower() == "lock" and is_mod(msg) then
   local target = msg.chat_id_
-  if matches[2]:lower() == "link" then
+  if matches[2] == "link" then
     return lock_link(msg, data, target)
   end
-  if matches[2]:lower() == "tag" then
+  if matches[2] == "tag" then
     return lock_tag(msg, data, target)
   end
-  if matches[2]:lower() == "mention" then
+  if matches[2] == "mention" then
     return lock_mention(msg, data, target)
   end
-  if matches[2]:lower() == "edit" then
+  if matches[2] == "edit" then
     return lock_edit(msg, data, target)
   end
-  if matches[2]:lower() == "spam" then
+  if matches[2] == "spam" then
     return lock_spam(msg, data, target)
   end
-  if matches[2]:lower() == "flood" then
+  if matches[2] == "flood" then
     return lock_flood(msg, data, target)
   end
-  if matches[2]:lower() == "bots" then
+  if matches[2] == "bots" then
     return lock_bots(msg, data, target)
   end
-  if matches[2]:lower() == "markdown" then
+  if matches[2] == "markdown" then
     return lock_markdown(msg, data, target)
   end
-  if matches[2]:lower() == "webpage" then
+  if matches[2] == "webpage" then
     return lock_webpage(msg, data, target)
   end
 
-  if matches[2]:lower() == "all" then
+  if matches[2] == "all" then
     return mute_all(msg, data, target)
   end
-  if matches[2]:lower() == "gif" then
+  if matches[2] == "gif" then
     return mute_gif(msg, data, target)
   end
-  if matches[2]:lower() == "text" then
+  if matches[2] == "text" then
     return mute_text(msg ,data, target)
   end
-  if matches[2]:lower() == "photo" then
+  if matches[2] == "photo" then
     return mute_photo(msg ,data, target)
   end
-  if matches[2]:lower() == "video" then
+  if matches[2] == "video" then
     return mute_video(msg ,data, target)
   end
-  if matches[2]:lower() == "audio" then
+  if matches[2] == "audio" then
     return mute_audio(msg ,data, target)
   end
-  if matches[2]:lower() == "voice" then
+  if matches[2] == "voice" then
     return mute_voice(msg ,data, target)
   end
-  if matches[2]:lower() == "sticker" then
+  if matches[2] == "sticker" then
     return mute_sticker(msg ,data, target)
   end
-  if matches[2]:lower() == "contact" then
+  if matches[2] == "contact" then
     return mute_contact(msg ,data, target)
   end
-  if matches[2]:lower() == "forward" then
+  if matches[2] == "forward" then
     return mute_forward(msg ,data, target)
   end
-  --[[if matches[2]:lower() == "location" then
+  --[[if matches[2] == "location" then
     return mute_location(msg ,data, target)
   end]]
-  if matches[2]:lower() == "document" then
+  if matches[2] == "document" then
     return mute_document(msg ,data, target)
   end
-  --[[if matches[2]:lower() == "tgservice" then
+  --[[if matches[2] == "tgservice" then
     return mute_tgservice(msg ,data, target)
   end]]
-  if matches[2]:lower() == "inline" then
+  if matches[2] == "inline" then
     return mute_inline(msg ,data, target)
   end
-  --[[if matches[2]:lower() == "game" then
+  --[[if matches[2] == "game" then
     return mute_game(msg ,data, target)
   end]]
 end
 
 if matches[1]:lower() == "unlock" and is_mod(msg) then
   local target = msg.chat_id_
-  if matches[2]:lower() == "link" then
+  if matches[2] == "link" then
     return unlock_link(msg, data, target)
   end
-  if matches[2]:lower() == "tag" then
+  if matches[2] == "tag" then
     return unlock_tag(msg, data, target)
   end
-  --[[if matches[2]:lower() == "mention" then
+  --[[if matches[2] == "mention" then
     return unlock_mention(msg, data, target)
   end]]
-  if matches[2]:lower() == "edit" then
+  if matches[2] == "edit" then
     return unlock_edit(msg, data, target)
   end
-  if matches[2]:lower() == "spam" then
+  if matches[2] == "spam" then
     return unlock_spam(msg, data, target)
   end
-  if matches[2]:lower() == "flood" then
+  if matches[2] == "flood" then
     return unlock_flood(msg, data, target)
   end
-  if matches[2]:lower() == "bots" then
+  if matches[2] == "bots" then
     return unlock_bots(msg, data, target)
   end
-  --[[if matches[2]:lower() == "markdown" then
+  --[[if matches[2] == "markdown" then
     return unlock_markdown(msg, data, target)
   end
-  if matches[2]:lower() == "webpage" then
+  if matches[2] == "webpage" then
     return unlock_webpage(msg, data, target)
   end]]
 
-  if matches[2]:lower() == "all" then
+  if matches[2] == "all" then
     return unmute_all(msg, data, target)
   end
-  if matches[2]:lower() == "gif" then
+  if matches[2] == "gif" then
     return unmute_gif(msg, data, target)
   end
-  if matches[2]:lower() == "text" then
+  if matches[2] == "text" then
     return unmute_text(msg, data, target)
   end
-  if matches[2]:lower() == "photo" then
+  if matches[2] == "photo" then
     return unmute_photo(msg ,data, target)
   end
-  if matches[2]:lower() == "video" then
+  if matches[2] == "video" then
     return unmute_video(msg ,data, target)
   end
-  if matches[2]:lower() == "audio" then
+  if matches[2] == "audio" then
     return unmute_audio(msg ,data, target)
   end
-  if matches[2]:lower() == "voice" then
+  if matches[2] == "voice" then
     return unmute_voice(msg ,data, target)
   end
-  if matches[2]:lower() == "sticker" then
+  if matches[2] == "sticker" then
     return unmute_sticker(msg ,data, target)
   end
-  if matches[2]:lower() == "contact" then
+  if matches[2] == "contact" then
     return unmute_contact(msg ,data, target)
   end
-  if matches[2]:lower() == "forward" then
+  if matches[2] == "forward" then
     return unmute_forward(msg ,data, target)
   end
-  --if matches[2]:lower() == "location" then
+  --if matches[2] == "location" then
   --  return unmute_location(msg ,data, target)
   --end
-  if matches[2]:lower() == "document" then
+  if matches[2] == "document" then
     return unmute_document(msg ,data, target)
   end
-  --if matches[2]:lower() == "tgservice" then
+  --if matches[2] == "tgservice" then
   --  return unmute_tgservice(msg ,data, target)
  -- end
-  if matches[2]:lower() == "inline" then
+  if matches[2] == "inline" then
     return unmute_inline(msg ,data, target)
   end
- -- if matches[2]:lower() == "game" then
+ -- if matches[2] == "game" then
   --  return unmute_game(msg ,data, target)
   --end
 end
@@ -1934,7 +1934,7 @@ if matches[1]:lower() == 'setflood' and is_mod(msg) then
   return "_Group_ *flood* _sensitivity has been set to :_ *[ "..matches[2]:lower().." ]*"
 end
 if matches[1]:lower():lower() == 'clean' and is_owner(msg) then
-  if matches[2]:lower() == 'mods' then
+  if matches[2] == 'mods' then
     if next(data[tostring(chat)]['mods']) == nil then
       if lang then
         return "_No_ *moderators* _in this group_"
@@ -1952,7 +1952,7 @@ if matches[1]:lower():lower() == 'clean' and is_owner(msg) then
       return "تمام مدیران گروه تنزیل مقام شدند"
     end
   end
-  if matches[2]:lower() == 'rules' then
+  if matches[2] == 'rules' then
     if not data[tostring(chat)]['rules'] then
       if lang then
         return "_No_ *rules* _available_"
@@ -1968,7 +1968,7 @@ if matches[1]:lower():lower() == 'clean' and is_owner(msg) then
       return "قوانین گروه پاک شد"
     end
   end
-  if matches[2]:lower() == 'about' then
+  if matches[2] == 'about' then
     if gp_type(chat) == "chat" then
       if not data[tostring(chat)]['about'] then
         if lang then
@@ -1990,7 +1990,7 @@ if matches[1]:lower():lower() == 'clean' and is_owner(msg) then
   end
 end
 if matches[1]:lower():lower() == 'clean' and is_admin(msg) then
-  if matches[2]:lower() == 'owners' then
+  if matches[2] == 'owners' then
     if next(data[tostring(chat)]['owners']) == nil then
       if lang then
         return "_No_ *owners* _in this group_"
@@ -2052,12 +2052,12 @@ if matches[1]:lower() == "ownerlist" and is_owner(msg) then
 end
 
 if matches[1]:lower() == "setlang" and is_owner(msg) then
-  if matches[2]:lower() == "en" then
+  if matches[2] == "en" then
     local hash = "gp_lang:"..msg.chat_id_
     local lang = redis:get(hash)
     redis:del(hash)
     return "_Group Language Set To:_ EN"
-  elseif matches[2]:lower() == "fa" then
+  elseif matches[2] == "fa" then
     redis:set(hash, true)
     return "*زبان گروه تنظیم شد به : فارسی*"
   end
