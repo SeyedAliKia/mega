@@ -1,7 +1,7 @@
 local function idinfocallback(extra, result, success)
     if result.first_name_ then
       local _first_name_ = result.first_name_:gsub("#", "")
-      tdcli_function ({ID="SendMessage", chat_id_=extra.chat_id, reply_to_message_id_="", disable_notification_=0, from_background_=1, reply_markup_=nil, input_message_content_={ID="InputMessageText", text_=_first_name_.."\n"..result.id_, disable_web_page_preview_=1, clear_draft_=0, entities_={[0]={ID="MessageEntityMentionName", offset_=0, length_=utf8.len(_first_name_), user_id_=result.id_}}}}, dl_cb, nil)
+      tdcli_function ({ID="SendMessage", chat_id_=extra.chat_id, reply_to_message_id_="", disable_notification_=0, from_background_=1, reply_markup_=nil, input_message_content_={ID="InputMessageText", text_=_first_name_.."\n"..result.id_, disable_web_page_preview_=1, clear_draft_=0, entities_={[0]={ID="MessageEntityMentionName", offset_=0, length_=_first_name_, user_id_=result.id_}}}}, dl_cb, nil)
       tdcli_function ({ID="SendMessage", chat_id_=extra.chat_id, reply_to_message_id_="", disable_notification_=0, from_background_=1, reply_markup_=nil, input_message_content_={ID="InputMessageText", text_="test", disable_web_page_preview_=1, clear_draft_=0, entities_={[0]={ID="MessageEntityMentionName", offset_=0, length_=2, user_id_=result.id_}}}}, dl_cb, nil)
     else
       tdcli.sendMessage(extra.chat_id, 0, 1, "<b>User NotFound in messages!</b>", 1, 'html')
