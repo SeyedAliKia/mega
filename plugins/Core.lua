@@ -1,13 +1,3 @@
-local function idinfocallback(extra, result, success)
-    if result.first_name_ then
-      local _first_name_ = result.first_name_:gsub("#", "")
-      tdcli_function ({ID="SendMessage", chat_id_=extra.chat_id, reply_to_message_id_="", disable_notification_=0, from_background_=1, reply_markup_=nil, input_message_content_={ID="InputMessageText", text_=_first_name_.."\n"..result.id_, disable_web_page_preview_=1, clear_draft_=0, entities_={[0]={ID="MessageEntityMentionName", offset_=0, length_=_first_name_, user_id_=result.id_}}}}, dl_cb, nil)
-      tdcli_function ({ID="SendMessage", chat_id_=extra.chat_id, reply_to_message_id_="", disable_notification_=0, from_background_=1, reply_markup_=nil, input_message_content_={ID="InputMessageText", text_="test", disable_web_page_preview_=1, clear_draft_=0, entities_={[0]={ID="MessageEntityMentionName", offset_=0, length_=2, user_id_=result.id_}}}}, dl_cb, nil)
-    else
-      tdcli.sendMessage(extra.chat_id, 0, 1, "<b>User NotFound in messages!</b>", 1, 'html')
-    end
-end
-
 local function modadd(msg)
   local hash = "gp_lang:"..msg.chat_id_
   local lang = redis:get(hash)
@@ -356,9 +346,9 @@ if data.first_name_ then
     else
       username = '---'
     end   
-    local text1 = data.first_name_.."\n*"..data.id_.."*\n"..username
+    local text1 = data.first_name_.."\n"..username.."\n"..data.id_
     --tdcli.sendMessage(arg.chat_id, 0, 1, "📜 اطلاعات کاربر :\nشناسه : [*"..data.id_.."*]\nنام کاربری : "..username.."\nنام کاربر : _"..data.first_name_.."_\n", 1, "md")  
-    tdcli_function ({ID="SendMessage", chat_id_=arg.chat_id, reply_to_message_id_="", disable_notification_=0, from_background_=1, reply_markup_=nil, input_message_content_={ID="InputMessageText", text_=text1, disable_web_page_preview_=1,parse_mode_="md", clear_draft_=0, entities_={[0]={ID="MessageEntityMentionName", offset_=0, length_= string.len(data.first_name_), user_id_=data.id_}}}}, dl_cb, nil)            
+    tdcli_function ({ID="SendMessage", chat_id_=arg.chat_id, reply_to_message_id_="", disable_notification_=0, from_background_=1, reply_markup_=nil, input_message_content_={ID="InputMessageText", text_=text1, disable_web_page_preview_=1, clear_draft_=0, entities_={[0]={ID="MessageEntityMentionName", offset_=0, length_= string.len(data.first_name_), user_id_=data.id_}}}}, dl_cb, nil)            
   else
     return tdcli.sendMessage(arg.chat_id, "", 0, "🚫 _مشخصات کاربر پیدا نشد_ !", 0, "md")
   end
@@ -1579,13 +1569,6 @@ return text
 end]]
 
 local function run(msg, matches)
-if matches[1] == "m" then
-  tdcli_function ({
-  ID = "GetUser",
-   user_id_ = matches[2]
-  },idinfocallback, {chat_id = msg.chat_id_})
-end
-  
 local hash = "gp_lang:"..msg.chat_id_
 local lang = redis:get(hash)
 local data = load_data(_config.moderation.data)
@@ -2323,7 +2306,6 @@ patterns ={
   "^(setflood) (%d+)$",
   "^(res) (.*)$",
   "^(whois) (%d+)$",
-  "^(m) (%d+)$",    
   "^(help)$",
   "^(setlang) (.*)$",
   "^([https?://w]*.?t.me/joinchat/%S+)$",
