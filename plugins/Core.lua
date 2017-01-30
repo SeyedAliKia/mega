@@ -355,9 +355,8 @@ if data.first_name_ then
       username = '@'..check_markdown(data.username_)
     else
       username = '---'
-    end
-
-    local text1 = data.first_name_"\n"*..data.id_..*"\n"username      
+    end   
+    local text1 = data.first_name_.."\n"..data.id_.."\n"..username
     --tdcli.sendMessage(arg.chat_id, 0, 1, "📜 اطلاعات کاربر :\nشناسه : [*"..data.id_.."*]\nنام کاربری : "..username.."\nنام کاربر : _"..data.first_name_.."_\n", 1, "md")  
     tdcli_function ({ID="SendMessage", chat_id_=arg.chat_id, reply_to_message_id_="", disable_notification_=0, from_background_=1, reply_markup_=nil, input_message_content_={ID="InputMessageText", text_=text1, disable_web_page_preview_=1, clear_draft_=0, entities_={[0]={ID="MessageEntityMentionName", offset_=0, length_= string.len(data.first_name_, user_id_=data.id_}}}}, dl_cb, nil)            
   else
