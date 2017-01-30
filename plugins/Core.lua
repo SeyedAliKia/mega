@@ -352,7 +352,7 @@ if data.first_name_ then
   if cmd == "whois" then
 
     if data.username_ then
-      username = '@'..check_markdown(data.username_)
+      username = '@'..data.username_
     else
       username = '---'
     end   
