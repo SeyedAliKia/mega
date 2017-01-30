@@ -1578,7 +1578,7 @@ if matches[1]:lower() == "id" then
   if not matches[2] and tonumber(msg.reply_to_message_id_) == 0 then
     return "_شناسه شما_ : [*"..user.."*]\n _شناسه گروه_ : [*"..chat.."*]"
   end
-  if not matches[2]:lower() and tonumber(msg.reply_to_message_id_) ~= 0 then
+  if not matches[2] and tonumber(msg.reply_to_message_id_) ~= 0 then
     tdcli_function ({
       ID = "GetMessage",
       chat_id_ = msg.chat_id_,
@@ -1607,7 +1607,7 @@ if matches[1]:lower() == "rem" then
   return modrem(msg)
 end
 if matches[1]:lower() == "setowner" and is_admin(msg) then
-  if not matches[2]:lower() and tonumber(msg.reply_to_message_id_) ~= 0 then
+  if not matches[2] and tonumber(msg.reply_to_message_id_) ~= 0 then
     tdcli_function ({
       ID = "GetMessage",
       chat_id_ = msg.chat_id_,
@@ -1628,7 +1628,7 @@ if matches[1]:lower() == "setowner" and is_admin(msg) then
   end
 end
 if matches[1]:lower() == "remowner" and is_admin(msg) then
-  if not matches[2]:lower() and tonumber(msg.reply_to_message_id_) ~= 0 then
+  if not matches[2] and tonumber(msg.reply_to_message_id_) ~= 0 then
     tdcli_function ({
       ID = "GetMessage",
       chat_id_ = msg.chat_id_,
@@ -1649,7 +1649,7 @@ if matches[1]:lower() == "remowner" and is_admin(msg) then
   end
 end
 if matches[1]:lower() == "promote" and is_owner(msg) then
-  if not matches[2]:lower() and tonumber(msg.reply_to_message_id_) ~= 0 then
+  if not matches[2] and tonumber(msg.reply_to_message_id_) ~= 0 then
     tdcli_function ({
       ID = "GetMessage",
       chat_id_ = msg.chat_id_,
@@ -1670,7 +1670,7 @@ if matches[1]:lower() == "promote" and is_owner(msg) then
   end
 end
 if matches[1]:lower() == "demote" and is_owner(msg) then
-  if not matches[2]:lower() and tonumber(msg.reply_to_message_id_) ~= 0 then
+  if not matches[2] and tonumber(msg.reply_to_message_id_) ~= 0 then
     tdcli_function ({
       ID = "GetMessage",
       chat_id_ = msg.chat_id_,
