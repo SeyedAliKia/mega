@@ -274,7 +274,7 @@ end
 
 if cmd == "id" then
   --return tdcli.sendMessage(arg.chat_id, "", 0, "_"..data.id_.."_", 0, "md")
-  tdcli_function ({ID="SendMessage", chat_id_=arg.chat_id, reply_to_message_id_="", disable_notification_=0, from_background_=1, reply_markup_=nil, input_message_content_={ID="InputMessageText", text_=data.id_, disable_web_page_preview_=1, clear_draft_=0, entities_={[0]={ID="MessageEntityMentionName", offset_=0, length_= string.len(data.first_name_), user_id_=data.id_}}}}, dl_cb, nil)                
+  tdcli_function ({ID="SendMessage", chat_id_=arg.chat_id, reply_to_message_id_="", disable_notification_=0, from_background_=1, reply_markup_=nil, input_message_content_={ID="InputMessageText", text_=data.id_, disable_web_page_preview_=1, clear_draft_=0, entities_={[0]={ID="MessageEntityMentionName", offset_=0, length_= string.len(data.id_), user_id_=data.id_}}}}, dl_cb, nil)                
 end
 
 if cmd == "res" then
