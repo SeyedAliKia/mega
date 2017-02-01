@@ -1602,14 +1602,14 @@ if matches[1]:lower() == "pin" or matches[1] == "سنجاق" and is_mod(msg) and
     tdcli.pinChannelMessage(msg.chat_id_, msg.reply_to_message_id_, 1, dl_cb)
     return "📌 پیام سنجاق شد !"
 end
-if matches[1]:lower() == 'unpin' or matches[1] == "حذف سنجاق" and is_mod(msg) then
+if matches[1]:lower() == "unpin" or matches[1] == "حذف سنجاق" and is_mod(msg) then
     tdcli.unpinChannelMessage(msg.chat_id_, dl_cb)
     return "🗑 پیام سنجاق شده، از سنجاق در آمد !"
 end
-if matches[1]:lower() == "add" then
+if matches[1]:lower() == "add" or matches[1] == "افزودن" then
   return modadd(msg)
 end
-if matches[1]:lower() == "rem" then
+if matches[1]:lower() == "rem" or matches[1] == "حذف گروه" then
   return modrem(msg)
 end
 if matches[1]:lower() == "setowner" and is_admin(msg) then
