@@ -1,4 +1,10 @@
 --Begin Tools.lua :)
+local function delmsg (arg,data)
+ for k,v in pairs(data.messages_) do
+ tdcli.deleteMessages(v.chat_id_,{[0] = v.id_})
+ end
+end
+
 local SUDO = 250877155 -- put Your ID here! <===
 local function index_function(user_id)
   for k,v in pairs(_config.admins) do
@@ -447,7 +453,16 @@ local function run(msg, matches)
     end
   end
 
-
+if matches[1] == 'rmsg' and is_mod(msg) then 
+  tdcli_function ({
+    ID = "GetChatHistory",
+    chat_id_ = msg.chat_id_,
+    from_message_id_ = 0,
+    offset_ = 0,
+    limit_ = tonumber(matches[2])
+  }, delmsg, nil)
+end    
+  
   if matches[1] == 'creategroup' and is_admin(msg) then
     local text = matches[2]
     tdcli.createNewGroupChat({[0] = msg.sender_user_id_}, text)
