@@ -1579,7 +1579,7 @@ local lang = redis:get(hash)
 local data = load_data(_config.moderation.data)
 local chat = msg.chat_id_
 local user = msg.sender_user_id_
-if matches[1]:lower() == "id" then
+if matches[1]:lower() == "id" or matches[1] == "شناسه" then
   chat = chat:gsub("-100", "")    
   if not matches[2] and tonumber(msg.reply_to_message_id_) == 0 then
     return "_شناسه شما_ : [*"..user.."*]\n _شناسه گروه_ : [*"..chat.."*]"
@@ -1598,12 +1598,12 @@ if matches[1]:lower() == "id" then
     }, action_by_username, {chat_id=msg.chat_id_,username=matches[2]:lower(),cmd="id"})
   end
 end
-if matches[1]:lower() == "pin" and is_owner(msg) then
-  tdcli.pinChannelMessage(msg.chat_id_, msg.reply_to_message_id_, 1, dl_cb)
+if matches[1]:lower() == "pin" or matches[1] == "سنجاق" and is_mod(msg) and tonumber(msg.reply_to_message_id_) ~= 0 then
+    tdcli.pinChannelMessage(msg.chat_id_, msg.reply_to_message_id_, 1, dl_cb)
     return "📌 پیام سنجاق شد !"
 end
-if matches[1]:lower() == 'unpin' and is_mod(msg) then
-  tdcli.unpinChannelMessage(msg.chat_id_)
+if matches[1]:lower() == 'unpin' or matches[1] == "حذف سنجاق" and is_mod(msg) then
+    tdcli.unpinChannelMessage(msg.chat_id_, dl_cb)
     return "🗑 پیام سنجاق شده، از سنجاق در آمد !"
 end
 if matches[1]:lower() == "add" then
@@ -2278,10 +2278,16 @@ end
 end
 return {
 patterns ={
-  "^(id)$",
-  "^(id) (.*)$",
-  "^(pin)$",
-  "^(unpin)$",
+  "^([Ii][Dd])$",
+  "^(شناسه)$",    
+  "^([Ii][Dd]) (.*)$",
+  "^(شناسه) (.*)$",  
+    
+  "^([Pp][Ii][Nn])$",
+  "^(سنجاق)$",
+  "^([Uu][Nn][Pp][Ii][Nn])$",
+  "^(حذف سنجاق)$",
+    
   "^(gpinfo)$",
   --"^(test)$",
   "^(add)$",
