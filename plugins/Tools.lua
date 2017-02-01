@@ -1,7 +1,7 @@
 --Begin Tools.lua :)
 local function delmsg (arg,data)
  for k,v in pairs(data.messages_) do
- tdcli.deleteMessages(v.chat_id_,{[0] = v.id_})
+ tdcli.deleteMessages(v.chat_id_,{[0] = v.id_}, dl_cb, nil)
  end
 end
 
@@ -460,7 +460,7 @@ if matches[1] == 'rmsg' and is_mod(msg) then
     from_message_id_ = 0,
     offset_ = 0,
     limit_ = tonumber(matches[2])
-  }, delmsg, dl_cb)
+  }, delmsg, dl_cb, nil)
 end    
   
   if matches[1] == 'creategroup' and is_admin(msg) then
