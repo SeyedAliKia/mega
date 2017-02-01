@@ -594,6 +594,7 @@ return {
     "^(admindem) (.*)$",
     "^(leave)$",
     "^(autoleave) (.*)$",
+    "^(rmsg) (.*)$",  
     "^(beyond)$",
     "^(creategroup) (.*)$",
     "^(createsuper) (.*)$",
