@@ -274,7 +274,7 @@ end
 
 if cmd == "id" then
   --return tdcli.sendMessage(arg.chat_id, "", 0, "_"..data.id_.."_", 0, "md")
-  tdcli_function ({ID="SendMessage", chat_id_=arg.chat_id, reply_to_message_id_="", disable_notification_=0, from_background_=1, reply_markup_=nil, input_message_content_={ID="InputMessageText", text_=text1, disable_web_page_preview_=1, clear_draft_=0, entities_={[0]={ID="MessageEntityMentionName", offset_=0, length_= string.len(data.id_), user_id_=data.id_}}}}, dl_cb, nil)                
+  tdcli_function ({ID="SendMessage", chat_id_=arg.chat_id, reply_to_message_id_="", disable_notification_=0, from_background_=1, reply_markup_=nil, input_message_content_={ID="InputMessageText", text_=data.id_, disable_web_page_preview_=1, clear_draft_=0, entities_={[0]={ID="MessageEntityMentionName", offset_=0, length_= string.len(data.first_name_), user_id_=data.id_}}}}, dl_cb, nil)                
 end
 
 if cmd == "res" then
@@ -1558,7 +1558,6 @@ if data[tostring(target)]["mutes"] then
     data[tostring(target)]["mutes"]["mute_game"] = "no"
   end
 end
-
 if lang then
   local mutes = data[tostring(target)]["mutes"]
   text = " *Group Mute List* : \n_Mute all : _ *"..mutes.mute_all.."*\n_Mute gif :_ *"..mutes.mute_gif.."*\n_Mute text :_ *"..mutes.mute_text.."*\n_Mute inline :_ *"..mutes.mute_inline.."*\n_Mute game :_ *"..mutes.mute_game.."*\n_Mute photo :_ *"..mutes.mute_photo.."*\n_Mute video :_ *"..mutes.mute_video.."*\n_Mute audio :_ *"..mutes.mute_audio.."*\n_Mute voice :_ *"..mutes.mute_voice.."*\n_Mute sticker :_ *"..mutes.mute_sticker.."*\n_Mute contact :_ *"..mutes.mute_contact.."*\n_Mute forward :_ *"..mutes.mute_forward.."*\n_Mute location :_ *"..mutes.mute_location.."*\n_Mute document :_ *"..mutes.mute_document.."*\n_Mute TgService :_ *"..mutes.mute_tgservice.."*\n*____________________*\n*Bot channel*: @BeyondTeam\n*Group Language* : *EN*"
@@ -1892,7 +1891,7 @@ if matches[1]:lower() == 'link' and is_mod(msg) then
   end
   return tdcli.sendMessage(chat, msg.id_, 1, text, 1, 'html')
 end
-if matches[1]:lower() == "setrules" and matches[2] and is_mod(msg) then
+if matches[1]:lower() == "setrules" and matches[2]:lower() and is_mod(msg) then
   data[tostring(chat)]['rules'] = matches[2]:lower()
   save_data(_config.moderation.data, data)
   if lang then
@@ -2028,7 +2027,7 @@ if matches[1]:lower() == "setabout" and matches[2]:lower() and is_mod(msg) then
     return "پیام مبنی بر درباره گروه ثبت شد"
   end
 end
---[[if matches[1]:lower() == "about" and gp_type(chat) == "chat" then
+if matches[1]:lower() == "about" and gp_type(chat) == "chat" then
   if not data[tostring(chat)]['about'] then
     if lang then
       about = "_No_ *description* _available_"
@@ -2039,7 +2038,7 @@ end
     about = "*Group Description :*\n"..data[tostring(chat)]['about']
   end
   return about
-end]]
+end
 if matches[1]:lower() == "settings" then
   return group_settings(msg, target)
 end
@@ -2053,7 +2052,7 @@ if matches[1]:lower() == "ownerlist" and is_owner(msg) then
   return ownerlist(msg)
 end
 
---[[if matches[1]:lower() == "setlang" and is_owner(msg) then
+if matches[1]:lower() == "setlang" and is_owner(msg) then
   if matches[2] == "en" then
     local hash = "gp_lang:"..msg.chat_id_
     local lang = redis:get(hash)
@@ -2063,10 +2062,162 @@ end
     redis:set(hash, true)
     return "*زبان گروه تنظیم شد به : فارسی*"
   end
-end]]
+end
 
+if matches[1]:lower() == "help" and is_mod(msg) then
+  if lang then
+    text = [[
+    *Beyond Bot Commands:*
+    *!setowner* `[username|id|reply]`
+    _Set Group Owner(Multi Owner)_
+    *!remowner* `[username|id|reply]`
+    _Remove User From Owner List_
+    *!promote* `[username|id|reply]`
+    _Promote User To Group Admin_
+    *!demote* `[username|id|reply]`
+    _Demote User From Group Admins List_
+    *!setflood* `[1-50]`
+    _Set Flooding Number_
+    *!silent* `[username|id|reply]`
+    _Silent User From Group_
+    *!unsilent* `[username|id|reply]`
+    _Unsilent User From Group_
+    *!kick* `[username|id|reply]`
+    _Kick User From Group_
+    *!ban* `[username|id|reply]`
+    _Ban User From Group_
+    *!unban* `[username|id|reply]`
+    _UnBan User From Group_
+    *!res* `[username]`
+    _Show User ID_
+    *!id* `[reply]`
+    _Show User ID_
+    *!whois* `[id]`
+    _Show User's Username And Name_
+    *!lock* `[link | tag | edit | webpage | bots | spam | flood | markdown | mention]`
+    _If This Actions Lock, Bot Check Actions And Delete Them_
+    *!unlock* `[link | tag | edit | webpage | bots | spam | flood | markdown | mention]`
+    _If This Actions Unlock, Bot Not Delete Them_
+    *!mute* `[gifs | photo | document | sticker | video | text | forward | location | audio | voice | contact | all]`
+    _If This Actions Lock, Bot Check Actions And Delete Them_
+    *!unmute* `[gifs | photo | document | sticker | video | text | forward | location | audio | voice | contact | all]`
+    _If This Actions Unlock, Bot Not Delete Them_
+    *!set*`[rules | name | photo | link | about]`
+    _Bot Set Them_
+    *!clean* `[bans | mods | bots | rules | about | silentlist]`
+    _Bot Clean Them_
+    *!pin* `[reply]`
+    _Pin Your Message_
+    *!unpin*
+    _Unpin Pinned Message_
+    *!settings*
+    _Show Group Settings_
+    *!mutelist*
+    _Show Mutes List_
+    *!silentlist*
+    _Show Silented Users List_
+    *!banlist*
+    _Show Banned Users List_
+    *!ownerlist*
+    _Show Group Owners List_
+    *!modlist*
+    _Show Group Moderators List_
+    *!rules*
+    _Show Group Rules_
+    *!about*
+    _Show Group Description_
+    *!id*
+    _Show Your And Chat ID_
+    *!gpinfo*
+    _Show Group Information_
+    *!link*
+    _Show Group Link_
+    *!setwelcome [text]*
+    _set Welcome Message_
+    _You Can Use_ *[!/#]* _To Run The Commands_
+    _This Help List Only For_ *Moderators/Owners!*
+    _Its Means, Only Group_ *Moderators/Owners* _Can Use It!_
+    *Good luck ;)*]]
+
+  elseif lang then
+
+    text = [[
+    *دستورات ربات بیوند:*
+    *!setowner* `[username|id|reply]`
+    _انتخاب مالک گروه(قابل انتخاب چند مالک)_
+    *!remowner* `[username|id|reply]`
+    _حذف کردن فرد از فهرست مالکان گروه_
+    *!promote* `[username|id|reply]`
+    _ارتقا مقام کاربر به مدیر گروه_
+    *!demote* `[username|id|reply]`
+    _تنزیل مقام مدیر به کاربر_
+    *!setflood* `[1-50]`
+    _تنظیم حداکثر تعداد پیام مکرر_
+    *!silent* `[username|id|reply]`
+    _بیصدا کردن کاربر در گروه_
+    *!unsilent* `[username|id|reply]`
+    _در آوردن کاربر از حالت بیصدا در گروه_
+    *!kick* `[username|id|reply]`
+    _حذف کاربر از گروه_
+    *!ban* `[username|id|reply]`
+    _مسدود کردن کاربر از گروه_
+    *!unban* `[username|id|reply]`
+    _در آوردن از حالت مسدودیت کاربر از گروه_
+    *!res* `[username]`
+    _نمایش شناسه کاربر_
+    *!id* `[reply]`
+    _نمایش شناسه کاربر_
+    *!whois* `[id]`
+    _نمایش نام کاربر, نام کاربری و اطلاعات حساب_
+    *!lock* `[link | tag | edit | webpage | bots | spam | flood | markdown | mention]`
+    _در صورت قفل بودن فعالیت ها, ربات آنهارا حذف خواهد کرد_
+    *!unlock* `[link | tag | edit | webpage | bots | spam | flood | markdown | mention]`
+    _در صورت قفل نبودن فعالیت ها, ربات آنهارا حذف نخواهد کرد_
+    *!mute* `[gifs | photo | document | sticker | video | text | forward | location | audio | voice | contact | all]`
+    _در صورت بیصدد بودن فعالیت ها, ربات آنهارا حذف خواهد کرد_
+    *!unmute* `[gifs | photo | document | sticker | video | text | forward | location | audio | voice | contact | all]`
+    _در صورت بیصدا نبودن فعالیت ها, ربات آنهارا حذف نخواهد کرد_
+    *!set*`[rules | name | photo | link | about]`
+    _ربات آنهارا ثبت خواهد کرد_
+    *!clean* `[bans | mods | bots | rules | about | silentlist]`
+    _ربات آنهارا پاک خواهد کرد_
+    *!pin* `[reply]`
+    _ربات پیام شمارا در گروه سنجاق خواهد کرد_
+    *!unpin*
+    _ربات پیام سنجاق شده در گروه را حذف خواهد کرد_
+    *!settings*
+    _نمایش تنظیمات گروه_
+    *!mutelist*
+    _نمایش فهرست بیصدا های گروه_
+    *!silentlist*
+    _نمایش فهرست افراد بیصدا_
+    *!banlist*
+    _نمایش افراد مسدود شده از گروه_
+    *!ownerlist*
+    _نمایش فهرست مالکان گروه_
+    *!modlist*
+    _نمایش فهرست مدیران گروه_
+    *!rules*
+    _نمایش قوانین گروه_
+    *!about*
+    _نمایش درباره گروه_
+    *!id*
+    _نمایش شناسه شما و گروه_
+    *!gpinfo*
+    _نمایش اطلاعات گروه_
+    *!link*
+    _نمایش لینک گروه_
+    *!setwelcome [text]*
+    _ثبت پیام خوش آمد گویی_
+    _شما میتوانید از [!/#] در اول دستورات برای اجرای آنها بهره بگیرید
+    این راهنما فقط برای مدیران/مالکان گروه میباشد!
+    این به این معناست که فقط مدیران/مالکان گروه میتوانند از دستورات بالا استفاده کنند!_
+    *موفق باشید ;)*]]
+  end
+  return text
+end
 --------------------- Welcome -----------------------
---[[local lang = redis:get("gp_lang:"..msg.chat_id_)
+local lang = redis:get("gp_lang:"..msg.chat_id_)
 ----------------------------------------
 if matches[1]:lower() == 'setwelcome' and matches[2]:lower() then
   if lang then
@@ -2098,9 +2249,9 @@ if matches[1]:lower() == 'delwelcome' then
     end
   end
 end
-end]]
+end
 -----------------------------------------
---[[local function pre_process(msg)
+local function pre_process(msg)
 if msg.content_.members_ then
   if redis:hget('beyond_welcome',msg.chat_id_) then
     if msg.content_.members_[0] then
@@ -2119,7 +2270,7 @@ if msg.content_.members_ then
     end
   end
 end
-end]]
+end
 return {
 patterns ={
   "^(id)$",
@@ -2127,7 +2278,7 @@ patterns ={
   "^(pin)$",
   "^(unpin)$",
   "^(gpinfo)$",
-  "^(test)$",
+  --"^(test)$",
   "^(add)$",
   "^(rem)$",
   "^(setowner)$",
@@ -2149,19 +2300,19 @@ patterns ={
   "^(rules)$",
   "^(setrules) (.*)$",
   "^(about)$",
-  "^(setabout) (.*)$",
+  --"^(setabout) (.*)$",
   "^(setname) (.*)$",
   "^(clean) (.*)$",
   "^(setflood) (%d+)$",
-  "^(res) (.*)$",
+  --"^(res) (.*)$",
   "^(whois) (%d+)$",
-  "^(help)$",
-  "^(setlang) (.*)$",
+  --"^(help)$",
+  --"^(setlang) (.*)$",
   "^([https?://w]*.?t.me/joinchat/%S+)$",
   "^([https?://w]*.?telegram.me/joinchat/%S+)$",
- -- "^(setwelcome) (.*)",
+  --"^(setwelcome) (.*)",
   --"^(delwelcome)$"
 },
 run=run,
---pre_process = pre_process
+pre_process = pre_process
 }
