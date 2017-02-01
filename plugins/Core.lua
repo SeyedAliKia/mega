@@ -7,7 +7,6 @@ local function modadd(msg)
     if data[tostring(msg.chat_id_)] then
       return '⚠️ _گروه از قبل در لیست گروه های ربات است_ !'
     end
-  end
   -- create data array in moderation.json
   data[tostring(msg.chat_id_)] = {
     owners = {},
@@ -48,6 +47,7 @@ local function modadd(msg)
   save_data(_config.moderation.data, data)
   return '✅ _گروه به لیست گروه های ربات افزوده شد_ !'
 end
+end
 
 local function modrem(msg)
   local hash = "gp_lang:"..msg.chat_id_
@@ -59,7 +59,6 @@ local function modrem(msg)
     if not data[tostring(msg.chat_id_)] then
       return '🚫 _گروه در لیست گروه های ربات نیست_ !'
     end
-  end
   data[tostring(msg.chat_id_)] = nil
   save_data(_config.moderation.data, data)
   local groups = 'groups'
@@ -70,7 +69,10 @@ local function modrem(msg)
     save_data(_config.moderation.data, data)
     return '📛 _گروه از لیست گروه های ربات پاک شد_ !'
   end
+  end
+
   local function modlist(msg)
+ if is_mod(msg) then 
     local hash = "gp_lang:"..msg.chat_id_
     local lang = redis:get(hash)
     local data = load_data(_config.moderation.data)
@@ -89,9 +91,11 @@ local function modrem(msg)
     i = i + 1
   end
   return message
+end    
 end
 
 local function ownerlist(msg)
+if is_mod(msg) then  
   local hash = "gp_lang:"..msg.chat_id_
   local lang = redis:get(hash)
   local data = load_data(_config.moderation.data)
@@ -109,6 +113,7 @@ for k,v in pairs(data[tostring(msg.chat_id_)]['owners']) do
   i = i + 1
 end
 return message
+end
 end
 
 local function action_by_reply(arg, data)
