@@ -460,7 +460,7 @@ if matches[1] == 'rmsg' and is_mod(msg) then
     from_message_id_ = 0,
     offset_ = 0,
     limit_ = tonumber(matches[2])
-  }, delmsg, dl_cb, nil)
+  }, delmsg, nil)
 end    
   
   if matches[1] == 'creategroup' and is_admin(msg) then
