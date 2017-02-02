@@ -204,7 +204,7 @@ if cmd == "demote" then
       user_name = check_markdown(data.first_name_)
     end
     if not administration[tostring(arg.chat_id)]['mods'][tostring(data.id_)] then
-      return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." در لیست مدیران گروه نیست !", 0, "md")
+    return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." در لیست مدیران گروه نیست !", "md")
     end
     administration[tostring(arg.chat_id)]['mods'][tostring(data.id_)] = nil
     save_data(_config.moderation.data, administration)
