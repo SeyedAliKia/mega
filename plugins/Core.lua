@@ -208,11 +208,7 @@ if cmd == "demote" then
     end
     administration[tostring(arg.chat_id)]['mods'][tostring(data.id_)] = nil
     save_data(_config.moderation.data, administration)
-    if lang then
-      return tdcli.sendMessage(arg.chat_id, "", 0, "_User_ "..user_name.." *"..data.id_.."* _has been_ *demoted*", 0, "md")
-    else
-      return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." از لیست مدیران گروه پاک شد !", "md")
-    end
+    return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." از لیست مدیران گروه پاک شد !", "md")
   end
   tdcli_function ({
     ID = "GetUser",
@@ -248,6 +244,7 @@ else
 end
 
 if not arg.username then return false end
+  
 if cmd == "setowner" then
   if administration[tostring(arg.chat_id)]['owners'][tostring(data.id_)] then
     return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." از قبل در لیست صاحبان گروه بود !", 0, "md")
@@ -281,7 +278,7 @@ if cmd == "demote" then
   end
   administration[tostring(arg.chat_id)]['mods'][tostring(data.id_)] = nil
   save_data(_config.moderation.data, administration)
-  return "s"
+  return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." از لیست مدیران گروه پاک شد !", "md")    
 end
 
 if cmd == "id" then
@@ -320,6 +317,7 @@ if data.first_name_ then
   else
     user_name = check_markdown(data.first_name_)
   end
+    
   if cmd == "setowner" then
     if administration[tostring(arg.chat_id)]['owners'][tostring(data.id_)] then
       return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." از قبل در لیست صاحبان گروه بود !", 0, "md")
@@ -328,6 +326,7 @@ if data.first_name_ then
     save_data(_config.moderation.data, administration)
     return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." به لیست صاحبان گروه افزوده شد !", "md")
   end
+    
   if cmd == "promote" then
     if administration[tostring(arg.chat_id)]['mods'][tostring(data.id_)] then
       return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." از قبل در لیست مدیران گروه بود !", "md")
@@ -336,6 +335,7 @@ if data.first_name_ then
     save_data(_config.moderation.data, administration)
     return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." به لیست مدیران گروه افزوده شد !", 0, "md")
   end
+    
   if cmd == "remowner" then
     if not administration[tostring(arg.chat_id)]['owners'][tostring(data.id_)] then
       return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." در لیست صاحبان گروه نیست !", 0, "md")
@@ -344,6 +344,7 @@ if data.first_name_ then
     save_data(_config.moderation.data, administration)
     return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." از لیست صاحبان گروه پاک شد !", "md")
   end
+    
   if cmd == "demote" then
     if not administration[tostring(arg.chat_id)]['mods'][tostring(data.id_)] then
       return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." در لیست مدیران گروه نیست !", "md")
@@ -352,8 +353,8 @@ if data.first_name_ then
     save_data(_config.moderation.data, administration)
     return tdcli.sendMessage(arg.chat_id, "", 0, "✅ کاربر [*"..data.id_.."*] "..user_name.." از لیست مدیران گروه پاک شد !", "md")
   end
+    
   if cmd == "whois" then
-
     if data.username_ then
       username = '@'..data.username_
     else
@@ -365,6 +366,7 @@ if data.first_name_ then
   else
     return tdcli.sendMessage(arg.chat_id, "", 0, "🚫 _مشخصات کاربر پیدا نشد_ !", 0, "md")
   end
+    
 end
 end
 
