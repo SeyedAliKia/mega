@@ -1795,9 +1795,10 @@ end
 
 if matches[1]:lower() == "gpinfo" and is_mod(msg) and gp_type(msg.chat_id_) == "channel" then
   local function group_info(arg, data)
-    ginfo = "📃 `اطلاعات گروه` :\n🌟 _تعداد ادمین ها_ : *"..data.administrator_count_.."*\n🔢 _تعداد اعضا_ : *"..data.member_count_.."*\n♨️ _تعداد اعضای اخراج شده_ : *"..data.kicked_count_.."\n"
+    ginfo = "📃 `اطلاعات گروه` :\n🌟 _تعداد ادمین ها_ : *"..data.administrator_count_.."*\n🔢 _تعداد اعضا_ : *"..data.member_count_.."*\n♨️ _تعداد اعضای اخراج شده_ : *"..data.kicked_count_.."*\n"
     tdcli.sendMessage(arg.chat_id, arg.msg_id, 1, ginfo, 1, 'md')
   end
+    
   tdcli.getChannelFull(msg.chat_id_, group_info, {chat_id=msg.chat_id_,msg_id=msg.id_})
 end
   
