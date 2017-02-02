@@ -71,7 +71,7 @@ local function modrem(msg)
   end
   end
 
-  local function modlist(msg)
+local function modlist(msg)
  if is_mod(msg) then 
     local hash = "gp_lang:"..msg.chat_id_
     local lang = redis:get(hash)
@@ -125,6 +125,7 @@ if not tonumber(data.sender_user_id_) then return false end
 if not administration[tostring(data.chat_id_)] then
   return tdcli.sendMessage(data.chat_id_, "", 0, "🚫 _گروه در لیست گروه های ربات نیست_ !", 0, "md")
 end
+  
 if cmd == "setowner" then
   local function owner_cb(arg, data)
     local hash = "gp_lang:"..arg.chat_id
@@ -147,6 +148,7 @@ if cmd == "setowner" then
     user_id_ = data.sender_user_id_
   }, owner_cb, {chat_id=data.chat_id_,user_id=data.sender_user_id_})
 end
+  
 if cmd == "promote" then
   local function promote_cb(arg, data)
     local hash = "gp_lang:"..arg.chat_id
@@ -169,6 +171,7 @@ if cmd == "promote" then
     user_id_ = data.sender_user_id_
   }, promote_cb, {chat_id=data.chat_id_,user_id=data.sender_user_id_})
 end
+  
 if cmd == "remowner" then
   local function rem_owner_cb(arg, data)
     local hash = "gp_lang:"..arg.chat_id
@@ -191,6 +194,7 @@ if cmd == "remowner" then
     user_id_ = data.sender_user_id_
   }, rem_owner_cb, {chat_id=data.chat_id_,user_id=data.sender_user_id_})
 end
+  
 if cmd == "demote" then
   local function demote_cb(arg, data)
     local administration = load_data(_config.moderation.data)
@@ -215,15 +219,18 @@ if cmd == "demote" then
     user_id_ = data.sender_user_id_
   }, demote_cb, {chat_id=data.chat_id_,user_id=data.sender_user_id_})
 end
+  
 if cmd == "id" then
   local function id_cb(arg, data)
-    return tdcli.sendMessage(arg.chat_id, "", 0, "*"..data.id_.."*", 0, "md")
+    --return tdcli.sendMessage(arg.chat_id, "", 0, "*"..data.id_.."*", 0, "md")
+    tdcli_function ({ID="SendMessage", chat_id_=arg.chat_id, reply_to_message_id_="", disable_notification_=0, from_background_=1, reply_markup_=nil, input_message_content_={ID="InputMessageText", text_=data.id_, disable_web_page_preview_=1, clear_draft_=0, entities_={[0]={ID="MessageEntityMentionName", offset_=0, length_= string.len(data.id_), user_id_=data.id_}}}}, dl_cb, nil)                      
   end
   tdcli_function ({
     ID = "GetUser",
     user_id_ = data.sender_user_id_
   }, id_cb, {chat_id=data.chat_id_,user_id=data.sender_user_id_})
 end
+  
 end
 
 local function action_by_username(arg, data)
