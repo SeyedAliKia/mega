@@ -1069,7 +1069,7 @@ if mute_contact == "yes" then
 else
   data[tostring(target)]["mutes"]["mute_contact"] = "yes"
   save_data(_config.moderation.data, data)
-    return "🔒 _قفل #استیکر فعال شد_ !\n🔸`از این پس استیکر های فرستاده شده توسط کاربران پاک می شوند` !"
+    return "🔒 _قفل #مخاطب فعال شد_ !\n🔸`از این پس مخاطب های فرستاده شده توسط کاربران پاک می شوند` !"
 end
 end
 end
@@ -1080,19 +1080,11 @@ local lang = redis:get(hash)
 if is_mod(msg) then
 local mute_contact = data[tostring(target)]["mutes"]["mute_contact"]
 if mute_contact == "no" then
-  if lang then
-    return "*Mute Contact* _Is Already Disabled_"
-  elseif lang then
-    return "بیصدا کردن مخاطب غیر فعال است"
-  end
+    return "🔓 _قفل #مخاطب فعال نیست_ !"
 else
   data[tostring(target)]["mutes"]["mute_contact"] = "no"
   save_data(_config.moderation.data, data)
-  if lang then
-    return "*Mute Contact* _Has Been Disabled_"
-  else
-    return "بیصدا کردن مخاطب غیر فعال شد"
-  end
+    return "🔏 _قفل #مخاطب غیرفعال شد_ !"
 end
 end
 end
@@ -1100,60 +1092,32 @@ end
 local function mute_forward(msg, data, target)
 local hash = "gp_lang:"..msg.chat_id_
 local lang = redis:get(hash)
-if not is_mod(msg) then
-  if lang then
-    return "_You're Not_ *Moderator*"
-  else
-    return "شما مدیر گروه نمیباشید"
-  end
-end
-
+if is_mod(msg) then
 local mute_forward = data[tostring(target)]["mutes"]["mute_forward"]
 if mute_forward == "yes" then
-  if lang then
-    return "*Mute Forward* _Is Already Enabled_"
-  elseif lang then
-    return "بیصدا کردن نقل قول فعال است"
-  end
+    return "🔐 _قفل #فروارد از قبل فعال است_ !"
 else
   data[tostring(target)]["mutes"]["mute_forward"] = "yes"
   save_data(_config.moderation.data, data)
-  if lang then
-    return "*Mute Forward* _Has Been Enabled_"
-  else
-    return "بیصدا کردن نقل قول فعال شد"
-  end
+    return "🔒 _قفل #فروارد فعال شد_ !\n🔸`از این پس فروارد های فرستاده شده توسط کاربران پاک می شوند` !"
+end
 end
 end
 
 local function unmute_forward(msg, data, target)
 local hash = "gp_lang:"..msg.chat_id_
 local lang = redis:get(hash)
-if not is_mod(msg) then
-  if lang then
-    return "_You're Not_ *Moderator*"
-  else
-    return "شما مدیر گروه نمیباشید"
-  end
-end
-
+if is_mod(msg) then
 local mute_forward = data[tostring(target)]["mutes"]["mute_forward"]
 if mute_forward == "no" then
-  if lang then
-    return "*Mute Forward* _Is Already Disabled_"
-  elseif lang then
-    return "بیصدا کردن نقل قول غیر فعال است"
-  end
+    return "🔓 _قفل #فروارد فعال نیست_ !"
 else
   data[tostring(target)]["mutes"]["mute_forward"] = "no"
   save_data(_config.moderation.data, data)
-  if lang then
-    return "*Mute Forward* _Has Been Disabled_"
-  else
-    return "بیصدا کردن نقل قول غیر فعال شد"
-  end
+    return "🔏 _قفل #فروارد غیرفعال شد_ !"
 end
 end
+end  
 ---------------Mute Location-------------------
 --[[local function mute_location(msg, data, target)
 local hash = "gp_lang:"..msg.chat_id_
@@ -1213,60 +1177,32 @@ end]]
 local function mute_document(msg, data, target)
 local hash = "gp_lang:"..msg.chat_id_
 local lang = redis:get(hash)
-if not is_mod(msg) then
-  if lang then
-    return "_You're Not_ *Moderator*"
-  else
-    return "شما مدیر گروه نمیباشید"
-  end
-end
-
+if is_mod(msg) then
 local mute_document = data[tostring(target)]["mutes"]["mute_document"]
 if mute_document == "yes" then
-  if lang then
-    return "*Mute Document* _Is Already Enabled_"
-  elseif lang then
-    return "بیصدا کردن اسناد فعال لست"
-  end
+    return "🔐 _قفل #فایل از قبل فعال است_ !"
 else
   data[tostring(target)]["mutes"]["mute_document"] = "yes"
   save_data(_config.moderation.data, data)
-  if lang then
-    return "*Mute Document* _Has Been Enabled_"
-  else
-    return "بیصدا کردن اسناد فعال شد"
-  end
+    return "🔒 _قفل #فایل فعال شد_ !\n🔸`از این پس فایل های فرستاده شده توسط کاربران پاک می شوند` !"
+end
 end
 end
 
 local function unmute_document(msg, data, target)
 local hash = "gp_lang:"..msg.chat_id_
 local lang = redis:get(hash)
-if not is_mod(msg) then
-  if lang then
-    return "_You're Not_ *Moderator*"
-  else
-    return "شما مدیر گروه نمیباشید"
-  end
-end
-
+if is_mod(msg) then
 local mute_document = data[tostring(target)]["mutes"]["mute_document"]
 if mute_document == "no" then
-  if lang then
-    return "*Mute Document* _Is Already Disabled_"
-  elseif lang then
-    return "بیصدا کردن اسناد غیر فعال است"
-  end
+    return "🔓 _قفل #فایل فعال نیست_ !"
 else
   data[tostring(target)]["mutes"]["mute_document"] = "no"
   save_data(_config.moderation.data, data)
-  if lang then
-    return "*Mute Document* _Has Been Disabled_"
-  else
-    return "بیصدا کردن اسناد غیر فعال شد"
-  end
+    return "🔏 _قفل #فایل غیرفعال شد_ !"
 end
 end
+end  
 ---------------Mute TgService-------------------
 --[[local function mute_tgservice(msg, data, target)
 local hash = "gp_lang:"..msg.chat_id_
@@ -1327,13 +1263,7 @@ end]]
 function group_settings(msg, target)
 local hash = "gp_lang:"..msg.chat_id_
 local lang = redis:get(hash)
-if not is_mod(msg) then
-  if lang then
-    return "_You're Not_ *Moderator*"
-  else
-    return "شما مدیر گروه نمیباشید"
-  end
-end
+if is_mod(msg) then
 local data = load_data(_config.moderation.data)
 local target = msg.chat_id_
 if data[tostring(target)] then
@@ -1481,7 +1411,10 @@ end
 
   --text = "*تنظیمات گروه:*\n_قفل ویرایش پیام :_ *"..settings.lock_edit.."*\n_قفل لینک :_ *"..settings.lock_link.."*\n_قفل تگ :_ *"..settings.lock_tag.."*\n_قفل پیام مکرر :_ *"..settings.flood.."*\n_قفل هرزنامه :_ *"..settings.lock_spam.."*\n_قفل فراخوانی :_ *"..settings.lock_mention.."*\n_قفل صفحات وب :_ *"..settings.lock_webpage.."*\n_قفل فونت :_ *"..settings.lock_markdown.."*\n_محافظت در برابر ربات ها :_ *"..settings.lock_bots.."*\n_حداکثر پیام مکرر :_ *"..NUM_MSG_MAX.."*\n*____________________*\n*Bot channel*: @BeyondTeam\n_زبان سوپرگروه_ : *FA*"
   text = "⚙ `تنظیمات گروه` \n\n[🔐] قفل های عادی :\n▪️ قفل _#لینک_ : "..settings.lock_link.."\n▪️ قفل _#فروارد_ : "..mutes.mute_forward.."\n▪️ قفل _#نام کاربری_ : yes\n▪️ قفل _#تگ_ : "..settings.lock_tag.."\n▪️ قفل _#ویرایش پیام_ : "..settings.lock_edit.."\n▪️ قفل _#کیبورد شیشه ای_ : "..mutes.mute_inline.."\n▪️ قفل _#رگباری_ : "..settings.flood.."\n▪️ قفل _#حساسیت رگباری_ : "..NUM_MSG_MAX.."\n▪️ قفل _#پیام طولانی_ : "..settings.lock_spam.."\n▪️ قفل _#ربات_ : "..settings.lock_bots.."\n\n[🔏] قفل های رسانه :\n▫️ قفل _#عکس_ : "..mutes.mute_photo.."\n▫️ قفل _#فیلم_ : "..mutes.mute_video.."\n▫️ قفل _#گیف_ : "..mutes.mute_gif.."\n▫️ قفل _#فایل_ : "..mutes.mute_document.."\n▫️ قفل _#گروه_ : "..mutes.mute_all.."\n"
+  text = text:gsub("yes", "فعال|🔒")  
+  text = text:gsub("no", "غیرفعال|🔓")      
 return text
+end
 end
 
 ----------MuteList---------
