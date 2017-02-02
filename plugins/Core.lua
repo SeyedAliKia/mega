@@ -1793,21 +1793,14 @@ if matches[1]:lower() == "unlock" and is_mod(msg) then
   --end
 end
 
-if matches[1]:lower() == "gpinfo" and is_mod(msg) and gp_type(msg.chat_id_) == "channel" then
+if matches[1]:lower() == "gpinfo" or matches[1] == "اطلاعات گروه" and is_mod(msg) and gp_type(msg.chat_id_) == "channel" then
   local function group_info(arg, data)
-    local hash = "gp_lang:"..arg.chat_id
-    local lang = redis:get(hash)
-    if lang then
-      ginfo = "*Group Info :*\n_Admin Count :_ *"..data.administrator_count_.."*\n_Member Count :_ *"..data.member_count_.."*\n_Kicked Count :_ *"..data.kicked_count_.."*\n_Group ID :_ *"..data.channel_.id_.."*"
-      print(serpent.block(data))
-    elseif lang then
-      ginfo = "*اطلاعات گروه :*\n_تعداد مدیران :_ *"..data.administrator_count_.."*\n_تعداد اعضا :_ *"..data.member_count_.."*\n_تعداد اعضای حذف شده :_ *"..data.kicked_count_.."*\n_شناسه گروه :_ *"..data.channel_.id_.."*"
-      print(serpent.block(data))
-    end
+    ginfo = "📃 `اطلاعات گروه` :\n🌟 _تعداد ادمین ها_ : *"..data.administrator_count_.."*\n🔢 _تعداد اعضا_ : *"..data.member_count_.."*\n♨️ _تعداد اعضای اخراج شده_ : *"..data.kicked_count_.."\n"
     tdcli.sendMessage(arg.chat_id, arg.msg_id, 1, ginfo, 1, 'md')
   end
   tdcli.getChannelFull(msg.chat_id_, group_info, {chat_id=msg.chat_id_,msg_id=msg.id_})
 end
+  
 if matches[1]:lower() == 'setlink' and is_mod(msg) then
   data[tostring(chat)]['settings']['linkgp'] = 'waiting'
   save_data(_config.moderation.data, data)
@@ -2230,7 +2223,9 @@ patterns ={
   "^([Uu][Nn][Pp][Ii][Nn])$",
   "^(حذف سنجاق)$",
     
-  "^(gpinfo)$",
+  "^([Gg][Pp][Ii][Nn][Ff][Oo])$",
+  "^(اطلاعات گروه)$",
+    
   --"^(test)$",
   "^(add)$",
   "^(rem)$",
@@ -2267,5 +2262,5 @@ patterns ={
   --"^(delwelcome)$"
 },
 run=run,
-pre_process = pre_process
+--pre_process = pre_process
 }
