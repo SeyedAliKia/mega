@@ -1793,7 +1793,7 @@ if matches[1]:lower() == "unlock" and is_mod(msg) then
   --end
 end
 
-if matches[1]:lower() == "gpinfo" or matches[1] == "اطلاعات گروه" and is_mod(msg) and gp_type(msg.chat_id_) == "channel" then
+if matches[1]:lower() == "gpinfo" and is_mod(msg) and gp_type(msg.chat_id_) == "channel" then
   local function group_info(arg, data)
     ginfo = "📃 `اطلاعات گروه` :\n🌟 _تعداد ادمین ها_ : *"..data.administrator_count_.."*\n🔢 _تعداد اعضا_ : *"..data.member_count_.."*\n♨️ _تعداد اعضای اخراج شده_ : *"..data.kicked_count_.."\n"
     tdcli.sendMessage(arg.chat_id, arg.msg_id, 1, ginfo, 1, 'md')
