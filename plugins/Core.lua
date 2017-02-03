@@ -1825,7 +1825,7 @@ end
   end		
 end ]] 
 		
-tdcli.getChannelMembers(msg.chat_id_, 0, 'Kicked', 200, addmem, nil)   
+tdcli.getChannelMembers(msg.chat_id_, 0, 'Kicked', 200, addmem, {chat_id=msg.chat_id_})   
 
 end    
 
