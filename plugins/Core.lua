@@ -1810,7 +1810,8 @@ end
   
 if matches[1] == "inv" and is_mod(msg) then 
 		
-local function addmem(extra, result)	
+local function addmem(extra, result)
+print(serpent.block(result))			
   for i = 1, result.total_count_ do
     tdcli.addChatMember(extra.chat_id, result.members._user_[i].id_, 50)
   end		
