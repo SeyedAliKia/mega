@@ -147,8 +147,8 @@ local function pre_process(msg)
     --[[if msg.adduser or msg.joinuser or msg.deluser then
       if mute_tgservice == "yes" then
         del_msg(msg.chat_id_, tonumber(msg.id_))
-      end
-    end]]
+      end]]
+    end
     if not is_mod(msg) then
       if msg.content_.caption_ then
         if lock_link == "yes" then
