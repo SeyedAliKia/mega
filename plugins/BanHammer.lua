@@ -11,9 +11,9 @@ local function pre_process(msg)
       end
     end
 if data.username_ then
-user_name = '@'..check_markdown(data.username_)
-else
-user_name = check_markdown(data.first_name_)
+ user_name = '@'..check_markdown(data.username_)
+ else
+ user_name = check_markdown(data.first_name_)
 end
     if is_banned(data.id_, arg.chat_id) then
       tdcli.sendMessage(arg.chat_id, arg.msg_id, 0, "⚠️ کاربر [<b>"..data.id_.."</b>] "..user_name.." از گروه محروم است !", "md")
@@ -348,11 +348,7 @@ local function action_by_username(arg, data)
       save_data(_config.moderation.data, administration)
     end
     if is_admin1(data.id_) then
-      if not lang then
-        return tdcli.sendMessage(arg.chat_id, "", 0, "_You can't_ *globally ban* _other admins_", 0, "md")
-      else
         return tdcli.sendMessage(arg.chat_id, "", 0, "*شما نمیتوانید ادمین های ربات رو از تمامی گروه های ربات محروم کنید*", 0, "md")
-      end
     end
     if is_gbanned(data.id_) then
         return tdcli.sendMessage(arg.chat_id, "", 0, "_کاربر_ "..user_name.." *"..data.id_.."* *از گروه های ربات محروم بود*", 0, "md")
@@ -360,11 +356,7 @@ local function action_by_username(arg, data)
     administration['gban_users'][tostring(data.id_)] = user_name
     save_data(_config.moderation.data, administration)
     kick_user(data.id_, arg.chat_id)
-    if not lang then
-      return tdcli.sendMessage(arg.chat_id, "", 0, "_User_ "..user_name.." *"..data.id_.."* _has been_ *globally banned*", 0, "md")
-    else
       return tdcli.sendMessage(arg.chat_id, "", 0, "_کاربر_ "..user_name.." *"..data.id_.."* *از تمام گروه های ربات محروم شد*", 0, "md")
-    end
   end
   if cmd == "unbanall" then
     if not administration['gban_users'] then
