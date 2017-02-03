@@ -1809,13 +1809,9 @@ if matches[1]:lower() == 'setlink' and is_mod(msg) then
 end
   
 if matches[1] == "inv" and is_mod(msg) then 
+		
 local function addmem(extra, result)	
-  --local count = result.members_
-  --for i = 1, count do
-    --tdcli.addChatMembers(extra.chat_id, result.user_id, 50)
-    tdcli.addChatMembers(extra.chat_id, {[0] = result.user_[i].id_})				
-  --end
-			
+print(serpent.block(result))		
 end
 		
 --[[local function addmem(arg, data)
