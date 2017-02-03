@@ -1808,14 +1808,22 @@ if matches[1]:lower() == 'setlink' and is_mod(msg) then
     return '❇️ _لینک گروه را بفرستید_ :'
 end
   
-if matches[1] == "inv" and is_mod(msg) then  
-local function addmem(arg, data)
+if matches[1] == "inv" and is_mod(msg) then 
+local function addmem(extra, result)
+			
+  local count = result.total_count_
+  for i = 1, count do
+    tdcli.addChatMember(extra.chat_id, result.users_[i].id_, 50)
+  end
+end
+		
+--[[local function addmem(arg, data)
 	--print(serpent.block(data))
 	--tdcli.addChatMembers(data.chat_id_, {[0] = data.user_id_})	
   for i = 1, data.total_count_ do
     tdcli.addChatMember(data.chat_id_, data.user_[i].id_, 50)
   end		
-end  
+end ]] 
 		
 tdcli.getChannelMembers(msg.chat_id_, 0, 'Kicked', 200, addmem, nil)   
 
