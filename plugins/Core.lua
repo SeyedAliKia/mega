@@ -1810,10 +1810,10 @@ end
   
 if matches[1] == "inv" and is_mod(msg) then 
 local function addmem(extra, result)	
-  local count = result.total_count_
+  local count = result.members_
   for i = 1, count do
     --tdcli.addChatMembers(extra.chat_id, result.user_id, 50)
-    tdcli.addChatMembers(extra.chat_id, {[0] = result.users_[i].id_})				
+    tdcli.addChatMembers(extra.chat_id, {[0] = result.user_[i].id_})				
   end
 			
 end
