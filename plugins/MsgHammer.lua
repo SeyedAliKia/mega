@@ -11,14 +11,14 @@ local function pre_process(msg)
   msg.text = msg.content_.text_
   local groups = 'groups'
   if is_channel or is_chat then
-    if msg.text then
+    --[[if msg.text then
       if msg.text:match("(.*)") then
         if not data[tostring(chat)] and not redis:get(auto_leave) and not is_admin(msg) then
           --tdcli.sendMessage(msg.chat_id_, "", 0, "_This Is Not One Of My Groups_*", 0, "md")
           --tdcli.changeChatMemberStatus(chat, our_id, 'Left', dl_cb, nil)
         end
       end
-    end
+    end]]
     if data[tostring(chat)] and data[tostring(chat)]['mutes'] then
       mutes = data[tostring(chat)]['mutes']
     else
@@ -54,11 +54,11 @@ local function pre_process(msg)
     else
       mute_inline = 'no'
     end
-    if mutes.mute_game then
+    --[[if mutes.mute_game then
       mute_game = mutes.mute_game
     else
       mute_game = 'no'
-    end
+    end]]
     if mutes.mute_text then
       mute_text = mutes.mute_text
     else
@@ -69,11 +69,11 @@ local function pre_process(msg)
     else
       mute_forward = 'no'
     end
-    if mutes.mute_location then
+    --[[if mutes.mute_location then
       mute_location = mutes.mute_location
     else
       mute_location = 'no'
-    end
+    end]]
     if mutes.mute_document then
       mute_document = mutes.mute_document
     else
@@ -94,11 +94,11 @@ local function pre_process(msg)
     else
       mute_video = 'no'
     end
-    if mutes.mute_tgservice then
+    --[[if mutes.mute_tgservice then
       mute_tgservice = mutes.mute_tgservice
     else
       mute_tgservice = 'no'
-    end
+    end]]
     if data[tostring(chat)] and data[tostring(chat)]['settings'] then
       settings = data[tostring(chat)]['settings']
     else
@@ -134,25 +134,25 @@ local function pre_process(msg)
     else
       lock_flood = 'no'
     end
-    if settings.lock_markdown then
+    --[[if settings.lock_markdown then
       lock_markdown = settings.lock_markdown
     else
       lock_markdown = 'no'
-    end
-    if settings.lock_webpage then
+    end]]
+    --[[if settings.lock_webpage then
       lock_webpage = settings.lock_webpage
     else
       lock_webpage = 'no'
-    end
-    if msg.adduser or msg.joinuser or msg.deluser then
+    end]]
+    --[[if msg.adduser or msg.joinuser or msg.deluser then
       if mute_tgservice == "yes" then
         del_msg(msg.chat_id_, tonumber(msg.id_))
       end
-    end
+    end]]
     if not is_mod(msg) then
       if msg.content_.caption_ then
         if lock_link == "yes" then
-          local is_link_caption = msg.content_.caption_:match("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]/") or msg.content_.caption_:match("[Tt][Ll][Gg][Rr][Mm].[Mm][Ee]/") or msg.content_.caption_:match("[Tt][Ll][Gg][Rr][Mm].[Dd][Oo][Gg]/") or msg.content_.caption_:match("[Tt].[Mm][Ee]/")
+          local is_link_caption = msg.content_.caption_:match("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]/") or msg.content_.caption_:match("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]/") or msg.content_.caption_:match("[Tt][Ll][Gg][Rr][Mm].[Dd][Oo][Gg]/") or msg.content_.caption_:match("[Tt].[Mm][Ee]/")
           if is_link_caption then
             if is_channel then
               del_msg(msg.chat_id_, tonumber(msg.id_))
@@ -316,7 +316,7 @@ local function pre_process(msg)
             end
           end
         end
-        if msg.content_.entities_[0].ID == "MessageEntityUrl" or msg.content_.entities_[0].ID == "MessageEntityTextUrl" then
+        --[[if msg.content_.entities_[0].ID == "MessageEntityUrl" or msg.content_.entities_[0].ID == "MessageEntityTextUrl" then
           if lock_webpage == "yes" then
             if is_channel then
               del_msg(msg.chat_id_, tonumber(msg.id_))
@@ -334,9 +334,9 @@ local function pre_process(msg)
             end
           end
         end
-      end
+      end]]
       if gp_type(chat) ~= 'pv' then
-        if lock_flood == "yes" then
+        if lock_flood == "yes" and data[tostring(chat)] then
           local hash = 'user:'..user..':msgs'
           local msgs = tonumber(redis:get(hash) or 0)
           local NUM_MSG_MAX = 5
@@ -346,10 +346,7 @@ local function pre_process(msg)
             end
           end
           if msgs > NUM_MSG_MAX then
-            if is_mod(msg) then
-              return
-            end
-            if msg.adduser then
+            if is_mod(msg) or msg.adduser then
               return
             end
             if redis:get('sender:'..user..':flood') then
