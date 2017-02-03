@@ -10,17 +10,17 @@ local function pre_process(msg)
         kick_user(data.id_, arg.chat_id)
       end
     end
-    if check_markdown(data.username_) then
-      user_name = '@'..check_markdown(data.username_)
+    if data.username_ then
+      user_name = '@'..data.username_
     else
-      user_name = check_markdown(data.first_name_)
+      user_name = data.first_name_
     end
     if is_banned(data.id_, arg.chat_id) then
-      tdcli.sendMessage(arg.chat_id, arg.msg_id, 0, "⚠️ کاربر [*"..data.id_.."*] "..user_name.." از گروه محروم است !", "md")
+      tdcli.sendMessage(arg.chat_id, arg.msg_id, 0, "⚠️ کاربر [<b>"..data.id_.."</b>] "..user_name.." از گروه محروم است !", "html")
       kick_user(data.id_, arg.chat_id)
     end
     if is_gbanned(data.id_) then
-      tdcli.sendMessage(arg.chat_id, arg.msg_id, 0, "⚠️ کاربر [*"..data.id_.."*] "..user_name.." سوپر بن است !", "md")
+      tdcli.sendMessage(arg.chat_id, arg.msg_id, 0, "⚠️ کاربر [*"..data.id_.."*] "..user_name.." سوپر بن است !", "html")
       kick_user(data.id_, arg.chat_id)
     end
   end
