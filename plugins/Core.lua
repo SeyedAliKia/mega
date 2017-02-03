@@ -1819,7 +1819,7 @@ end
     ID = "GetChannelMembers",
     channel_id_ = msg.chat_id_,
     filter_ = {
-      ID = "ChannelMembers" .. Kicked
+      ID = "ChannelMembers" .. 'Kicked'
     },
     offset_ = 0,
     limit_ = 200
