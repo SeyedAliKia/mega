@@ -1812,7 +1812,7 @@ if matches[1] == "inv" and is_mod(msg) then
 local function addmem(arg, data)
 	print(serpent.block(data))
 	--tdcli.addChatMembers(data.chat_id_, {[0] = data.user_id_})	
-  for i = 1, data.user_id_ do
+  for i = 1, tonumber(data.user_id_) do
     tdcli.addChatMember(arg.chat_id, data.users_[i].id_, 50)
   end		
 end  
