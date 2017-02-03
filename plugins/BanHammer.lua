@@ -117,7 +117,6 @@ local function action_by_reply(arg, data)
       end
       if administration[tostring(arg.chat_id)]['is_silent_users'][tostring(data.id_)] then
         tdcli.sendMessage(arg.chat_id, arg.msg_id, 0, "⚠️ کاربر [*"..data.id_.."*] "..user_name.." از قبل بیصدا است !", "md")
-        end
       end
       administration[tostring(arg.chat_id)]['is_silent_users'][tostring(data.id_)] = user_name
       save_data(_config.moderation.data, administration)
