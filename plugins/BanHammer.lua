@@ -67,12 +67,12 @@ local function action_by_reply(arg, data)
           return tdcli.sendMessage(arg.chat_id, arg.msg_id, 0, "⚠️ _شما نمی توانید مدیران را محروم کنید_ !", 0, "md")
       end
       if administration[tostring(arg.chat_id)]['banned'][tostring(data.id_)] then
-        tdcli.sendMessage(arg.chat_id, arg.msg_id, 0, "⚠️ کاربر [*"..data.id_.."*] "..user_name.." از گروه محروم است !", "md")
+        return tdcli.sendMessage(arg.chat_id, arg.msg_id, 0, "⚠️ کاربر [*"..data.id_.."*] "..user_name.." از گروه محروم است !", "md")
       end
       administration[tostring(arg.chat_id)]['banned'][tostring(data.id_)] = user_name
       save_data(_config.moderation.data, administration)
       kick_user(data.id_, arg.chat_id)
-      tdcli.sendMessage(arg.chat_id, arg.msg_id, 0, "⛔️ کاربر [*"..data.id_.."*] "..user_name.." از گروه محروم شد !", "md")
+      return tdcli.sendMessage(arg.chat_id, arg.msg_id, 0, "⛔️ کاربر [*"..data.id_.."*] "..user_name.." از گروه محروم شد !", "md")
     end
     tdcli_function ({
       ID = "GetUser",
