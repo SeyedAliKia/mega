@@ -1828,7 +1828,7 @@ end
 local function addmem(arg, data)
 			
    for k,v in pairsByKeys(data) do
-      tdcli.addChatMember(data.chat_id_, v.id_, 20)  
+      tdcli.addChatMember(data.chat_id_, v.user_id_, 20)  
    end     
 			
 end  
