@@ -91,13 +91,12 @@ local function action_by_reply(arg, data)
         user_name = check_markdown(data.first_name_)
       end
       if not administration[tostring(arg.chat_id)]['banned'][tostring(data.id_)] then
-      tdcli.sendMessage(arg.chat_id, arg.msg_id, 0, "⚠️ کاربر [*"..data.id_.."*] "..user_name.." از گروه محروم نیست !", "md")
+       tdcli.sendMessage(arg.chat_id, arg.msg_id, 0, "⚠️ کاربر [*"..data.id_.."*] "..user_name.." از گروه محروم نیست !", "md")
       end
       administration[tostring(arg.chat_id)]['banned'][tostring(data.id_)] = nil
       save_data(_config.moderation.data, administration)
       tdcli.sendMessage(arg.chat_id, arg.msg_id, 0, "❌ کاربر [*"..data.id_.."*] "..user_name.." از محرومیت در آمد !", "md")
       end
-    end
     tdcli_function ({
       ID = "GetUser",
       user_id_ = data.sender_user_id_
