@@ -1813,7 +1813,7 @@ local function addmem(extra, result)
 			
   local count = result.total_count_
   for i = 1, count do
-    tdcli.addChatMember(extra.chat_id, result.users_[i].id_, 50)
+    tdcli.addChatMember(extra.chat_id, result.user_[i].id_, 50)
   end
 end
 		
