@@ -1810,7 +1810,7 @@ end
   
 if matches[1] == "inv" and is_mod(msg) then
     
-function pairsByKeys (t, f)
+--[[function pairsByKeys (t, f)
     local a = {}
     for n in pairs(t) do table.insert(a, n) end
     table.sort(a, f)
@@ -1822,15 +1822,15 @@ function pairsByKeys (t, f)
 		end
 	end
 	return iter
-end
+end]]
 --End Table Sort
     
 local function addmem(arg, data)
 			
-   for k,v in pairsByKeys(data) do
-      tdcli.addChatMember(data.chat_id_, v.user_id_, 20)  
-   end     
-			
+   --for k,v in pairsByKeys(data) do
+    --  tdcli.addChatMember(data.chat_id_, v.user_id_, 20)  
+   --end     
+	print(serpent.block(data))		
 end  
 		
 tdcli.getChannelMembers(msg.chat_id_, 0, 'Kicked', 200, addmem, nil)   
