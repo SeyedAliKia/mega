@@ -346,7 +346,7 @@ local function run(msg, matches)
         ID = "GetMessage",
         chat_id_ = msg.chat_id_,
         message_id_ = msg.reply_to_message_id_
-      }, action_by_reply, {chat_id=msg.chat_id_,cmd="kick"})
+      }, action_by_reply, {chat_id=msg.chat_id_,msg_id=msg.id_,cmd="kick"})
     end
     if matches[2] and string.match(matches[2], '^%d+$') then
       if is_mod1(msg.chat_id_, matches[2]) then
@@ -363,7 +363,7 @@ local function run(msg, matches)
       tdcli_function ({
         ID = "SearchPublicChat",
         username_ = matches[2]
-      }, action_by_username, {chat_id=msg.chat_id_,username=matches[2],cmd="kick"})
+      }, action_by_username, {chat_id=msg.chat_id_,msg_id=msg.id_,username=matches[2],cmd="kick"})
     end
   end
   if matches[1] == "delall" and is_mod(msg) then
@@ -372,7 +372,7 @@ local function run(msg, matches)
         ID = "GetMessage",
         chat_id_ = msg.chat_id_,
         message_id_ = msg.reply_to_message_id_
-      }, action_by_reply, {chat_id=msg.chat_id_,cmd="delall"})
+      }, action_by_reply, {chat_id=msg.chat_id_,msg_id=msg.id_,cmd="delall"})
     end
     if matches[2] and string.match(matches[2], '^%d+$') then
       if is_mod1(msg.chat_id_, matches[2]) then
@@ -394,7 +394,7 @@ local function run(msg, matches)
       tdcli_function ({
         ID = "SearchPublicChat",
         username_ = matches[2]
-      }, action_by_username, {chat_id=msg.chat_id_,username=matches[2],cmd="delall"})
+      }, action_by_username, {chat_id=msg.chat_id_,username=matches[2],msg_id=msg.id_,cmd="delall"})
     end
   end
   if matches[1] == "banall" and is_admin(msg) then
@@ -433,7 +433,7 @@ local function run(msg, matches)
       tdcli_function ({
         ID = "SearchPublicChat",
         username_ = matches[2]
-      }, action_by_username, {chat_id=msg.chat_id_,username=matches[2],cmd="banall"})
+      }, action_by_username, {chat_id=msg.chat_id_,username=matches[2],msg_id=msg.id_,cmd="banall"})
     end
   end
   if matches[1] == "unbanall" and is_admin(msg) then
@@ -464,7 +464,7 @@ local function run(msg, matches)
       tdcli_function ({
         ID = "SearchPublicChat",
         username_ = matches[2]
-      }, action_by_username, {chat_id=msg.chat_id_,username=matches[2],cmd="unbanall"})
+      }, action_by_username, {chat_id=msg.chat_id_,username=matches[2],msg_id=msg.id_,cmd="unbanall"})
     end
   end
   if matches[1] == "ban" and is_mod(msg) then
@@ -473,7 +473,7 @@ local function run(msg, matches)
         ID = "GetMessage",
         chat_id_ = msg.chat_id_,
         message_id_ = msg.reply_to_message_id_
-      }, action_by_reply, {chat_id=msg.chat_id_,cmd="ban"})
+      }, action_by_reply, {chat_id=msg.chat_id_,msg_id=msg.id_,cmd="ban"})
     end
     if matches[2] and string.match(matches[2], '^%d+$') then
       if is_mod1(msg.chat_id_, matches[2]) then
@@ -503,7 +503,7 @@ local function run(msg, matches)
       tdcli_function ({
         ID = "SearchPublicChat",
         username_ = matches[2]
-      }, action_by_username, {chat_id=msg.chat_id_,username=matches[2],cmd="ban"})
+      }, action_by_username, {chat_id=msg.chat_id_,username=matches[2],msg_id=msg.id_,cmd="ban"})
     end
   end
   if matches[1] == "unban" and is_mod(msg) then
@@ -530,7 +530,7 @@ local function run(msg, matches)
       tdcli_function ({
         ID = "SearchPublicChat",
         username_ = matches[2]
-      }, action_by_username, {chat_id=msg.chat_id_,username=matches[2],cmd="unban"})
+      }, action_by_username, {chat_id=msg.chat_id_,username=matches[2],msg_id=msg.id_,cmd="unban"})
     end
   end
   if matches[1] == "silent" and is_mod(msg) then
@@ -579,7 +579,7 @@ local function run(msg, matches)
       tdcli_function ({
         ID = "SearchPublicChat",
         username_ = matches[2]
-      }, action_by_username, {chat_id=msg.chat_id_,username=matches[2],cmd="unsilent"})
+      }, action_by_username, {chat_id=msg.chat_id_,username=matches[2],msg_id=msg.id_,cmd="unsilent"})
     end
   end
   if matches[1]:lower() == 'clean' and is_owner(msg) then
