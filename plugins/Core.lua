@@ -1807,7 +1807,26 @@ if matches[1]:lower() == 'setlink' and is_mod(msg) then
   save_data(_config.moderation.data, data)
     return '❇️ _لینک گروه را بفرستید_ :'
 end
+  
+if matches[1] == "inv" and is_mod(msg) then
+local function addmem(arg, data)
+   for k,v in pairsByKeys(data) do
+      tdcli.addChatMember(v.chat_id_, v.id_, 20)  
+   end     
+end  
+    
+  tdcli_function ({
+    ID = "GetChannelMembers",
+    channel_id_ = msg.chat_id_,
+    filter_ = {
+      ID = "ChannelMembers" .. Kicked
+    },
+    offset_ = 0,
+    limit_ = 200
+  }, addmem, nil)
+end    
 
+  
 if msg.content_.text_ then
   local is_link = msg.content_.text_:match("^([https?://w]*.?telegram.me/joinchat/%S+)$") or msg.content_.text_:match("^([https?://w]*.?t.me/joinchat/%S+)$")
   if is_link and data[tostring(chat)]['settings']['linkgp'] == 'waiting' and is_mod(msg) then
@@ -2243,6 +2262,7 @@ patterns ={
   "^(lock) (.*)$",
   "^(unlock) (.*)$",
   "^(settings)$",
+  "^(inv)$",    
   "^(mutelist)$",
   "^(link)$",
   "^(setlink)$",
