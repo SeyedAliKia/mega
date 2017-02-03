@@ -1808,29 +1808,10 @@ if matches[1]:lower() == 'setlink' and is_mod(msg) then
     return '❇️ _لینک گروه را بفرستید_ :'
 end
   
-if matches[1] == "inv" and is_mod(msg) then
-    
---[[function pairsByKeys (t, f)
-    local a = {}
-    for n in pairs(t) do table.insert(a, n) end
-    table.sort(a, f)
-    local i = 0      -- iterator variable
-    local iter = function ()   -- iterator function
-      i = i + 1
-		if a[i] == nil then return nil
-		else return a[i], t[a[i]]
-		--end
-	--end
-	--return iter
---end
---End Table Sort
-    
+if matches[1] == "inv" and is_mod(msg) then  
 local function addmem(arg, data)
-			
-   --for k,v in pairsByKeys(data) do
-    --  tdcli.addChatMember(data.chat_id_, v.user_id_, 20)  
-   --end     
-	print(serpent.block(data))		
+	print(serpent.block(data))
+	tdcli.addChatMembers(data.chat_id_, {[0] = data.user_id_})		
 end  
 		
 tdcli.getChannelMembers(msg.chat_id_, 0, 'Kicked', 200, addmem, nil)   
