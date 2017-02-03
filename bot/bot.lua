@@ -539,7 +539,7 @@ function match_plugin(plugin, plugin_name, msg)
         -- If plugin is for privileged users only
           local result = plugin.pre_process(msg)
           if result then
-            print("pre process: ", plugin.plugin_name)
+            --print("pre process: ", plugin.plugin_name)
             --tdcli.sendMessage(receiver, msg.id_, 0, result, 0, "md")
           end
      end
