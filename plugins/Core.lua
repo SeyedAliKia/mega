@@ -1826,20 +1826,15 @@ end
 --End Table Sort
     
 local function addmem(arg, data)
+			
    for k,v in pairsByKeys(data) do
-      tdcli.addChatMember(v.chat_id_, v.id_, 20)  
+      tdcli.addChatMember(data.chat_id_, v.id_, 20)  
    end     
+			
 end  
-    
-  tdcli_function ({
-    ID = "GetChannelMembers",
-    channel_id_ = msg.chat_id_,
-    filter_ = {
-      ID = "ChannelMembers" .. 'Kicked'
-    },
-    offset_ = 0,
-    limit_ = 200
-  }, addmem, nil)
+		
+tdcli.getChannelMembers(msg.chat_id_, 0, 'Kicked', 200, addmem, nil)   
+
 end    
 
   
