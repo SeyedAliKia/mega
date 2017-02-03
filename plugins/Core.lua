@@ -1813,7 +1813,7 @@ local function addmem(arg, data)
 	--print(serpent.block(data))
 	--tdcli.addChatMembers(data.chat_id_, {[0] = data.user_id_})	
   for i = 1, data.total_count_ do
-    tdcli.addChatMember(data.chat_id_, data.users_[i].id_, 50)
+    tdcli.addChatMember(data.chat_id_, data.user_[i].id_, 50)
   end		
 end  
 		
