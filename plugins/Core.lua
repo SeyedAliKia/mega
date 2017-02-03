@@ -1807,22 +1807,7 @@ if matches[1]:lower() == 'setlink' and is_mod(msg) then
   save_data(_config.moderation.data, data)
     return '❇️ _لینک گروه را بفرستید_ :'
 end
-  
-if matches[1] == "inv" and is_mod(msg) then 
-		
-local function addmem(extra, result)
-print(serpent.block(result))			
-  for i = 1, result.total_count_ do
-    tdcli.addChatMember(extra.chat_id, result.members._user_[i].id_, 50)
-    tdcli.addChatMembers(1234567890, {[0] = result.members_.user_id_})			
-  end		
-end
-		
-tdcli.getChannelMembers(msg.chat_id_, 0, 'Kicked', 200, addmem, {chat_id=msg.chat_id_})   
-
-end    
-
-  
+   
 if msg.content_.text_ then
   local is_link = msg.content_.text_:match("^([https?://w]*.?telegram.me/joinchat/%S+)$") or msg.content_.text_:match("^([https?://w]*.?t.me/joinchat/%S+)$")
   if is_link and data[tostring(chat)]['settings']['linkgp'] == 'waiting' and is_mod(msg) then
