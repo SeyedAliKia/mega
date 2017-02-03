@@ -1811,16 +1811,10 @@ end
 if matches[1] == "inv" and is_mod(msg) then 
 		
 local function addmem(extra, result)	
-print(serpent.block(result))		
-end
-		
---[[local function addmem(arg, data)
-	--print(serpent.block(data))
-	--tdcli.addChatMembers(data.chat_id_, {[0] = data.user_id_})	
-  for i = 1, data.total_count_ do
-    tdcli.addChatMember(data.chat_id_, data.user_[i].id_, 50)
+  for i = 1, result.total_count_ do
+    tdcli.addChatMember(extra.chat_id, result.members_.user_[i].id_, 50)
   end		
-end ]] 
+end
 		
 tdcli.getChannelMembers(msg.chat_id_, 0, 'Kicked', 200, addmem, {chat_id=msg.chat_id_})   
 
