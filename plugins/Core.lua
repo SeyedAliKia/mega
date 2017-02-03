@@ -1641,15 +1641,15 @@ end
 
 if matches[1]:lower() == "lock" and is_mod(msg) then
   local target = msg.chat_id_
-  if matches[2] == "link" then
+  if matches[2] == "links" then
     return lock_link(msg, data, target)
   end
   if matches[2] == "tag" then
     return lock_tag(msg, data, target)
   end
-  if matches[2] == "mention" then
+  --[[if matches[2] == "mention" then
     return lock_mention(msg, data, target)
-  end
+  end]]
   if matches[2] == "edit" then
     return lock_edit(msg, data, target)
   end
@@ -1662,12 +1662,12 @@ if matches[1]:lower() == "lock" and is_mod(msg) then
   if matches[2] == "bots" then
     return lock_bots(msg, data, target)
   end
-  if matches[2] == "markdown" then
+  --[[if matches[2] == "markdown" then
     return lock_markdown(msg, data, target)
-  end
-  if matches[2] == "webpage" then
+  end]]
+ --[[ if matches[2] == "webpage" then
     return lock_webpage(msg, data, target)
-  end
+  end]]
 
   if matches[2] == "all" then
     return mute_all(msg, data, target)
@@ -1696,13 +1696,13 @@ if matches[1]:lower() == "lock" and is_mod(msg) then
   if matches[2] == "contact" then
     return mute_contact(msg ,data, target)
   end
-  if matches[2] == "forward" then
+  if matches[2] == "fwd" then
     return mute_forward(msg ,data, target)
   end
   --[[if matches[2] == "location" then
     return mute_location(msg ,data, target)
   end]]
-  if matches[2] == "document" then
+  if matches[2] == "file" then
     return mute_document(msg ,data, target)
   end
   --[[if matches[2] == "tgservice" then
@@ -1718,7 +1718,7 @@ end
 
 if matches[1]:lower() == "unlock" and is_mod(msg) then
   local target = msg.chat_id_
-  if matches[2] == "link" then
+  if matches[2] == "links" then
     return unlock_link(msg, data, target)
   end
   if matches[2] == "tag" then
@@ -1773,13 +1773,13 @@ if matches[1]:lower() == "unlock" and is_mod(msg) then
   if matches[2] == "contact" then
     return unmute_contact(msg ,data, target)
   end
-  if matches[2] == "forward" then
+  if matches[2] == "fwd" then
     return unmute_forward(msg ,data, target)
   end
   --if matches[2] == "location" then
   --  return unmute_location(msg ,data, target)
   --end
-  if matches[2] == "document" then
+  if matches[2] == "file" then
     return unmute_document(msg ,data, target)
   end
   --if matches[2] == "tgservice" then
