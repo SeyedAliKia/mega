@@ -1819,10 +1819,10 @@ if matches[1] == "inv" and is_mod(msg) then
       i = i + 1
 		if a[i] == nil then return nil
 		else return a[i], t[a[i]]
-		end
-	end
-	return iter
-end]]
+		--end
+	--end
+	--return iter
+--end
 --End Table Sort
     
 local function addmem(arg, data)
