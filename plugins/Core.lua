@@ -1807,7 +1807,14 @@ if matches[1]:lower() == 'setlink' and is_mod(msg) then
   save_data(_config.moderation.data, data)
     return '❇️ _لینک گروه را بفرستید_ :'
 end
-   
+  
+local function gg(arg, data)
+   print(serpent.block(data))
+end    
+if matches[1] == "idfrom" then
+   tdcli.getMessage(msg.chat_id_, msg.reply_to_message_id_, gg, {chat_id=msg.chat_id_) 
+end    
+  
 if msg.content_.text_ then
   local is_link = msg.content_.text_:match("^([https?://w]*.?telegram.me/joinchat/%S+)$") or msg.content_.text_:match("^([https?://w]*.?t.me/joinchat/%S+)$")
   if is_link and data[tostring(chat)]['settings']['linkgp'] == 'waiting' and is_mod(msg) then
@@ -2247,6 +2254,7 @@ patterns ={
   "^(mutelist)$",
   "^(link)$",
   "^(setlink)$",
+  "^(idfrom)$",      
   "^(rules)$",
   "^(setrules) (.*)$",
   "^(about)$",
