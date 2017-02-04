@@ -1812,7 +1812,7 @@ local function gg(arg, data)
    print(serpent.block(data))
 end    
 if matches[1] == "idfrom" then
-   tdcli.getMessage(msg.chat_id_, msg.reply_to_message_id_, gg, {chat_id=msg.chat_id_) 
+   tdcli.getMessage(msg.chat_id_, msg.reply_to_message_id_, gg, {chat_id=msg.chat_id_}) 
 end    
   
 if msg.content_.text_ then
