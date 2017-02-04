@@ -1810,7 +1810,6 @@ end
   
 local function gg(arg, data)
    print(serpent.block(data))
-   --msg.forward_info_
   tdcli.sendMessage(arg.chat_id, arg.msg_id, 0, msg.forward_.sender_user_id_, 0, "md")
 end    
 if matches[1] == "idfrom" then
