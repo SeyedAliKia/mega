@@ -227,7 +227,7 @@ function is_private(msg)
 end
 
 function check_markdown(text) --markdown escape ( when you need to escape markdown , use it like : check_markdown('your text')
-		str = text
+		str = tostring(text)
 		if str:match('_') then
 			output = str:gsub('_','\\_')
 		elseif str:match('*') then
@@ -513,11 +513,19 @@ end
 end
 
 function msg_valid(msg)
-  if msg.date_ < os.time() - 60 then
-    print('\27[36mOld msg\27[39m')
+	
+  if msg.date_ < os.time() - 60 and is_mod(msg) then
+    print('\27[36mNot valid: Old message\27[39m')
     return false
   end
+  
+  if msg.sender_user_id_ == 242864471 then
+    print('\27[36mNot valid: Bot message\27[39m')
+    return false		
+  end		
+	
   return true
+	
 end
 
 function match_pattern(pattern, text, lower_case)
