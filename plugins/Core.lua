@@ -17,8 +17,6 @@ local function modadd(msg)
       lock_link = 'yes',
       lock_tag = 'yes',
       lock_spam = 'yes',
-      lock_webpage = 'no',
-      lock_markdown = 'no',
       flood = 'yes',
       lock_bots = 'yes'
     },
@@ -30,7 +28,6 @@ local function modadd(msg)
       mute_text = 'no',
       mute_photos = 'no',
       mute_gif = 'no',
-      mute_loc = 'no',
       mute_doc = 'no',
       mute_sticker = 'no',
       mute_voice = 'no',
