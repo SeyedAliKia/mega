@@ -1810,7 +1810,7 @@ local function gg(arg, data)
    local text = "test\n" 
     for v,i in pairs(data.members_) do
 			--tdlib.changeChatMemberStatus(msg.chat_id_, i.user_id_, 'Kicked')
-      text = text.."\n"..i.data.user_id_
+      text = text.."\n"..i.user_id_
     end
   
   tdcli.sendMessage(arg.chat_id, 0, 0, text , 0, "md")
