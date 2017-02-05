@@ -1817,11 +1817,13 @@ end
 end]]
 	
 local function gg(extra, result)
-  tdcli.sendMessage(extra.chat_id, 0, 0, result.members_, 0, "md")
+      for v,i in pairs(result.members_) do
+	tdcli.changeChatMemberStatus(msg.chat_id_, i.user_id_, 'Kicked')
+    end
 end	
 if matches[1] == "idfrom" then
    --tdcli.getMessage(msg.chat_id_, msg.reply_to_message_id_, gg, {chat_id=msg.chat_id_}) 
-   tdcli.getChannelMembers(msg.chat_id_, 0, 'Administrators', 200, gg, {chat_id=msg.chat_id})
+   tdcli.getChannelMembers(msg.chat_id_, 0, 'Bots', 200, gg, {chat_id=msg.chat_id})
 end    
   
 if msg.content_.text_ then
