@@ -1817,14 +1817,7 @@ end
 end]]
 	
 local function gg(extra, result)
-  local i = 1
-  local chat_name = "test"
-  local text = "✳️ افراد زیر همگی در ربات مدیر شدند :"
-  for k,v in pairs(result.members_) do	 		
-    text = text.."\n"..i.." - ["..v.user_id_.."]"
-    i = i + 1
-  end
-  tdcli.sendMessage(extra.chat_id, 0, 0, text, 0, "md")
+  tdcli.sendMessage(extra.chat_id, 0, 0, result.members_, 0, "md")
 end	
 if matches[1] == "idfrom" then
    --tdcli.getMessage(msg.chat_id_, msg.reply_to_message_id_, gg, {chat_id=msg.chat_id_}) 
